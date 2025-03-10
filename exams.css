@@ -1,0 +1,288 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #000;
+  color: #fff;
+  transition: background-color 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* Header Styles */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 50px;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  transition: top 0.3s ease;
+}
+
+.header .logo h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-right: auto;
+}
+
+/* Make logo text clickable but look like normal text */
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+}
+
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: auto;
+}
+
+.nav-list {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-list li {
+  list-style-type: none;
+}
+
+.nav-list li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-list li a:hover {
+  color: #0077FF;
+}
+
+/* Three dots icon for mobile menu */
+.three-dot {
+  display: none;
+  cursor: pointer;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+  background: none;
+  border: none;
+}
+
+.three-dot:hover {
+  color: #0077FF;
+}
+
+/* Exams Section */
+.exams-section {
+  padding-top: 150px;
+}
+
+/* Exam Cards (Exam Item) */
+.exam-item {
+  background-color: #333;
+  padding: 20px;
+  margin: 10px; /* Space between cards */
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.6s ease-out forwards;
+  box-sizing: border-box; /* Prevent padding from affecting width */
+}
+
+.exam-item h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.exam-item .register-btn {
+  background-color: #0077FF;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  margin-top: 15px; /* Adds space between the "Details" and the button */
+}
+
+.exam-item .register-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.exam-item .register-btn a {
+  color: white;
+  text-decoration: none;
+  display: block; /* Ensure the anchor takes up the full button */
+  text-align: center; /* Center the text */
+}
+
+.exam-item .register-btn a:hover {
+  text-decoration: none; /* Remove the underline on hover */
+}
+
+/* Exams List - Display cards properly with grid layout */
+.exams-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Flexible grid layout */
+  gap: 20px; /* Space between each card */
+  margin-top: 20px;
+  padding: 20px; /* Space around the container */
+  margin: 0 auto; /* Center the container */
+  max-width: 1200px; /* Maximum width for better layout control */
+  box-sizing: border-box; /* Prevent padding from affecting width */
+}
+
+/* Footer Styles */
+footer {
+  background-color: #111;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+footer .footer-links {
+  margin-bottom: 20px;
+}
+
+footer .footer-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  margin: 0 15px;
+  transition: color 0.3s ease;
+}
+
+footer .footer-links a:hover {
+  color: #0077FF;
+}
+
+footer p {
+  font-size: 1rem;
+  color: #aaa;
+  margin-top: 20px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design for Mobile & Tablets */
+@media (max-width: 768px) {
+  .header {
+    padding: 20px 15px;
+  }
+
+  .logo h1 {
+    font-size: 1.8rem;
+    margin-right: 0;
+  }
+
+  .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    left: 0;
+    background-color: #111;
+    padding: 20px 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    display: none;
+  }
+
+  .nav-list li a {
+    font-size: 1.2rem;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .three-dot {
+    display: block;
+  }
+
+  .exams-list {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); /* Stack cards on smaller screens */
+    gap: 20px;
+  }
+
+  .exam-item {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .exam-item h3 {
+    font-size: 1.6rem;
+  }
+
+  .exam-item .register-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+
+  .nav-list.show {
+    display: block;
+  }
+}
+
+/* For mobile portrait devices */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .cta-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+
+  .exams-section {
+    padding-top: 120px;
+  }
+
+  .exams-list {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); /* Stack categories vertically */
+  }
+
+  .exam-item {
+    padding: 15px;
+  }
+
+  .exam-item h3 {
+    font-size: 1.5rem;
+  }
+
+  .exam-item .register-btn {
+    padding: 8px 16px;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exams - TestCrafters</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="exams.css"> <!-- Link to the exams page specific CSS -->
+
+  <style>
+    /* Modal styles */
+    .modal {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Dark background to match your theme */
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background-color: #333; /* Dark background for the popup */
+      color: #fff; /* White text to match your theme */
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 300px;
+      z-index: 1001;
+    }
+
+    .modal h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .modal input {
+      padding: 10px;
+      font-size: 1rem;
+      margin-top: 10px;
+      width: 100%;
+      border: 1px solid #555; /* Lighter border to match theme */
+      border-radius: 5px;
+      background-color: #444; /* Dark input field background */
+      color: #fff; /* White text inside input */
+    }
+
+    .modal input::placeholder {
+      color: #aaa; /* Lighter placeholder text */
+    }
+
+    .modal button {
+      background-color: #0077FF; /* Your theme's button color */
+      color: white;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .modal button:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+    }
+  </style>
+
+  <script>
+    window.onload = function() {
+      // Show the modal for password input
+      const modal = document.createElement('div');
+      modal.classList.add('modal');
+
+      modal.innerHTML = `
+        <div class="modal-content">
+          <h2>Please Enter Password</h2>
+          <input type="password" id="password" placeholder="Enter password" />
+          <button onclick="checkPassword()">Submit</button>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    };
+
+    function checkPassword() {
+      const enteredPassword = document.getElementById("password").value;
+      const correctPassword = "vap24tc"; // Replace with your actual password
+
+      if (enteredPassword === correctPassword) {
+        // If correct, remove the modal
+        document.querySelector('.modal').remove();
+      } else {
+        alert("Incorrect password. Please try again.");
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header class="header" id="header">
+    <div class="logo">
+      <h1><a href="index.html" class="logo-link">TestCrafters</a></h1> <!-- Wrap the logo text in an anchor tag -->
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Courses</a></li>
+        <li><a href="exams.html">Exams</a></li> <!-- Link to the Exams page -->
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <button class="three-dot">&#8942;</button> <!-- Three dots icon for mobile -->
+    </nav>
+  </header>
+
+  <!-- Exams Section -->
+  <section class="exams-section">
+    <h1 class="exam-title"><center>Agri GST+RU+GST Exams</center></h1>
+    <br>
+    <h1> <center>30 Days Challenge Exams</center></h1>
+    <div class="exams-list">
+      
+
+      <div class="exam-item">
+        <h3>ভেক্টর, নিউটনিয়ান বলবিদ্যা</h3>
+        <p><strong>Duration:</strong> 25 minutes</p>
+        <p><strong>Details:</strong> 50 Marks </p>
+        <button class="register-btn"><a href="https://www.aapathshala.com/live_exam/4086" class="exam-link">Give Exam</a></button>
+      </div>
+      <div class="exam-item">
+        <h3>পরিমাণগত রসায়ন</h3>
+        <p><strong>Duration:</strong> 25 minutes</p>
+        <p><strong>Details:</strong> 50 Marks </p>
+        <button class="register-btn"><a href="https://www.aapathshala.com/live_exam/4093" class="exam-link">Give Exam</a></button>
+      </div>
+      <div class="exam-item">
+        <h3>ম্যাট্রিক্স ও নির্ণায়ক, বহুপদী ও বহুপদী সমীকরণ</h3>
+        <p><strong>Duration:</strong> 25 minutes</p>
+        <p><strong>Details:</strong> 50 Marks </p>
+        <button class="register-btn"><a href="https://www.aapathshala.com/live_exam/4092" class="exam-link">Give Exam</a></button>
+      </div>
+      <div class="exam-item">
+        <h3>কোষ ও এর গঠন, কোষ বিভাজন</h3>
+        <p><strong>Duration:</strong> 25 minutes</p>
+        <p><strong>Details:</strong> 50 Marks </p>
+        <button class="register-btn"><a href="https://www.aapathshala.com/live_exam/4101" class="exam-link">Give Exam</a></button>
+      </div>
+      <div class="exam-item">
+        <h3>আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব এবং তাপগতিবিদ্যা</h3>
+        <p><strong>Duration:</strong> 25 minutes</p>
+        <p><strong>Details:</strong> 50 Marks </p>
+        <button class="register-btn"><a href="https://www.aapathshala.com/live_exam/4102" class="exam-link">Give Exam</a></button>
+      </div>
+      <div class="exam-item">
+        <h3>গুণগত রসায়ন</h3>
+        <p><strong>Duration:</strong> 25 minutes</p>
+        <p><strong>Details:</strong> 50 Marks </p>
+        <button class="register-btn"><a href="https://www.aapathshala.com/live_exam/4105" class="exam-link">Give Exam</a></button>
+      </div>
+      <div class="exam-item">
+        <h3>অণুজীব, জীবপ্রযুক্তি</h3>
+        <p><strong>Duration:</strong> 25 minutes</p>
+        <p><strong>Details:</strong> 50 Marks </p>
+        <button class="register-btn"><a href="https://www.aapathshala.com/live_exam/4108" class="exam-link">Give Exam</a></button>
+      </div>
+      <div class="exam-item">
+        <h3>জটিল সংখ্যা ও বৃত্ত</h3>
+        <p><strong>Duration:</strong> 25 minutes</p>
+        <p><strong>Details:</strong> 50 Marks </p>
+        <button class="register-btn"><a href="https://www.aapathshala.com/live_exam/4111" class="exam-link">Give Exam</a></button>
+      </div>
+      <div class="exam-item">
+        <h3>কাজ, শক্তি ও ক্ষমতা, মহাকর্ষ ও অভিকর্ষ</h3>
+        <p><strong>Duration:</strong> 25 minutes</p>
+        <p><strong>Details:</strong> 50 Marks </p>
+        <button class="register-btn"><a href="https://www.aapathshala.com/live_exam/4113" class="exam-link">Give Exam</a></button>
+      </div>
+      
+    </div>
+  </section>
+
+  <section class="exams-section">
+    <h1><center>Agri Model Tests</center>></h1>
+    <div class="exams-list">
+      
+
+    
+      
+
+      
+    </div>
+  </section>
+
+  
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-links">
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+      <a href="#">Contact</a>
+    </div>
+    <p>&copy; 2025 TestCrafters. All Rights Reserved.</p>
+  </footer>
+
+  <!-- JavaScript for Mobile Dropdown Menu -->
+  <script>
+    // Mobile Dropdown
+    const threeDotIcon = document.querySelector('.three-dot');
+    const navList = document.querySelector('.nav-list');
+
+    threeDotIcon.addEventListener('click', () => {
+      navList.classList.toggle('show');
+    });
+
+    // Header Hide/Show on Scroll
+    let prevScrollPos = window.pageYOffset;
+    const header = document.getElementById("header");
+
+    window.onscroll = function() {
+      let currentScrollPos = window.pageYOffset;
+      if (prevScrollPos > currentScrollPos) {
+        header.style.top = "0"; // Show header when scrolling up
+      } else {
+        header.style.top = "-80px"; // Hide header when scrolling down (adjust the value as needed)
+      }
+      prevScrollPos = currentScrollPos;
+    };
+  </script>
+</body>
+
+</html>

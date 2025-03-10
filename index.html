@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TestCrafters</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Remove underline and keep the 'Browse' text as normal */
+    .browse-btn {
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      text-decoration: none; /* No underline */
+      cursor: pointer;
+    }
+
+    .browse-btn a {
+      text-decoration: none; /* No underline for the link */
+      color: inherit; /* Inherit color from parent */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="logo">
+      <h1>TestCrafters</h1>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Courses</a></li>
+        <!-- Updated link to Exams page -->
+        <li><a href="exams.html">Exams</a></li> <!-- Link to the Exams page -->
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <!-- Three Dot Icon (Only for Mobile) -->
+      <button class="three-dot">&#8942;</button> <!-- Three dots icon (⋮) -->
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Your Ultimate Exam Platform</h1>
+    <h2><i> 500+ Exams Taken, 1250+ students </i></h2>
+    <button class="cta-btn"><a href="https://www.facebook.com/testcrafters/">Facebook Page</a></button>
+    <button class="cta-btn"><a href="https://t.me/testcrafters">Telegram Channel</a></button>
+  </section>
+
+  <!-- Explore Categories Section -->
+  <section class="explore-categories">
+    <h2>Available Courses</h2>
+    <div class="categories">
+      <div class="category-item">
+        <h3>Agri+RU+GST Exam Batch</h3>
+        <!-- Image -->
+        <img src="Agri GST Cover.jpg" alt="Agri+RU+GST Exam Batch" class="category-image">
+        <button class="browse-btn"><a href="exams.html" target="_blank">View Course</a></button>
+      </div>
+      
+      
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-links">
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+      <a href="#">Contact</a>
+    </div>
+    <p>&copy; 2025 TestCrafters. All Rights Reserved.</p>
+  </footer>
+
+  <!-- JavaScript for Mobile Dropdown Menu -->
+  <script>
+    const threeDotIcon = document.querySelector('.three-dot');
+    const navList = document.querySelector('.nav-list');
+
+    threeDotIcon.addEventListener('click', () => {
+      navList.classList.toggle('show');
+    });
+  </script>
+</body>
+
+</html>
