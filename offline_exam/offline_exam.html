@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Exam System</title>
+    <link rel="stylesheet" href="offline_exam.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">TestCrafters</div>
+            <div id="timer" class="timer">60:00</div>
+        </header>
+
+        <main>
+            <!-- Start Screen -->
+            <div id="start-screen" class="screen">
+                <h1>Agri Model Test-1(Offline)</h1>
+                <p>You will have 60 minutes to complete this exam.</p>
+                <p>Use OMR Sheet provided by TestCrafters.</p>
+                <button id="start-btn" class="btn primary-btn">Start Exam</button>
+            </div>
+
+            <!-- Exam Screen -->
+            <div id="exam-screen" class="screen hidden">
+                <div class="exam-paper">
+                    <h2>Agri Model Test-1 (Offline)</h2>
+                    <div id="question-container"></div>
+                    <button id="submit-btn" class="btn primary-btn">Submit Exam</button>
+                </div>
+            </div>
+
+            <!-- Review Screen with Two-Column Layout -->
+            <div id="review-screen" class="screen hidden">
+                <h2>Review Your Answers</h2>
+                <p>Below are the questions with correct answers and explanations.</p>
+                <!-- Added a container with two-column layout for the review -->
+                <div id="review-container" class="review-container">
+                    <!-- Example Review Item -->
+                    <div class="review-item">
+                        <div class="question-number">Q1</div>
+                        <div class="review-content">
+                            <h3>What is 2 + 2?</h3>
+                            <p>Your Answer: 4</p>
+                            <p>Correct Answer: 4</p>
+                            <p><strong>Explanation:</strong> 2 + 2 equals 4.</p>
+                        </div>
+                    </div>
+
+                    <!-- Example Review Item 2 -->
+                    <div class="review-item">
+                        <div class="question-number">Q2</div>
+                        <div class="review-content">
+                            <h3>What is the capital of France?</h3>
+                            <p>Your Answer: Paris</p>
+                            <p>Correct Answer: Paris</p>
+                            <p><strong>Explanation:</strong> Paris is the capital of France.</p>
+                        </div>
+                    </div>
+
+                    <!-- Add more review items in a similar structure -->
+                </div>
+
+                <button id="restart-btn" class="btn secondary-btn">Take Another Exam</button>
+                <!-- Print button added here -->
+                <button id="print-btn" class="btn primary-btn">Print Questions & Answers</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 TestCrafters </p>
+        </footer>
+    </div>
+
+    <script src="offline_exam.js"></script>
+    <script>
+        // Print button functionality
+        document.getElementById('print-btn').addEventListener('click', function() {
+            window.print();
+        });
+    </script>
+</body>
+</html>

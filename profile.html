@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | TestCrafters</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <h1 class="logo-text">TestCrafters</h1>
+                </a>
+            </div>
+            <nav class="navbar">
+                <div class="nav-container">
+                    <div class="nav-links">
+                        <a href="index.html">Home</a>
+                        <a href="#" id="profile-link">Profile</a>
+                        <a href="#" id="logout-nav">Logout</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="profile-card">
+            <h2>Your Profile</h2>
+            
+            <div class="profile-avatar">
+                <div class="avatar-circle">
+                    <span id="profile-initials"></span>
+                </div>
+            </div>
+            
+            <div class="profile-info">
+                <div class="info-row">
+                    <div class="info-label">Name</div>
+                    <div class="info-value" id="profile-name"></div>
+                    <button class="edit-btn" data-field="name">Edit</button>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Username</div>
+                    <div class="info-value" id="profile-username"></div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Email</div>
+                    <div class="info-value" id="profile-email"></div>
+                    <button class="edit-btn" data-field="email">Edit</button>
+                </div>
+            </div>
+            
+            <div class="profile-actions">
+                <button id="logout-btn" class="btn-secondary">Logout</button>
+            </div>
+        </div>
+
+        <div class="courses-section">
+            <h2>Your Courses</h2>
+            <div class="course-cards" id="course-cards-container">
+                <!-- Course cards will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Edit Field</h2>
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-form">
+                    <div class="form-group">
+                        <label for="edit-field-input" id="edit-field-label">Value</label>
+                        <input type="text" id="edit-field-input" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancel-edit" class="btn-secondary">Cancel</button>
+                        <button type="submit" class="btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 TestCrafters. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Your Platform</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <div class="logo">
+                <a href="index.html">
+                    <svg class="logo-icon" viewBox="0 0 24 24">
+                        <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"></path>
+                    </svg>
+                </a>
+            </div>
+            <h1>Sign in</h1>
+            <p class="subtitle">Use your TestCrafters ID to sign in.</p>
+
+            <div id="login-error" class="error-message hidden">
+                Incorrect username or password. Please try again.
+            </div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <input type="text" id="username" name="username" required placeholder="TestCrafters ID or Email">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" required placeholder="Password">
+                </div>
+                <div class="form-group remember-me">
+                    <label>
+                        <input type="checkbox" id="remember" name="remember">
+                        <span class="checkbox-label">Remember me</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn-primary">Sign In</button>
+                </div>
+            </form>
+
+            <div class="help-links">
+                <p>Forgot ID or Password?</p>
+                <a href="https://www.facebook.com/testcrafters/">Message Us</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 TestCrafters. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="login.js"></script>
+</body>
+</html>
