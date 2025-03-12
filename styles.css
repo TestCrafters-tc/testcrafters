@@ -22,7 +22,7 @@ body {
   padding: 20px 50px;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
-  justify-content: space-between; /* Space between logo and nav */
+  justify-content: space-between;
   align-items: center;
   z-index: 100;
   transition: background-color 0.3s ease;
@@ -31,12 +31,12 @@ body {
 .header .logo h1 {
   font-size: 2rem;
   font-weight: 600;
-  margin-right: auto; /* Keep the logo aligned to the left */
+  margin-right: auto;
 }
 
 .nav {
   display: flex;
-  justify-content: flex-end; /* Move the items to the right */
+  justify-content: flex-end;
   align-items: center;
   width: auto;
 }
@@ -60,15 +60,6 @@ body {
 
 .nav-list li a:hover {
   color: #0077FF;
-}
-
-/* Dropdown Button */
-.dropdown {
-  display: none; /* No need to show the dropdown */
-}
-
-.dropbtn {
-  display: none; /* Dropdown button is removed */
 }
 
 /* Hero Section */
@@ -100,18 +91,16 @@ body {
   border-radius: 50px;
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease;
-  margin: 10px; /* Add space between buttons */
+  margin: 10px;
 }
 
-/* Make sure link inside the button is styled properly */
 .cta-btn a {
-  color: white; /* Ensure the text color inside the button matches */
-  text-decoration: none; /* Remove underline */
-  display: block; /* Make the anchor fill the button */
+  color: white;
+  text-decoration: none;
+  display: block;
   width: 100%;
   height: 100%;
-  text-align: center; /* Center the text */
-  line-height: 1.2;
+  text-align: center;
 }
 
 .cta-btn:hover {
@@ -122,7 +111,7 @@ body {
 /* Explore Categories Section */
 .explore-categories {
   padding: 80px 20px;
-  background-color: #111;
+  background-color: #413333;
 }
 
 .explore-categories h2 {
@@ -141,47 +130,32 @@ body {
   animation: fadeInUp 1s ease-out forwards 1s;
 }
 
-.category-item {
-  background-color: #333;
-  padding: 30px;
-  text-align: center;
-  width: 30%;
-  margin-bottom: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  opacity: 0;
-  animation: fadeInUp 1s ease-out forwards 1.5s;
-}
-
-.category-item h3 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-}
-
-/* Category Item Image */
-.category-item img {
-  width: 100%; /* Make the image span the entire width of the card */
-  max-width: 100%; /* Ensure image doesn't exceed the width */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 10px; /* Optional: Add rounded corners to the image */
-  margin-bottom: 20px; /* Add some space below the image */
-}
-
-.category-item .browse-btn {
-  background-color: #0077FF;
-  color: #fff;
+/* Course Card Button to Match Other Buttons */
+.course-card .view-course-btn {
+  padding: 15px 30px; /* Match the padding of .cta-btn */
+  font-size: 1.2rem; /* Match font size */
+  background-color: #0077FF; /* Match background color */
+  color: #fff; /* Match text color */
   border: none;
-  padding: 12px 24px;
-  font-size: 1.1rem;
+  border-radius: 50px; /* Same rounded corners as other buttons */
   cursor: pointer;
-  border-radius: 50px;
   transition: transform 0.3s ease, background-color 0.3s ease;
+  margin-top: 15px; /* Ensure some space above the button */
+  display: inline-block; /* Ensure it's not taking full width */
 }
 
-.category-item .browse-btn:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
+.course-card .view-course-btn a {
+  color: white; /* Ensure link text is white */
+  text-decoration: none; /* No underline */
+  display: block; /* Ensure the entire button is clickable */
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.course-card .view-course-btn:hover {
+  background-color: #0056b3; /* Hover color matches .cta-btn hover */
+  transform: scale(1.05); /* Apply the same hover effect */
 }
 
 /* Footer Styles */
@@ -216,12 +190,12 @@ footer p {
 /* Animations */
 @keyframes fadeInUp {
   0% {
-      opacity: 0;
-      transform: translateY(20px);
+    opacity: 0;
+    transform: translateY(20px);
   }
   100% {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -232,95 +206,60 @@ footer p {
 
   /* Header adjustments */
   .header {
-      padding: 20px 15px;
+    padding: 20px 15px;
   }
 
   .logo h1 {
-      font-size: 1.8rem;
-      margin-right: 0;
+    font-size: 1.8rem;
+    margin-right: 0;
   }
 
   .nav-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
-      position: absolute;
-      top: 80px;
-      right: 0;
-      left: 0;
-      background-color: #111;
-      padding: 20px 0;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      display: none; /* Initially hidden */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    left: 0;
+    background-color: #111;
+    padding: 20px 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
   }
 
   .nav-list li a {
-      font-size: 1.2rem;
-      padding: 10px;
-      width: 100%;
-      text-align: center;
+    font-size: 1.2rem;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
   }
 
   /* Three dot icon (only visible on mobile) */
   .three-dot {
-      display: block; /* Show the three dot icon */
-      cursor: pointer;
-      font-size: 2rem;
-      color: rgba(255, 255, 255, 0.8); /* Transparent white */
-      background: none;
-      border: none;
+    display: block;
+    cursor: pointer;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+    background: none;
+    border: none;
   }
 
   .three-dot:hover {
-      color: #0077FF; /* Change color on hover */
+    color: #0077FF;
   }
 
   /* Hide three dot icon on desktop */
   @media (min-width: 769px) {
-      .three-dot {
-          display: none;
-      }
-  }
-
-  /* Hero Section */
-  .hero {
-      padding: 120px 20px 80px;
-  }
-
-  .hero h1 {
-      font-size: 2.5rem;
-  }
-
-  /* Explore Categories Section */
-  .explore-categories h2 {
-      font-size: 2rem;
-  }
-
-  .categories {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr); /* Stack categories vertically on small screens */
-      gap: 20px;
-  }
-
-  .category-item {
-      width: 100%;
-      padding: 20px;
-      margin-bottom: 20px;
-  }
-
-  .category-item h3 {
-      font-size: 1.6rem;
-  }
-
-  .category-item .browse-btn {
-      padding: 10px 20px;
-      font-size: 1rem;
+    .three-dot {
+      display: none;
+    }
   }
 
   /* Add a show class to nav-list for mobile menu */
   .nav-list.show {
-      display: block;
+    display: block;
   }
 }
 
@@ -329,30 +268,30 @@ footer p {
 
   /* Hero Section */
   .hero h1 {
-      font-size: 2rem;
+    font-size: 2rem;
   }
 
   .cta-btn {
-      padding: 12px 24px;
-      font-size: 1rem;
+    padding: 12px 24px;
+    font-size: 1rem;
   }
 
   /* Categories */
   .categories {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr); /* Stack categories vertically */
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); /* Stack categories vertically */
   }
 
   .category-item {
-      padding: 15px;
+    padding: 15px;
   }
 
   .category-item h3 {
-      font-size: 1.5rem;
+    font-size: 1.5rem;
   }
 
   .category-item .browse-btn {
-      padding: 8px 16px;
-      font-size: 1rem;
+    padding: 8px 16px;
+    font-size: 1rem;
   }
 }
