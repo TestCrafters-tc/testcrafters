@@ -8,6 +8,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* Using the Poppins font already defined */
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+
     /* Remove underline and keep the 'Browse' text as normal */
     .browse-btn {
       background: none;
@@ -19,9 +24,112 @@
       cursor: pointer;
     }
 
+    /* Make the 'Browse' button look like the rest of the site's buttons */
     .browse-btn a {
       text-decoration: none; /* No underline for the link */
-      color: inherit; /* Inherit color from parent */
+      color: #fff; /* Ensure the text color is white like other buttons */
+      display: inline-block; /* Ensure it behaves like a button */
+      padding: 15px 30px; /* Apply the same padding as other buttons */
+      font-size: 1.2rem; /* Match the font size of the other buttons */
+      background-color: #0077FF; /* Set the same background color */
+      border-radius: 50px; /* Rounded corners for the button */
+      transition: transform 0.3s ease, background-color 0.3s ease; /* Match the transition */
+    }
+
+    .browse-btn a:hover {
+      background-color: #0056b3; /* Set the same hover background color */
+      transform: scale(1.05); /* Apply the same hover effect */
+    }
+
+    /* Styling for the course price */
+    .course-price {
+        font-size: 1.6rem;  /* Larger font size for price */
+        font-weight: 600;   /* Bold weight to make the price prominent */
+        color: #f3b9b9;       /* Dark color for readability */
+        margin-top: 15px;   /* Adds space between image and price */
+        letter-spacing: 0.5px; /* Slight letter spacing for better readability */
+    }
+
+    /* Styling for the course item image */
+    .category-image {
+        width: 100%; /* Make the image responsive */
+        max-width: 300px; /* Optional: limit the size */
+        display: block;
+        margin: 0 auto; /* Center the image */
+    }
+
+    .category-item {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .category-item h3 {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin: 10px 0;
+    }
+
+    .category-item button {
+        margin-top: 10px;
+    }
+
+    /* Header Styles */
+    .nav-list {
+        display: flex;
+        justify-content: flex-end;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .nav-list li {
+        margin: 0 10px;
+    }
+
+    /* Hide the logout button by default */
+    .logout-btn {
+        display: none;
+    }
+
+    /* Show the login button by default */
+    .login-btn {
+        display: inline-block;
+    }
+
+    /* Styles for the mobile menu */
+    .three-dot {
+        display: none;
+        font-size: 30px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .nav-list.show {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-list li {
+        padding: 10px 0;
+    }
+
+    /* Media Query for Mobile */
+    @media (max-width: 768px) {
+        .three-dot {
+            display: inline-block; /* Show the 3 dots icon on mobile */
+        }
+
+        .nav-list {
+            display: none; /* Hide the nav list by default on mobile */
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .nav-list.show {
+            display: block;
+        }
     }
   </style>
 </head>
@@ -35,14 +143,17 @@
     <nav class="nav">
       <ul class="nav-list">
         <li><a href="index.html">Home</a></li>
-        <li><a href="#">Courses</a></li>
-        <!-- Updated link to Exams page -->
-        <li><a href="exams.html">Exams</a></li> <!-- Link to the Exams page -->
-        <li><a href="#">Contact</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="#available-courses">Courses</a></li> <!-- Updated Courses link -->
+        <li><a href="contacts.html">Contact</a></li>
       </ul>
       <!-- Three Dot Icon (Only for Mobile) -->
-      <button class="three-dot">&#8942;</button> <!-- Three dots icon (⋮) -->
+      <button class="three-dot">&#8942;</button>
     </nav>
+
+    <!-- Login and Logout buttons -->
+    <button class="cta-btn login-btn"><a href="login.html">Login</a></button>
+    <button class="cta-btn logout-btn">Logout</button> <!-- Initially hidden -->
   </header>
 
   <!-- Hero Section -->
@@ -54,17 +165,17 @@
   </section>
 
   <!-- Explore Categories Section -->
-  <section class="explore-categories">
+  <section id="available-courses" class="explore-categories"> <!-- Added ID here -->
     <h2>Available Courses</h2>
     <div class="categories">
       <div class="category-item">
         <h3>Agri+RU+GST Exam Batch</h3>
         <!-- Image -->
         <img src="Agri GST Cover.jpg" alt="Agri+RU+GST Exam Batch" class="category-image">
-        <button class="browse-btn"><a href="exams.html" target="_blank">View Course</a></button>
+        <!-- Price (Bold and Large) -->
+        <p class="course-price">Price: Tk. 99</p>
+        <button class="browse-btn"><a href="profile.html">View Course</a></button>
       </div>
-      
-      
     </div>
   </section>
 
@@ -78,12 +189,39 @@
     <p>&copy; 2025 TestCrafters. All Rights Reserved.</p>
   </footer>
 
-  <!-- JavaScript for Mobile Dropdown Menu -->
+  <!-- JavaScript for Login/Logout Button Toggle -->
   <script>
+    const loginBtn = document.querySelector('.login-btn');
+    const logoutBtn = document.querySelector('.logout-btn');
+
+    // Check if user is logged in
+    window.addEventListener('DOMContentLoaded', function() {
+      const currentUserData = sessionStorage.getItem('currentUser');
+      
+      if (currentUserData) {
+        // If user is logged in, show logout button and hide login button
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'inline-block';
+      } else {
+        // If user is not logged in, show login button and hide logout button
+        loginBtn.style.display = 'inline-block';
+        logoutBtn.style.display = 'none';
+      }
+    });
+
+    // Logout functionality
+    logoutBtn.addEventListener('click', function() {
+      sessionStorage.removeItem('currentUser'); // Clear user session
+      loginBtn.style.display = 'inline-block'; // Show login button
+      logoutBtn.style.display = 'none'; // Hide logout button
+    });
+
+    // Mobile Menu toggle functionality
     const threeDotIcon = document.querySelector('.three-dot');
     const navList = document.querySelector('.nav-list');
 
-    threeDotIcon.addEventListener('click', () => {
+    // Toggle the visibility of the navigation links on mobile when three dots are clicked
+    threeDotIcon.addEventListener('click', function() {
       navList.classList.toggle('show');
     });
   </script>
