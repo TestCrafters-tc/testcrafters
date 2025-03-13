@@ -29,7 +29,7 @@ const courses = [
         url: "exams.html"
     },
     {
-        id: 1,
+        id: 2,
         title: "Offline Model Test",
         description: "250+ Joined",
         price: "99 Taka",  // Updated from 'progress' to 'price'
@@ -37,14 +37,22 @@ const courses = [
     },
 ];
 
-// Check if user is logged in
+// Check if user is logged in (either from sessionStorage or localStorage)
 document.addEventListener('DOMContentLoaded', function() {
-    const currentUserData = sessionStorage.getItem('currentUser');
+    let currentUserData = sessionStorage.getItem('currentUser');
     
     if (!currentUserData) {
-        // Redirect to login page if not logged in
-        window.location.href = 'login.html';
-        return;
+        // If no session user, check if the user is in localStorage (for "Remember Me")
+        const rememberedUser = localStorage.getItem('rememberedUser');
+        if (rememberedUser) {
+            // Restore session from localStorage if user was remembered
+            sessionStorage.setItem('currentUser', rememberedUser);
+            currentUserData = rememberedUser;
+        } else {
+            // Redirect to login page if no session or remembered user
+            window.location.href = 'login.html';
+            return;
+        }
     }
     
     // Parse user data
@@ -110,6 +118,7 @@ function renderCourseCards() {
 function logoutUser() {
     // Clear session storage
     sessionStorage.removeItem('currentUser');
+    localStorage.removeItem('rememberedUser');  // Also remove remembered user data from localStorage
     
     // Redirect to login page
     window.location.href = 'login.html';
