@@ -23,7 +23,7 @@ const courses = [
     {
         id: 1,
         title: "Agri+RU+GST Exam Batch",
-        description: "1200+ Joined",
+        description: "1399 Joined",
         image: "Agri GST Cover.jpg",
         price: "99 Taka",  // Updated from 'progress' to 'price'
         url: "exams.html"
@@ -31,7 +31,7 @@ const courses = [
     {
         id: 2,
         title: "Offline Model Test",
-        description: "250+ Joined",
+        description: "1350 Joined",
         price: "99 Taka",  // Updated from 'progress' to 'price'
         url: "/offline_exam/exam-cards.html"
     },
