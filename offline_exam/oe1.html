@@ -1,0 +1,3512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Exam System</title>
+    <link rel="stylesheet" href="offline_exam.css">
+    <!-- Add MathJax for rendering mathematical equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">TestCrafters</div>
+            <div id="timer" class="timer">60:00</div>
+        </header>
+
+        <main>
+            <!-- Start Screen -->
+            <div id="start-screen" class="screen">
+                <h1>Agri Model Test-1 (Offline)</h1>
+                <p>You will have 60 minutes to complete this exam.</p>
+                <p>Use OMR Sheet provided by TestCrafters.</p>
+                <button id="start-btn" class="btn primary-btn">Start Exam</button>
+            </div>
+
+            <!-- Exam Screen -->
+            <div id="exam-screen" class="screen hidden">
+                <div class="exam-paper">
+                    <h2>Agri Model Test-1 (Offline)</h2>
+                    <div id="question-container"></div>
+                    <button id="submit-btn" class="btn primary-btn">Submit Exam</button>
+                </div>
+            </div>
+
+            <!-- Review Screen -->
+            <div id="review-screen" class="screen hidden">
+                <h2>Review Your Answers</h2>
+                <p>Below are the questions with correct answers and explanations.</p>
+                <div id="review-container" class="review-container"></div>
+                <button id="restart-btn" class="btn secondary-btn">Take Another Exam</button>
+                <button id="print-btn" class="btn primary-btn">Print Questions & Answers</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 TestCrafters</p>
+        </footer>
+    </div>
+
+    <!-- Template for Questions -->
+    <template id="question-template">
+        <div class="question">
+            <div class="question-number"></div>
+            <div class="question-content">
+                <h3></h3>
+                <div class="options-container"></div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Questions Defined in HTML -->
+    
+    <div id="questions-data" style="display: none;">
+
+        
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    অনুচক্রিকার কাজ নয় কোনটি? (Which is NOT a function of platelets?)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    হিমোস্ট্যাটিক প্লাগ তৈরি (Forming a hemostatic plug)
+                </div>
+                <div class="option">
+                    এনডোথেলিয়াল আবরণ পূর্নগঠন (Reformation of endothelial lining)
+                </div>
+                <div class="option">
+                    সেরাটোনিন উৎপন্ন করা (Production of serotonin)
+                </div>
+                <div class="option">
+                    হেপারিন তৈরি করা (Production of heparin)
+                </div>
+            </div>
+            <div class="correct-option-index">3</div>
+            <div class="explanation"></div>
+        </div>
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    যদি একটি বস্তুর ভর দ্বিগুণ হয় এবং গতি অর্ধেক হয়, তবে একই সময়ে সেটি থামানোর জন্য প্রয়োজনীয় বল কী হবে?
+                    (If an object’s mass is doubled and velocity halved, the force required to stop it in the same time:)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    বল দ্বিগুণ হবে (Doubles)
+                </div>
+                <div class="option">
+                    বল অর্ধেক হবে (Halves)
+                </div>
+                <div class="option">
+                    বল অপরিবর্তিত থাকবে (Remains same)
+                </div>
+                <div class="option">
+                    বল চারগুণ হবে (Quadruples)
+                </div>
+            </div>
+            <div class="correct-option-index">2</div>
+            <div class="explanation"></div>
+        </div>
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    একটি ১০ N বল ৫ কেজি ভরযুক্ত একটি বস্তুকে থামিয়ে দেয় যা ২০ মিটার/সেকেন্ড গতি পাচ্ছিল। থামানোর সময় এটি কতটা পথ অতিক্রম করবে?
+                    (A 10 N force stops a 5 kg object moving at 20 m/s. How far does it travel while stopping?)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    ১০ মিটার (10 m)
+                </div>
+                <div class="option">
+                    ৫০ মিটার (50 m)
+                </div>
+                <div class="option">
+                    ১০০ মিটার (100 m)
+                </div>
+                <div class="option">
+                    ২০০ মিটার (200 m)
+                </div>
+            </div>
+            <div class="correct-option-index">3</div>
+            <div class="explanation"></div>
+        </div>
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    একটি ৫ গ্রাম বুলেট যা ৫০০ মিটার/সেকেন্ড গতিতে চলছিল, একটি দেয়ালে প্রবেশ করে, ০.০১ সেকেন্ডে থামছে। দেয়াল ৩০০ N ঘর্ষণ বল প্রয়োগ করে, থামানোর জন্য অতিরিক্ত কত বল প্রয়োজন?
+                    (A 5 g bullet moving at 500 m/s penetrates a wall, stopping in 0.01 s. If the wall exerts 300 N of friction, what additional force is needed to stop it?)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    ১০০ N (100 N)
+                </div>
+                <div class="option">
+                    ২০০ N (200 N)
+                </div>
+                <div class="option">
+                    ২৫০ N (250 N)
+                </div>
+                <div class="option">
+                    ৫০০ N (500 N)
+                </div>
+            </div>
+            <div class="correct-option-index">3</div>
+            <div class="explanation"></div>
+        </div>
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    একটি ৫০ কেজি বস্তুকে বিশ্রাম থেকে ৭২ কিলোমিটার/ঘণ্টা গতিতে ৪ মিনিটে ত্বরান্বিত করতে কত বল প্রয়োজন?
+                    (What force accelerates a 50 kg object from rest to 72 km/h in 4 minutes?)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    ২.৫ N (2.5 N)
+                </div>
+                <div class="option">
+                    ৫ N (5 N)
+                </div>
+                <div class="option">
+                    ১০ N (10 N)
+                </div>
+                <div class="option">
+                    ২৫ N (25 N)
+                </div>
+            </div>
+            <div class="correct-option-index">1</div>
+            <div class="explanation"></div>
+        </div>
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    \( \vec{F} = -1\hat{j} - 1\hat{j} \)দ্বারা কাজ করা \( \vec{d} = 3\hat{i} + 2\hat{j} - 5\hat{k} \) এর জন্য কাজটি কত হবে?
+                    (The work done by the y-component of \( \vec{F} = -1\hat{j} - 1\hat{j} \) for \( \vec{d} = 3\hat{i} + 2\hat{j} - 5\hat{k} \) is:)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    -২ (-2)
+                </div>
+                <div class="option">
+                    ২ (2)
+                </div>
+                <div class="option">
+                    -৫ (-5)
+                </div>
+                <div class="option">
+                    ৫ (5)
+                </div>
+            </div>
+            <div class="correct-option-index">1</div>
+            <div class="explanation"></div>
+        </div>
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    \( \vec{F} = 2\hat{i} - \hat{j} - \hat{k} \) এবং \( \vec{d} = 3\hat{i} + 2\hat{j} - 5\hat{k} \) এর মধ্যে কোণ প্রায় কত হবে?
+                    (The angle between \( \vec{F} = 2\hat{i} - \hat{j} - \hat{k} \) and \( \vec{d} = 3\hat{i} + 2\hat{j} - 5\hat{k} \) is approximately:)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    ৩০° (30°)
+                </div>
+                <div class="option">
+                    ৪৫° (45°)
+                </div>
+                <div class="option">
+                    ৬০° (60°)
+                </div>
+                <div class="option">
+                    ৯০° (90°)
+                </div>
+            </div>
+            <div class="correct-option-index">2</div>
+            <div class="explanation"></div>
+        </div>
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    যদি ছোট বলটি (৩০ N) ফলস্বরূপ বল (৪০ N)-এর বিপরীত দিকে থাকে, তবে বড় বলটি কত হবে?
+                    (If the smaller force (30 N) is anti-parallel (opposite direction) to the resultant (40 N), the larger force is:)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    ১০ N (10 N)
+                </div>
+                <div class="option">
+                    ৫০ N (50 N)
+                </div>
+                <div class="option">
+                    ৭০ N (70 N)
+                </div>
+                <div class="option">
+                    ৯০ N (90 N)
+                </div>
+            </div>
+            <div class="correct-option-index">2</div>
+            <div class="explanation"></div>
+        </div>
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    যদি প্রতিরোধ ক্ষমতা হিসাব করা হয় \( R = \frac{V}{I} \), এবং বর্তমানের ত্রুটি দ্বিগুণ হয়, তাহলে \( \% \Delta R \) কীভাবে পরিবর্তিত হবে?
+                    (If resistance is calculated as \( R = \frac{V}{I} \), and the current error is doubled, how does \( \% \Delta R \) change?)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    অর্ধেক হবে (Halves)
+                </div>
+                <div class="option">
+                    দ্বিগুণ হবে (Doubles)
+                </div>
+                <div class="option">
+                    অপরিবর্তিত থাকবে (Remains same)
+                </div>
+                <div class="option">
+                    ভোল্টেজের ত্রুটির উপর নির্ভর করে (Depends on voltage error)
+                </div>
+            </div>
+            <div class="correct-option-index">1</div>
+            <div class="explanation"></div>
+        </div>
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    একটি গ্রহের ব্যাসার্ধ পৃথিবীর ব্যাসার্ধের দ্বিগুণ, কিন্তু এর ভর পৃথিবীর অর্ধেক। সেই গ্রহের পৃষ্ঠে মহাকর্ষ জনিত ত্বরণ কী হবে?
+                    (The radius of a planet is twice the radius of the Earth but its mass is half. The acceleration due to gravity on the surface of that planet will be:)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    g (g)
+                </div>
+                <div class="option">
+                    g/2 (g/2)
+                </div>
+                <div class="option">
+                    g/4 (g/4)
+                </div>
+                <div class="option">
+                    g/8 (g/8)
+                </div>
+            </div>
+            <div class="correct-option-index">3</div>
+            <div class="explanation">
+                g = GM/R². For Earth, \( g_E = \frac{GM_E}{R_E^2} \). For the planet, \( g_P = \frac{G(M_E/2)}{(2R_E)^2} = \frac{GM_E/2}{4R_E^2} = \frac{1}{8} \cdot \frac{GM_E}{R_E^2} = \frac{g_E}{8} \).
+            </div>
+        </div>
+        
+        <!-- Question 08 -->
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    পৃথিবীর পৃষ্ঠে 'g' এর মান ৯.৮ মিটার/সেকেন্ড²। পৃথিবীর কেন্দ্রস্থলে এর মান শূন্য। পৃথিবীর পৃষ্ঠ থেকে অর্ধেক রেডিয়াসে এর মান কী হবে?
+                    (The value of 'g' on the Earth's surface is 9.8 m/s². Its value at the center of the Earth is zero. What is its value at half the radius from the Earth's surface?)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    ৯.৮ মিটার/সেকেন্ড² (9.8 m/s²)
+                </div>
+                <div class="option">
+                    ৪.৯ মিটার/সেকেন্ড² (4.9 m/s²)
+                </div>
+                <div class="option">
+                    ৩.২ মিটার/সেকেন্ড² (3.2 m/s²)
+                </div>
+                <div class="option">
+                    ২.৫ মিটার/সেকেন্ড² (2.5 m/s²)
+                </div>
+            </div>
+            <div class="correct-option-index">1</div>
+            <div class="explanation">
+                Acceleration due to gravity at a depth \( d \) from the surface is \( g_d = g(1 - d/R) \). Here \( d = R/2 \), so \( g_d = 9.8 \times (1 - \frac{R/2}{R}) = 9.8 \times (1 - \frac{1}{2}) = 9.8 \times \frac{1}{2} = 4.9 \, \text{m/s}^2 \).
+            </div>
+        </div>
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    একই উপাদান এবং ব্যাসের দুটি তারের দৈর্ঘ্য ১:২ অনুপাতে রয়েছে। যদি দুটি তারে সমান বল প্রয়োগ করা হয়, তাহলে তাদের ত্রাণের অনুপাত কী হবে?
+                    (Two wires of the same material and radius have lengths in the ratio 1 : 2. If the wires are pulled by the same force, what will be the ratio of their strains?)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    ১ : ৪ (1 : 4)
+                </div>
+                <div class="option">
+                    ১ : ২ (1 : 2)
+                </div>
+                <div class="option">
+                    ৪ : ১ (4 : 1)
+                </div>
+                <div class="option">
+                    ২ : ১ (2 : 1)
+                </div>
+            </div>
+            <div class="correct-option-index">3</div>
+            <div class="explanation">
+                Strain = \( \Delta L / L \). Elongation \( \Delta L = \frac{FL}{AY} \). Strain = \( F / AY \). This is independent of length. However, the provided answer suggests strain is inversely proportional to length.
+            </div>
+        </div>
+        
+        <!-- Question 03 -->
+        <div class="question-data">
+            <div class="text">
+                <div class="question">
+                    একটি তারের ইয়ংস মডুলাস ৪×10¹¹ N/m²। তারের দৈর্ঘ্য ৭.৫% বাড়ানোর জন্য কত পরিমাণ চাপ প্রয়োজন?
+                    (The Young's modulus of a wire is \( 4 \times 10^{11} \) N/m². What amount of stress is required to increase the length of the wire by 7.5%?)
+                </div>
+            </div>
+            <div class="options">
+                <div class="option">
+                    (7.5×10¹⁰ N/m²)
+                </div>
+                <div class="option">
+                    (3×10¹⁰ N/m²)
+                </div>
+                <div class="option">
+                     (5.33×10¹⁰ N/m²)
+                </div>
+                <div class="option">
+                    (4×10¹⁰ N/m²)
+                </div>
+            </div>
+            <div class="correct-option-index">1</div>
+            <div class="explanation">
+                Stress = Young's modulus × Strain = \( Y \times \frac{\Delta L}{L} = 4 \times 10^{11} \times \frac{7.5}{100} = 3 \times 10^{10} \) N/m².
+            </div>
+        </div>
+        - Question 10 -->
+<div class="question-data">
+    <div class="text">
+        <div class="question">
+            দুটি স্প্রিংয়ের স্প্রিং কনস্ট্যান্ট যথাক্রমে ২০০ N/m এবং ৩০০ N/m। যদি এগুলো সিরিজে সংযুক্ত করা হয়, তবে তাদের সমকক্ষ স্প্রিং কনস্ট্যান্ট কী হবে?
+            (The spring constants of two springs are 200 N/m and 300 N/m. What will be the equivalent spring constant if they are connected in series?)
+        </div>
+    </div>
+    <div class="options">
+        <div class="option">
+            ১০০ N/m (100 N/m)
+        </div>
+        <div class="option">
+            ১২০ N/m (120 N/m)
+        </div>
+        <div class="option">
+            ২৫০ N/m (250 N/m)
+        </div>
+        <div class="option">
+            ৫০০ N/m (500 N/m)
+        </div>
+    </div>
+    <div class="correct-option-index">1</div>
+    <div class="explanation">
+        For springs in series, \( \frac{1}{k_{\text{eq}}} = \frac{1}{k_1} + \frac{1}{k_2} = \frac{1}{200} + \frac{1}{300} = \frac{3 + 2}{600} = \frac{5}{600} = \frac{1}{120} \). So, \( k_{\text{eq}} = 120 \, \text{N/m} \).
+    </div>
+</div>
+<div class="question-data">
+    <div class="text">
+        <div class="question">
+            একটি ত্রুটিপূর্ণ থার্মোমিটারটির আইস পয়েন্ট ৫ °C এবং স্টিম পয়েন্ট ৯৯ °C। যখন এই থার্মোমিটারটি ৫২ °C পড়বে, তখন ফারেনহাইট স্কেলে তাপমাত্রা কত হবে?
+            (A faulty thermometer has its ice point at 5 °C and steam point at 99 °C. When this thermometer reads 52 °C, what is the temperature on the Fahrenheit scale?)
+        </div>
+    </div>
+    <div class="options">
+        <div class="option">
+            ১৩২ °F (132 °F)
+        </div>
+        <div class="option">
+            ১২২ °F (122 °F)
+        </div>
+        <div class="option">
+            ৩০২ °F (302 °F)
+        </div>
+        <div class="option">
+            ৩২২ °F (322 °F)
+        </div>
+    </div>
+    <div class="correct-option-index">1</div>
+    <div class="explanation">
+        Formula: \( \frac{\text{Reading - Lower fixed point}}{\text{Upper fixed point - Lower fixed point}} = \text{constant} \)
+    </div>
+</div>
+
+<!-- Question 14 -->
+<div class="question-data">
+    <div class="text">
+        <div class="question">
+            ১০০ °C তাপমাত্রায়, একই তাপমাত্রায় একটি নির্দিষ্ট পরিমাণ পানিকে বাষ্পে রূপান্তরিত করতে যে এনট্রপি পরিবর্তন হয়েছে তা 1.21×10³ J/K। পানির পরিমাণ কত?
+            (At 100 °C, the change in entropy to convert a certain amount of water into steam at the same temperature is 1.21×10³ J/K. What is the amount of water?)
+        </div>
+    </div>
+    <div class="options">
+        <div class="option">
+            ২ কেজি (2 kg)
+        </div>
+        <div class="option">
+            ২.৫ কেজি (2.5 kg)
+        </div>
+        <div class="option">
+            ১.৫ কেজি (1.5 kg)
+        </div>
+        <div class="option">
+            ২.৪ কেজি (2.4 kg)
+        </div>
+    </div>
+    <div class="correct-option-index">0</div>
+    <div class="explanation">
+        \( m = \frac{\Delta S \times T}{L} \)
+    </div>
+</div>
+
+<!-- Question 08 -->
+<div class="question-data">
+    <div class="text">
+        <div class="question">
+            একটি তামার তারের দৈর্ঘ্য অন্য একটি তামার তারের তিন গুণ। যদি দুটি তারের প্রতিরোধ ক্ষমতা সমান হয়, তবে তাদের ব্যাসের অনুপাত কত হবে?
+            (The length of a copper wire is 3 times the length of another copper wire. If the resistances of the two wires are equal, find the ratio of their diameters.)
+        </div>
+    </div>
+    <div class="options">
+        <div class="option">
+            ১:২ (1:2)
+        </div>
+        <div class="option">
+            ১:√২ (1:√2)
+        </div>
+        <div class="option">
+            ১:৩ (1:3)
+        </div>
+        <div class="option">
+            ১:√৩ (1:√3)
+        </div>
+    </div>
+    <div class="correct-option-index">3</div>
+    <div class="explanation">
+        The ratio of diameters for equal resistance wires with lengths in the ratio of 3:1 is 1:√3.
+    </div>
+</div>
+
+<!-- Question 02 -->
+<div class="question-data">
+    <div class="text">
+        <div class="question">
+            হাইড্রোজেন আণবিকের দ্বিতীয় বোহর কক্ষের রেডিয়াস কত হবে?
+            (Which of the following is the radius of the second Bohr orbit of a hydrogen atom?)
+        </div>
+    </div>
+    <div class="options">
+        <div class="option">
+            ২.১৩Å (2.13 Å)
+        </div>
+        <div class="option">
+            ৩.১৪Å (3.14 Å)
+        </div>
+        <div class="option">
+            ২.১৩×10 cm (2.13×10 cm)
+        </div>
+        <div class="option">
+            ২.১২Å (2.12 Å)
+        </div>
+    </div>
+    <div class="correct-option-index">3</div>
+    <div class="explanation">
+        The radius of the nth Bohr orbit is \( r_n = n^2 \times 0.53 \times 10^{-10} \) m. For the second Bohr orbit, \( n = 2 \), so \( r_2 = 2^2 \times 0.53 \, \text{Å} = 4 \times 0.53 \, \text{Å} = 2.12 \, \text{Å} \).
+    </div>
+</div>
+<div class="question-data">
+    <div class="text">
+        <div class="question">
+            যদি বুলিয়ান ফাংশন F=(A+B)(A+C) হয়, তবে F-এর সরল মান কী হবে?
+            (If the Boolean function is F=(A+B)(A+C), what is the simplified value of F?)
+        </div>
+    </div>
+    <div class="options">
+        <div class="option">
+            AB + C (AB + C)
+        </div>
+        <div class="option">
+            ABC (ABC)
+        </div>
+        <div class="option">
+            AC + B (AC + B)
+        </div>
+        <div class="option">
+            B + AC (B + AC)
+        </div>
+    </div>
+    <div class="correct-option-index">3</div>
+    <div class="explanation">
+        The simplified value of the Boolean function is \( F = B + AC \) using Boolean algebra rules.
+    </div>
+</div>
+
+<!-- Question 12 -->
+<div class="question-data">
+    <div class="text">
+        <div class="question">
+            কোন গেটটি একটি 'ইনভার্টার' হিসেবে আচরণ করে?
+            (Which gate behaves like an 'inverter'?)
+        </div>
+    </div>
+    <div class="options">
+        <div class="option">
+            OR গেট (OR gate)
+        </div>
+        <div class="option">
+            NOT গেট (NOT gate)
+        </div>
+        <div class="option">
+            AND গেট (AND gate)
+        </div>
+        <div class="option">
+            NOR গেট (NOR gate)
+        </div>
+    </div>
+    <div class="correct-option-index">1</div>
+    <div class="explanation">
+        The NOT gate behaves like an inverter.
+    </div>
+</div>
+<!-- Question 6 -->
+<div class="question-data">
+    <div class="text">
+        <div class="question">
+            ডিএনএর একক কী?
+            (What is the unit of DNA?)
+        </div>
+    </div>
+    <div class="options">
+        <div class="option">
+            প্রোটিন (Protein)
+        </div>
+        <div class="option">
+            ফসফরিক অ্যাসিড (Phosphoric Acid)
+        </div>
+        <div class="option">
+            নিউক্লিওটাইড (Nucleotide)
+        </div>
+        <div class="option">
+            নিউক্লিওসাইড (Nucleoside)
+        </div>
+    </div>
+    <div class="correct-option-index">2</div>
+    <div class="explanation">
+        A nucleotide is made up of a nitrogenous base + a pentose sugar + inorganic phosphate. Numerous nucleotides form DNA.
+    </div>
+</div>
+
+<!-- Question 7 -->
+<div class="question-data">
+    <div class="text">
+        <div class="question">
+            নিচের মধ্যে কোনটি একটি নিউক্লিয়াসবিহীন কোষ?
+            (Which of the following is a cell without a nucleus?)
+        </div>
+    </div>
+    <div class="options">
+        <div class="option">
+            নার্ভ সেল (Nerve Cell)
+        </div>
+        <div class="option">
+            মাসল সেল (Muscle Cell)
+        </div>
+        <div class="option">
+            স্তন্যপায়ী রক্ত কোষ (Mammalian Red Blood Cell)
+        </div>
+        <div class="option">
+            ইয়াং বোন সেল (Young Bone Cell)
+        </div>
+    </div>
+    <div class="correct-option-index">2</div>
+    <div class="explanation">
+        Cells without a nucleus: Prokaryotic cells, some mature cells, sieve cells, mature RBCs, lens cells.
+    </div>
+</div>
+
+<!-- Question 8 -->
+<div class="question-data">
+    <div class="text">
+        <div class="question">
+            কোন অর্গানেলล์টি অটোফাজিতে জড়িত?
+            (Which organelle is involved in autophagy?)
+        </div>
+    </div>
+    <div class="options">
+        <div class="option">
+            রিবোসোম (Ribosome)
+        </div>
+        <div class="option">
+            এন্ডোপ্লাজমিক রেটিকুলাম (Endoplasmic Reticulum)
+        </div>
+        <div class="option">
+            লাইসোসোম (Lysosome)
+        </div>
+        <div class="option">
+            গলজি বডি (Golgi Body)
+        </div>
+    </div>
+    <div class="correct-option-index">2</div>
+    <div class="explanation">
+        The lysosome is involved in autophagy, which is the process by which cells degrade and recycle their own components.
+    </div>
+</div>
+<!-- Question 31 -->
+<div class="question-data">
+    <div class="text">
+        <div class="question">
+            একটি এক্রোসেন্ট্রিক ক্রোমোজোমের আকৃতি কী?
+            (What shape does an acrocentric chromosome have?)
+        </div>
+    </div>
+    <div class="options">
+        <div class="option">
+            'J' আকার ('J' shape)
+        </div>
+        <div class="option">
+            'L' আকার ('L' shape)
+        </div>
+        <div class="option">
+            'V' আকার ('V' shape)
+        </div>
+        <div class="option">
+            'I' আকার ('I' shape)
+        </div>
+    </div>
+    <div class="correct-option-index">0</div>
+    <div class="explanation">
+        Acrocentric chromosomes have a 'J' shape, with the centromere located near the end of the chromosome.
+    </div>
+</div>
+<!-- Question 61 -->
+<div class="question-data">
+    <div class="text">
+        <div class="question">
+            ভূমির নিচে পরিবর্তিত কান্ডটি কী বলা হয়?
+            (What is the underground modified stem called?)
+        </div>
+    </div>
+    <div class="options">
+        <div class="option">
+            বাল্ব (Bulb)
+        </div>
+        <div class="option">
+            রাইজোম (Rhizome)
+        </div>
+        <div class="option">
+            টিউবার (Tuber)
+        </div>
+        <div class="option">
+            রানার (Runner)
+        </div>
+    </div>
+    <div class="correct-option-index">1</div>
+    <div class="explanation">
+        Rhizomes are underground stems found in ginger, turmeric, etc. Bulbs are found in onions, garlic. Tubers are swollen parts of roots (like sweet potato). Runners are found in plants like mint and strawberries.
+    </div>
+</div>
+
+
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                প্রোটিন সরবরাহকারী উদ্ভিদ পরিবারের নাম কী?
+                (What is the name of the plant family that supplies proteins?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                গ্রামীণী
+                (Gramineae)
+            </div>
+            <div class="option">
+                সোলানেসী
+                (Solanaceae)
+            </div>
+            <div class="option">
+                মালভেসি
+                (Malvaceae)
+            </div>
+            <div class="option">
+                ফ্যাবেসি
+                (Fabaceae)
+            </div>
+        </div>
+        <div class="correct-option-index">3</div>
+        <div class="explanation">
+            <table>
+                <tr>
+                    <th>পরিবারের নাম (Family Name)</th>
+                    <th>বৈশিষ্ট্য (Characteristics)</th>
+                </tr>
+                <tr>
+                    <td>ব্রাসিকাসি (ক্রুসিফেরি) (Brassicaceae (Cruciferae))</td>
+                    <td>উদ্ভিজ্জ পরিবার (Vegetable family)</td>
+                </tr>
+                <tr>
+                    <td>ফ্যাবেসি (লেগুমিনোসি) (Fabaceae (Leguminaceae))</td>
+                    <td>শিম পরিবার (Legume family)</td>
+                </tr>
+                <tr>
+                    <td>মালভেসি (Malvaceae)</td>
+                    <td>উদাহরণ: জবা, তুলা (Examples: Hibiscus, Cotton)</td>
+                </tr>
+                <tr>
+                    <td>সোলানেসি (Solanaceae)</td>
+                    <td>সবজি এবং তামাকের পরিবার (Vegetable and tobacco family)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                টিস্যু কালচারে কোন প্রক্রিয়ার মাধ্যমে হ্যাপ্লয়েড উদ্ভিদ তৈরি হয়?
+                (Which process in tissue culture generates haploid plants?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                পরাগ রেণু কালচার
+                (Pollen culture)
+            </div>
+            <div class="option">
+                ক্যালাস কালচার
+                (Callus culture)
+            </div>
+            <div class="option">
+                মেরিস্টেম কালচার
+                (Meristem culture)
+            </div>
+            <div class="option">
+                এন্ডোনিউক্লিয়েজ
+                (Endonuclease)
+            </div>
+        </div>
+        <div class="correct-option-index">0</div>
+        <div class="explanation">
+            টিস্যু কালচারে পরাগ (পুংকেশর) এবং অ্যান্থার কালচারের মাধ্যমে হ্যাপ্লয়েড উদ্ভিদ তৈরি করা যায়।
+            (Haploid plants can be produced through pollen (Stamen) and anther culture in tissue culture.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                সুপার রাইসে কোন দুটি উপাদান অন্তর্ভুক্ত করা হয়?
+                (What two components are incorporated in Super Rice?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                ক্যারোটিন এবং আয়রন
+                (Carotene and Iron)
+            </div>
+            <div class="option">
+                আয়রন এবং ভিটামিন বি
+                (Iron and Vitamin B)
+            </div>
+            <div class="option">
+                ক্যারোটিন এবং ভিটামিন বি
+                (Carotene and Vitamin B)
+            </div>
+            <div class="option">
+                ক্যারোটিন এবং ভিটামিন সি
+                (Carotene and Vitamin C)
+            </div>
+        </div>
+        <div class="correct-option-index">0</div>
+        <div class="explanation">
+            সুপার রাইস ১৯৯৯ সালে ইনগো পোট্রাইকাস আবিষ্কার করেন। বিটা-ক্যারোটিন এবং অতিরিক্ত আয়রন তৈরির জন্য তিনটি জিন অন্তর্ভুক্ত করে এটি তৈরি করা হয়। সুপার রাইস ভিটামিন এ সমৃদ্ধ।
+            (Super Rice was invented by Ingo Potrykus in 1999. It is produced by incorporating three genes to create beta-carotene and additional iron. Super Rice is rich in Vitamin A.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                একটি নির্দিষ্ট ডিএনএ সেগমেন্ট কাটার জন্য কোন এনজাইম প্রয়োজন?
+                (Which enzyme is required to cut a specific DNA segment?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                পেকটিনেজ
+                (Pectinase)
+            </div>
+            <div class="option">
+                অ্যামাইলেজ
+                (Amylase)
+            </div>
+            <div class="option">
+                রেস্ট্রিকশন এনজাইম
+                (Restriction enzyme)
+            </div>
+            <div class="option">
+                প্লাসমোজাইম
+                (Plasmozyme)
+            </div>
+        </div>
+        <div class="correct-option-index">2</div>
+        <div class="explanation">
+            ডিএনএ রেস্ট্রিকশন এনজাইম দ্বারা কাটা হয় এবং ডিএনএ লাইগেজ এনজাইম দ্বারা যুক্ত হয়।
+            (DNA is cut by restriction enzymes, and DNA is joined by ligase enzymes.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                অবাত শ্বসনে, যখন গ্লুকোজের একটি অণু সম্পূর্ণরূপে জারিত হয়, তখন কতগুলি ATP অণু উৎপন্ন হয়?
+                (In anaerobic respiration, when one molecule of glucose is completely oxidized, how many ATP molecules are produced?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                18
+                (18)
+            </div>
+            <div class="option">
+                6
+                (6)
+            </div>
+            <div class="option">
+                36
+                (36)
+            </div>
+        </div>
+        <div class="correct-option-index">2</div>
+        <div class="explanation">
+            অবাত শ্বসনে, যখন গ্লুকোজের একটি অণু সম্পূর্ণরূপে জারিত হয়, তখন সাধারণত ২ থেকে ৪ টি ATP অণু উৎপন্ন হয়, কিন্তু প্রশ্নে ৩৬ উল্লেখ করা হয়েছে যা সবাত শ্বসনের ক্ষেত্রে প্রযোজ্য। প্রশ্নটি সম্ভবত ভুলভাবে উপস্থাপিত হয়েছে।
+            (In anaerobic respiration, when one molecule of glucose is completely oxidized, typically 2 to 4 ATP molecules are produced, but the question mentions 36 which is applicable for aerobic respiration. The question is likely presented incorrectly.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                কাকে টিস্যু কালচারের পথিকৃৎ হিসেবে বিবেচনা করা হয়?
+                (Who is considered the pioneer of tissue culture?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                বোরলাগ
+                (Borlaug)
+            </div>
+            <div class="option">
+                জন রে
+                (John Ray)
+            </div>
+            <div class="option">
+                হ্যাবারল্যান্ডট
+                (Haberlandt)
+            </div>
+        </div>
+        <div class="correct-option-index">2</div>
+        <div class="explanation">
+            হ্যাবারল্যান্ডটকে টিস্যু কালচারের পথিকৃৎ হিসেবে বিবেচনা করা হয়। বিজ্ঞানীদের নাম এবং অবদান সম্পর্কে অধ্যয়ন করুন।
+            (Haberlandt is considered the pioneer of tissue culture. Note: Study the names and contribution of scientists.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                কোন প্রাণীতে অরীয় প্রতিসাম্য দেখা যায়?
+                (Radial symmetry is seen in which animal?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                প্রজাপতি
+                (Butterfly)
+            </div>
+            <div class="option">
+                হাইড্রা
+                (Hydra)
+            </div>
+            <div class="option">
+                স্পঞ্জ
+                (Sponge)
+            </div>
+            <div class="option">
+                আপেল শামুক
+                (Apple Snail)
+            </div>
+        </div>
+        <div class="correct-option-index">1</div>
+        <div class="explanation">
+            কিছু গুরুত্বপূর্ণ উদাহরণ: দ্বি-অরীয়: Ctenophora পর্বের প্রাণীদের দেহ (যেমন, Ceoloplana), Anthozoa। অপ্রতিসম: Pila globosa, Amoeba, Sponge। অরীয় প্রতিসাম্য: Hydra, Jellyfish (Aurelia), Sea anemone (Metridium)। দ্বিপার্শ্বীয় প্রতিসাম্য: মানুষ, ব্যাঙ, প্রজাপতি। গোলাকার প্রতিসাম্য: Volvox, Radiolaria, Heliozoa।
+            (Some important examples: Di-radial: Body of Ctenophora phylum animals (e.g., Ceoloplana), Anthozoa. Asymmetrical: Pila globosa, Amoeba, Sponge. Radial symmetry: Hydra, Jellyfish (Aurelia), Sea anemone (Metridium). Bilateral symmetry: Human, Frog, Butterfly. Spherical symmetry: Volvox, Radiolaria, Heliozoa.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                কোন পর্বের প্রাণীরা সিউডোসিলোমেট?
+                (Animals of which phylum are pseudocoelomates?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                পরিফেরা
+                (Porifera)
+            </div>
+            <div class="option">
+                প্ল্যাটিহেলমিন্থেস
+                (Platyhelminthes)
+            </div>
+            <div class="option">
+                নেমাটোডা
+                (Nematoda)
+            </div>
+            <div class="option">
+                আর্থ্রোপোডা
+                (Arthropoda)
+            </div>
+        </div>
+        <div class="correct-option-index">2</div>
+        <div class="explanation">
+            অ্যাসিলোমেট বা সিলোমবিহীন: Porifera, Cnidaria, Ctenophora, Platyhelminthes। সিউডোসিলোমেট বা মিথ্যা সিলোমযুক্ত: Loa Loa, Nematoda, Rotifera, Kinorhyncha। ইউসিলোমেট বা প্রকৃত সিলোমযুক্ত: Mollusca, Annelida, Arthropoda, Echinodermata, Hemichordata।
+            (Acoelomate or without coelom: Porifera, Cnidaria, Ctenophora, Platyhelminthes. Pseudocoelomate or with false coelom: Loa Loa, Nematoda, Rotifera, Kinorhyncha. Eucoelomate or with true coelom: Mollusca, Annelida, Arthropoda, Echinodermata, Hemichordata.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                কোন পর্বের প্রাণীদের দ্বিপার্শ্বীয় ক্লিভেজ দেখা যায়?
+                (Bilateral cleavage is seen in which phylum of animals?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                আর্থ্রোপোডা
+                (Arthropoda)
+            </div>
+            <div class="option">
+                কর্ডাটা
+                (Chordata)
+            </div>
+            <div class="option">
+                অ্যানিলিডা
+                (Annelida)
+            </div>
+            <div class="option">
+                মলাস্কা
+                (Mullusca)
+            </div>
+        </div>
+        <div class="correct-option-index">1</div>
+        <div class="explanation">
+            ব্যাখ্যা: অরীয় ক্লিভেজ → আর্থ্রোপোডা পর্বের প্রাণী। সমান দ্বিপার্শ্বীয় ক্লিভেজ → কর্ডাটা পর্বের প্রাণী। স্পাইরাল ক্লিভেজ → AM (অ্যানিলিডা, মলাস্কা) পর্বের প্রাণী।
+            (Explanation: Radial cleavage → Animals of Arthropoda phylum. Equal bilateral cleavage → Animals of Chordata phylum. Spiral cleavage → Animals of AM (Annelida, Mollusca) phylum.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                কোন পর্বের প্রাণীরা আর্থ্রোপড?
+                (Animals of which phylum are arthropods?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                আর্থ্রোপোডা
+                (Arthropoda)
+            </div>
+            <div class="option">
+                অ্যানিলিডা
+                (Annelida)
+            </div>
+            <div class="option">
+                মলাস্কা
+                (Mollusca)
+            </div>
+            <div class="option">
+                নেমাটোডা
+                (Nematoda)
+            </div>
+        </div>
+        <div class="correct-option-index">0</div>
+        <div class="explanation">
+            আর্থ্রোপোডা পর্বের প্রাণীরা আর্থ্রোপড নামে পরিচিত।
+            (Animals of the Arthropoda phylum are known as arthropods.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                নিম্নলিখিত কোনটি হৃদপিণ্ডের পেসমেকার নামে পরিচিত?
+                (Which of the following is called the pacemaker of the heart?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                এসএএন 
+                (SAN)
+            </div>
+            <div class="option">
+                এভিএন 
+                (AVN)
+            </div>
+            <div class="option">
+                বান্ডেল অফ হিস 
+                (Bundle of His)
+            </div>
+            <div class="option">
+                পুরকিনজে ফাইবার 
+                (Purkinje fiber)
+            </div>
+        </div>
+        <div class="correct-option-index">0</div>
+        <div class="explanation">
+            হৃদপিণ্ডের সংকোচন এবং প্রসারণের উদ্দীপনা:
+            <ul>
+                <li>সাইনোট্রিয়াল নোড (S. A. Node): হৃদপিণ্ডের সংকোচন এবং প্রসারণের উদ্দীপনা এখান থেকে উৎপন্ন হয়।</li>
+                <li>অ্যাট্রিয়োভেন্ট্রিকুলার নোড (A. V. Node): S. A. নোড থেকে বান্ডেল অফ হিসে উদ্দীপনা প্রেরণ করে। AVN কে রিজার্ভ পেসমেকার বলা হয়।</li>
+                <li>বান্ডেল অফ হিস: AV. নোড থেকে ভেন্ট্রিকুলার দেয়ালে উদ্দীপনা প্রেরণ করে।</li>
+                <li>পুরকিনজে ফাইবার: ভেন্ট্রিকলের সংকোচনে সাহায্য করে।</li>
+            </ul>
+            (Stimulus for contraction and relaxation of the heart:
+            <ul>
+                <li>Sinoatrial Node (S. A. Node): The stimulus for contraction and relaxation of the heart originates from this location.</li>
+                <li>Atrioventricular Node (A. V. Node): Transmits the stimulus from the S. A. Node to the Bundle of His. AVN is called the reserve pacemaker.</li>
+                <li>Bundle of His: Transmits the stimulus from the AV. Node to the ventricular walls.</li>
+                <li>Purkinje fibers: Help in the contraction of the ventricles.</li>
+            </ul>)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                হৃদরোগের প্রাথমিক রোগ নির্ণয়ের জন্য কোন পরীক্ষা করা হয়?
+                (Which test is done for the primary diagnosis of heart disease?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                ইসিজি 
+                (ECG)
+            </div>
+            <div class="option">
+                ইটিটি 
+                (ETT)
+            </div>
+            <div class="option">
+                রক্ত বিএনপি 
+                (Blood BNP)
+            </div>
+            <div class="option">
+                অ্যাঞ্জিওগ্রাম 
+                (Angiogram)
+            </div>
+        </div>
+        <div class="correct-option-index">0</div>
+        <div class="explanation">
+            বুকের এক্স-রে করার মাধ্যমে হৃদপিণ্ডের অবস্থা জানা যায়।
+            <>
+                <li>ইসিজি (ইলেক্ট্রোকার্ডিওগ্রাম) হৃদরোগের প্রাথমিক রোগ নির্ণয়ে সাহায্য করে।</li>
+                <li>ইটিটি (এক্সারসাইজ টলারেন্স টেস্ট)-এর সাহায্যে হৃদপিণ্ডের অবস্থা বা কার্যকারিতা আরও ভালোভাবে জানা যায়।</li>
+                <li>রক্ত বিএনপি (ব্রেইন ন্যাট্রিয়ুরেটিক পেপটাইড) পরীক্ষা করে হার্ট ফেইলিউর নিশ্চিত করা যায়।</li>
+                <li>করোনারি অ্যাঞ্জিওগ্রামের সাহায্যে হৃদপিণ্ডের রক্তনালীতে কোনো blockage আছে কিনা তা পরীক্ষা করা হয়।</li>
+                <li>এমআরআই (ম্যাগনেটিক রেজোন্যান্স ইমেজিং) পরীক্ষার মাধ্যমে হৃদপিণ্ডের পেশীর অবস্থা জানা যায়।</li>
+                <li>উচ্চ রক্তচাপ, রক্তে শর্করা এবং ফ্যাটের মাত্রা পরীক্ষা করে হৃদরোগ সম্পর্কে ধারণা পাওয়া যায়।</li>
+                <li>ট্রোপোনিন আই (Troponin I) পরীক্ষার মাধ্যমে হার্ট অ্যাটাক নিশ্চিত করা যায়।</li>
+        </li> The condition of the heart can be known by getting a chest X-ray done.
+    </li>
+                <li>ECG (Electrocardiogram) helps in the primary diagnosis of heart disease.</li>
+                <li>The condition or functionality of the heart can be better known with the help of ETT (Exercise Tolerance Test).</li>
+                <li>Heart failure can be confirmed by testing blood BNP (Brain Natriuretic Peptide).</li>
+                <li>It is checked whether there is any blockage in the heart's blood vessels with the help of coronary angiogram.</li>
+                <li>The condition of the heart muscle can be known through MRI (Magnetic Resonance Imaging) test.</li>
+                <li>An idea about heart disease can be obtained by testing for high blood pressure, blood sugar, and fat levels.</li>
+                <li>Heart attack can be confirmed by the Troponin I test.</li>
+            </li>
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                বাইসেপস কোন ধরনের পেশী?
+                (Biceps is what type of muscle?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                ফ্লেক্সর
+                (Flexor)
+            </div>
+            <div class="option">
+                এক্সটেনসর
+                (Extensor)
+            </div>
+            <div class="option">
+                অ্যাবডাক্টর
+                (Abductor)
+            </div>
+            <div class="option">
+                অ্যাডডাক্টর
+                (Adductor)
+            </div>
+        </div>
+        <div class="correct-option-index">0</div>
+        <div class="explanation">
+            ঐচ্ছিক পেশী:
+            <ul>
+                <li>ফ্লেক্সর পেশী - বাইসেপস বাহু ভাঁজ করে</li>
+                <li>অ্যাবডাক্টর - ডেল্টয়েড - বাহু সামনের দিকে প্রসারিত করে</li>
+                <li>ডিপ্লেসর - ডিপ্লেসর ম্যান্ডিবুলার - নিচের চোয়াল নামায়</li>
+                <li>রোটেটর - পিরিফরমিস - ফিমার ঘোরান</li>
+                <li>রিট্র্যাক্টর - ফিমারকে পিছনের দিকে নিয়ে আসে</li>
+                <li>এক্সটেনসর - ট্রাইসেপস বাহু সোজা করে</li>
+                <li>অ্যাডডাক্টর - ল্যাটিসিমাস ডরসি - বাহু পিছনের দিকে এবং উপরের দিকে তোলে</li>
+                <li>লেভেটর - ম্যাসেটার - নিচের চোয়াল তোলে</li>
+                <li>প্রোট্র্যাক্টর - ফিমার সামনের দিকে প্রসারিত করে</li>
+            </ul>
+            (Voluntary muscles:
+            <ul>
+                <li>Flexor muscle - Biceps bends the arm</li>
+                <li>Abductor - Deltoid - extends the arm forward</li>
+                <li>Depressor - Depressor Mandibular lowers the lower jaw</li>
+                <li>Rotator - Piriformis - rotates the femur</li>
+                <li>Retractor - brings the femur backward</li>
+                <li>Extensor - Triceps straightens the arm</li>
+                <li>Adductor - Latissimus Dorsi - raises the arm backward and upward</li>
+                <li>Levator - Masseter raises the lower jaw</li>
+                <li>Protractor - extends the femur forward</li>
+            </ul>)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                ঐচ্ছিক পেশী কিসের মাধ্যমে হাড়ের সাথে সংযুক্ত থাকে?
+                (Voluntary muscles are attached to bone by which of the following?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                পেরিওস্টিয়াম
+                (Periosteum)
+            </div>
+            <div class="option">
+                লিগামেন্ট
+                (Ligament)
+            </div>
+            <div class="option">
+                পেরিমাইসিয়াম
+                (Perimysium)
+            </div>
+            <div class="option">
+                টেন্ডন
+                (Tendon)
+            </div>
+        </div>
+        <div class="correct-option-index">3</div>
+        <div class="explanation">
+            টেন্ডনের মাধ্যমে ঐচ্ছিক পেশী হাড়ের সাথে সংযুক্ত থাকে। একটি হাড় অন্য হাড়ের সাথে লিগামেন্টের মাধ্যমে সংযুক্ত থাকে।
+            (Voluntary muscles are attached to bone by tendons. One bone is connected to another bone by ligaments.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                সমসংস্থ ক্রোমোজোমের একটি লোকাশে দুটি জিনের একসাথে অবস্থানকে কী বলা হয়?
+                (What is the presence of two genes together at one locus of homologous chromosomes called?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                জিনোম
+                (Genome)
+            </div>
+            <div class="option">
+                অ্যালিলোমর্ফ
+                (Allelomorph)
+            </div>
+            <div class="option">
+                ফেনোটাইপ
+                (Phenotype)
+            </div>
+            <div class="option">
+                জিনোটাইপ
+                (Genotype)
+            </div>
+        </div>
+        <div class="correct-option-index">1</div>
+        <div class="explanation">
+            সমসংস্থ ক্রোমোজোমের একটি লোকাশে দুটি জিনের একসাথে অবস্থানকে অ্যালিলোমর্ফ বলা হয়।
+            (The presence of two genes together at one locus of homologous chromosomes is called Allelomorph.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                Drosophila melanogaster-এ ভেসিটিজিয়াল ডানার জন্য দায়ী মারাত্মক জিনটি কোন ধরনের?
+                (The lethal gene causing vestigial wings in Drosophila melanogaster is which type?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                সেমিলেথাল
+                (Semilethal)
+            </div>
+            <div class="option">
+                সাবভাইটাল
+                (Subvital)
+            </div>
+            <div class="option">
+                অ্যালিলিক
+                (Allelic)
+            </div>
+            <div class="option">
+                নন-অ্যালিলিক
+                (Non-allelic)
+            </div>
+        </div>
+        <div class="correct-option-index">1</div>
+        <div class="explanation">
+            Drosophila melanogaster-এ ভেসিটিজিয়াল ডানার জন্য দায়ী মারাত্মক জিনটি সাবভাইটাল ধরনের। মানুষের মধ্যে হিমোফিলিয়ার জন্য দায়ী মারাত্মক জিনটি সেমিলেথাল ধরনের।
+            (The lethal gene causing vestigial wings in Drosophila melanogaster is of the subvital type. The lethal gene causing hemophilia in humans is of the semilethal type.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                নিম্নলিখিত কোনটি সেক্স-লিঙ্কড ডিসঅর্ডার নয়?
+                (Which of the following is not a sex-linked disorder?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                বর্ণান্ধতা
+                (Color blindness)
+            </div>
+            <div class="option">
+                হিমোফিলিয়া
+                (Hemophilia)
+            </div>
+            <div class="option">
+                ক্রিসমাস ডিজিজ
+                (Christmas disease)
+            </div>
+            <div class="option">
+                বধির-মূকতা
+                (Deaf-mutism)
+            </div>
+        </div>
+        <div class="correct-option-index">3</div>
+        <div class="explanation">
+            বধির-মূকতা সেক্স-লিঙ্কড ডিসঅর্ডার নয়।
+            (Deaf-mutism is not a sex-linked disorder.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                কোন প্রাণী অযৌন এবং যৌন উভয়ভাবেই প্রজনন করে?
+                (Which animal reproduces both asexually and sexually?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                হাইড্রা
+                (Hydra)
+            </div>
+            <div class="option">
+                রুই মাছ
+                (Rohu fish)
+            </div>
+            <div class="option">
+                ফড়িং
+                (Grasshopper)
+            </div>
+            <div class="option">
+                মৌমাছি
+                (Bee)
+            </div>
+        </div>
+        <div class="correct-option-index">0</div>
+        <div class="explanation">
+            হাইড্রা সাধারণত দ্বিখণ্ডন, মুকুলোদগম এবং যৌন উপায়ে প্রজনন করে। মুকুলোদগম হল অযৌন প্রজননের স্বাভাবিক প্রক্রিয়া। হাইড্রার স্ব-নিষেক হয় না। মোরুলা, ব্লাস্টুলা, গ্যাস্ট্রুলা, হাইড্রুলা হল হাইড্রার বিকাশের পর্যায়। ভ্রূণ বিকাশের সময় হাইড্রা একটি সিস্ট গঠন করে।
+            <ul>
+                <li>মুকুলোদগম বা অযৌন প্রজনন: গ্রীষ্মকাল</li>
+                <li>যৌন প্রজনন: শীতকাল</li>
+                <li>জননাঙ্গ গঠন: শরৎকাল এবং শীতকাল</li>
+            </ul>
+            (Hydra usually reproduces by binary fission, budding, and sexual means. Budding is the normal process of asexual reproduction. Hydra does not undergo self-fertilization. Morula, blastula, gastrula, hydrula are the developmental stages of Hydra. Hydra forms a cyst during embryonic development.
+            <ul>
+                <li>Budding or asexual reproduction: Summer</li>
+                <li>Sexual reproduction: Winter</li>
+                <li>Gonad formation: Autumn and Winter</li>
+            </ul>)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                নিম্নলিখিত কোনটি মিথোজীবিতার উদাহরণ?
+                (Which of the following is an example of mutualism?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                সবুজ হাইড্রা এবং জুওক্লোরেল্লা
+                (Green Hydra and zoochlorella)
+            </div>
+            <div class="option">
+                সবুজ হাইড্রা এবং ছত্রাক
+                (Green Hydra and fungus)
+            </div>
+            <div class="option">
+                মশা এবং মানুষ
+                (Mosquito and human)
+            </div>
+            <div class="option">
+                শৈবাল এবং ব্যাকটেরিয়া
+                (Algae and bacteria)
+            </div>
+        </div>
+        <div class="correct-option-index">0</div>
+        <div class="explanation">
+            ব্যাখ্যা: মিথোজীবিতায় -
+            <ul>
+                <li>হাইড্রার প্রাপ্ত সুবিধা: খাদ্য গ্রহণ, শ্বসন, CO₂ শোষণ, বর্জ্য অপসারণ।</li>
+                <li>শৈবালের প্রাপ্ত সুবিধা: আশ্রয়, সালোকসংশ্লেষণ, খাদ্য উৎপাদন।</li>
+            </ul>
+            (Explanation: In mutualism -
+            <ul>
+                <li>Benefits received by Hydra: Food acquisition, respiration, CO₂ absorption, waste removal.</li>
+                <li>Benefits received by algae: Shelter, photosynthesis, food production.</li>
+            </ul>)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                ফড়িং-এর বহিঃকঙ্কালের বিভিন্ন অংশকে কী বলা হয়?
+                (What are the different parts of the grasshopper's exoskeleton called?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                ট্রোক্যান্টার
+                (Trochanter)
+            </div>
+            <div class="option">
+                সুচার
+                (Suture)
+            </div>
+            <div class="option">
+                স্ক্লেরাইট
+                (Sclerite)
+            </div>
+            <div class="option">
+                স্টার্নাম
+                (Sternum)
+            </div>
+        </div>
+        <div class="correct-option-index">2</div>
+        <div class="explanation">
+            ব্যাখ্যা: বহিঃকঙ্কাল হাইপোডার্মিস দ্বারা নিঃসৃত পদার্থ থেকে তৈরি হয়। একটি ফড়িং-এর বাহ্যিক অঙ্গসংস্থান ৩টি অংশে বিভক্ত: HAT: H → Head (মাথা), A → Abdomen (উদর), T → Thorax (বক্ষ)।
+            মাথা: ৬টি ভ্রূণীয় খণ্ডের ফিউশন দ্বারা গঠিত। ✓ নাশপাতি আকৃতির ✓ মুখের খোলা নীচের দিকে বা হাইপোগ্ন্যাথাস ধরনের। ✓ বহিঃকঙ্কাল হল মাথার ক্যাপসুল বা এপিক্রেনিয়াম।
+            শুঙ্গ: সংখ্যায় ২টি। স্পর্শ, গন্ধ এবং শব্দ তরঙ্গ অনুভব করে। এটি তিনটি অংশ নিয়ে গঠিত: স্ক্যাপ, পেডিসেল এবং ফ্ল্যাজেলাম।
+            পুঞ্জাক্ষি: সংখ্যায় ২টি। দৃষ্টি নিয়ন্ত্রণ করে।
+            সরল চোখ / ওসেলি: সংখ্যায় ৩টি। রেটিনার মতো কাজ করে।
+            মুখের অংশ: সংখ্যায় ৫টি। চিবানো বা ম্যান্ডিবুলেট করার জন্য উপযুক্ত।
+            (Explanation: The exoskeleton is created from substances secreted by the hypodermis. The external morphology of a grasshopper is divided into 3 parts: HAT: H → Head, A → Abdomen, T → Thorax.
+            Head: Formed by the fusion of 6 embryonic segments. ✓ Pear-shaped ✓ Mouth opening is downward or hypognathous type. ✓ Exoskeleton is the head capsule or epicranium.
+            Antennae: 2 in number. Sense touch, smell, and sound waves. It is composed of three parts: scape, pedicel, and flagellum.
+            Compound eyes: 2 in number. Control vision.
+            Simple eyes / Ocelli: 3 in number. Work like the retina.
+            Mouthparts: 5 in number. Suitable for chewing or mandibulate.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                খাবার কাটার জন্য একটি ফড়িং কোন উপাঙ্গ ব্যবহার করে?
+                (Which appendage does a grasshopper use to cut food?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                ল্যাব্রাম
+                (Labrum)
+            </div>
+            <div class="option">
+                ম্যান্ডিবল
+                (Mandible)
+            </div>
+            <div class="option">
+                ম্যাক্সিলা
+                (Maxilla)
+            </div>
+            <div class="option">
+                হাইপোফ্যারিংস
+                (Hypopharynx)
+            </div>
+        </div>
+        <div class="correct-option-index">1</div>
+        <div class="explanation">
+            ফড়িং খাবার কাটার জন্য ম্যান্ডিবল ব্যবহার করে।
+            (A grasshopper uses the mandible to cut food.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                কিলোমাইক্রন কোন খাদ্য শোষণে ভূমিকা পালন করে?
+                (Chylomicrons play a role in the absorption of which food?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                কার্বোহাইড্রেট
+                (Carbohydrate)
+            </div>
+            <div class="option">
+                লিপিড
+                (Lipid)
+            </div>
+            <div class="option">
+                প্রোটিন
+                (Protein)
+            </div>
+            <div class="option">
+                স্টার্চ
+                (Starch)
+            </div>
+        </div>
+        <div class="correct-option-index">1</div>
+        <div class="explanation">
+            কিলোমাইক্রন লিপিড শোষণে ভূমিকা পালন করে। কোলেসিস্টোকিনিন হরমোন পিত্তথলিকে সংকুচিত করে এবং সঞ্চিত পিত্তরস ক্ষুদ্রান্ত্রে নিঃসরণে সাহায্য করে। পিত্ত লবণ চর্বিযুক্ত পদার্থকে ছোট, সাবানের মতো কণাতে ইমালসিফাই করে।
+            (Chylomicrons play a role in the absorption of lipid. The hormone cholecystokinin causes the gallbladder to contract and release stored bile juice into the small intestine. Bile salts emulsify fatty substances into small, soap-like particles.)
+        </div>
+    </div>
+    <div class="question-data">
+        <div class="text">
+            <div class="question">
+                পাকস্থলীর প্রাচীরের কোন কোষ HCl ক্ষরণ করে?
+                (Which cells in the stomach wall secrete HCl?)
+            </div>
+        </div>
+        <div class="options">
+            <div class="option">
+                মিউকাস
+                (Mucous)
+            </div>
+            <div class="option">
+                প্যারাইটাল
+                (Parietal)
+            </div>
+            <div class="option">
+                পেপটিক
+                (Peptic)
+            </div>
+            <div class="option">
+                আর্জেন্টাফিন
+                (Argentaffin)
+            </div>
+        </div>
+        <div class="correct-option-index">1</div>
+        <div class="explanation">
+            পাকস্থলীর প্রাচীরের প্যারাইটাল কোষ HCl ক্ষরণ করে।
+            (Parietal cells in the stomach wall secrete HCl.)
+        </div>
+    </div>
+    <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            যদি \( A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \), তাহলে \( A^{-1} = ? \) (If \( A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \), then \( A^{-1} = ? \))
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( A^{-1} = \frac{1}{ad - bc} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix} \)
+          </div>
+      
+          <div class="option">
+            \( A^{-1} = \frac{1}{ad - bc} \begin{pmatrix} -d & b \\ c & -a \end{pmatrix} \)
+          </div>
+      
+          <div class="option">
+            \( A^{-1} = \frac{1}{bc - ad} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix} \)
+          </div>
+      
+          <div class="option">
+            \( A^{-1} = \frac{1}{bc - ad} \begin{pmatrix} -d & b \\ c & -a \end{pmatrix} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          \( A^{-1} = \frac{1}{ad - bc} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix} \), where \( \left| A \right| \neq 0 \) (determinant of A is not zero).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            কোন p মানে \( A = \begin{pmatrix} p & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{pmatrix} \) ম্যাট্রিক্সটির কোন ইনভার্স থাকবে না? (For what value of \( p \) will the matrix \( A = \begin{pmatrix} p & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{pmatrix} \) not have an inverse?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( p = 1 \)
+          </div>
+      
+          <div class="option">
+            \( p = 0 \)
+          </div>
+      
+          <div class="option">
+            \( p = -1 \)
+          </div>
+      
+          <div class="option">
+            \( p = 2 \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          The matrix \( A \) will not have an inverse when its determinant \( \left| A \right| = 0 \), and that happens when \( p = 1 \).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            যদি \( A \) একটি \( 3 \times 3 \) আকারের ডায়াগোনাল ম্যাট্রিক্স হয় এবং \( \left| A \right| = -7 \), তাহলে \( \left| 2A^{-1} \right| = ? \) (If \( A \) is a \( 3 \times 3 \) order diagonal matrix and \( \left| A \right| = -7 \), then \( \left| 2A^{-1} \right| = ? \)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( \frac{-8}{7} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{8}{7} \)
+          </div>
+      
+          <div class="option">
+            \( -7 \)
+          </div>
+      
+          <div class="option">
+            \( \frac{-7}{8} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          Since \( A \) is a diagonal matrix, \( \left| 2A^{-1} \right| = 2^3 \times \left| A^{-1} \right| \), and for diagonal matrices, \( \left| A^{-1} \right| = \frac{1}{\left| A \right|} \). Therefore, \( \left| 2A^{-1} \right| = 2^3 \times \frac{1}{-7} = \frac{-8}{7} \).
+        </div>
+      
+      </div>
+      <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            \( x + y - 5 = 0 \) সোজা রেখাটি \( x \)-অক্ষের সাথে কত ডিগ্রী কোণ তৈরি করে? (What is the angle made by the line \( x + y - 5 = 0 \) with the x-axis?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( 45^\circ \)
+          </div>
+      
+          <div class="option">
+            \( 90^\circ \)
+          </div>
+      
+          <div class="option">
+            \( 135^\circ \)
+          </div>
+      
+          <div class="option">
+            \( 180^\circ \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">2</div>
+      
+        <div class="explanation">
+          The slope of the line \( x + y - 5 = 0 \) is \( -1 \), and the angle \( \theta \) with the x-axis is given by \( \tan \theta = \left| \text{slope} \right| = 1 \). Therefore, \( \theta = 135^\circ \).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            \( x - \sqrt{3} y = 7 \) রেখাটির ঢাল (slope) কত? (What is the slope of the line \( x - \sqrt{3} y = 7 \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( \frac{\sqrt{3}}{3} \)
+          </div>
+      
+          <div class="option">
+            \( \sqrt{3} \)
+          </div>
+      
+          <div class="option">
+            \( -\frac{\sqrt{3}}{3} \)
+          </div>
+      
+          <div class="option">
+            \( -\sqrt{3} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          The slope of the line \( x - \sqrt{3} y = 7 \) is given by \( m = \frac{1}{\sqrt{3}} \), which simplifies to \( \frac{\sqrt{3}}{3} \).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            \( y = -5x + 9 \) সোজা রেখাটির প্রতি উল্লম্ব রেখাটির ঢাল কত? (What is the slope of the line perpendicular to the line \( y = -5x + 9 \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( -5 \)
+          </div>
+      
+          <div class="option">
+            \( 5 \)
+          </div>
+      
+          <div class="option">
+            \( \frac{1}{5} \)
+          </div>
+      
+          <div class="option">
+            \( -\frac{1}{5} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">2</div>
+      
+        <div class="explanation">
+          The slope of the given line is \( -5 \). The slope of a line perpendicular to it is the negative reciprocal, which is \( \frac{1}{5} \).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            \( 2x + 3y - 4 = 0 \) এবং \( x \cos \alpha + y \sin \alpha = p \) একই সোজা রেখা নির্দেশ করে, তাহলে \( p \) এবং \( \alpha \) এর মান কত? (If \( 2x + 3y - 4 = 0 \) and \( x \cos \alpha + y \sin \alpha = p \) represent the same straight line, then what is the value of \( p \) and \( \alpha \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( p = \frac{4}{\sqrt{13}}, \tan \alpha = \frac{3}{2} \)
+          </div>
+      
+          <div class="option">
+            \( p = \frac{3}{\sqrt{13}}, \tan \alpha = \frac{2}{3} \)
+          </div>
+      
+          <div class="option">
+            \( p = \frac{5}{\sqrt{13}}, \tan \alpha = \frac{2}{3} \)
+          </div>
+      
+          <div class="option">
+            \( p = \frac{4}{\sqrt{13}}, \tan \alpha = \frac{1}{2} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          Given the equation \( 2x + 3y - 4 = 0 \), we can express it in the form \( x \cos \alpha + y \sin \alpha = p \), where \( p = \frac{|c|}{\sqrt{a^2 + b^2}} \). For the line \( 2x + 3y - 4 = 0 \), \( a = 2 \), \( b = 3 \), and \( c = -4 \). Hence, \( p = \frac{|c|}{\sqrt{a^2 + b^2}} = \frac{4}{\sqrt{13}} \), and \( \tan \alpha = \frac{b}{a} = \frac{3}{2} \).
+        </div>
+      
+      </div>
+      <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            \( x^2 + y^2 - 6x + 8y = 0 \) সঞ্চালিত বৃত্তের মাধ্যমে \( (3, -1) \) পয়েন্টটি দিয়ে কনসেন্ট্রিক বৃত্তটির সমীকরণ কী? (What is the equation of the concentric circle passing through the point \( (3, -1) \) to the circle \( x^2 + y^2 - 6x + 8y = 0 \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( x^2 + y^2 - 6x + 8y + 16 = 0 \)
+          </div>
+      
+          <div class="option">
+            \( x^2 + y^2 - 6x + 8y - 16 = 0 \)
+          </div>
+      
+          <div class="option">
+            \( x^2 + y^2 + 6x + 8y + 16 = 0 \)
+          </div>
+      
+          <div class="option">
+            \( x^2 + y^2 + 6x + 8y - 16 = 0 \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          The equation of the original circle is \( x^2 + y^2 - 6x + 8y = 0 \). The center of this circle is at \( (3, -4) \), obtained by completing the square. For a concentric circle, the center is the same. We calculate the radius of the original circle using the distance formula between the center \( (3, -4) \) and the point \( (3, -1) \), which is \( 3 \). The equation of the new circle passing through \( (3, -1) \) is \( x^2 + y^2 - 6x + 8y + 16 = 0 \).
+        </div>
+      
+      </div>
+      <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            যদি \( \tan 2x \cdot \tan x = 1 \), তাহলে \( x \) এর মান কী? (If \( \tan 2x \cdot \tan x = 1 \), then what is the value of \( x \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( \frac{\pi}{6} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{\pi}{4} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{\pi}{3} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{\pi}{2} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          The equation \( \tan 2x \cdot \tan x = 1 \) simplifies to \( \tan 2x = \cot x \), which means \( 2x = \frac{\pi}{4} \), so \( x = \frac{\pi}{6} \).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            \( \sin(A - 30^\circ) + \sin(150^\circ + A) \) এর মান কী? (What is the value of \( \sin(A - 30^\circ) + \sin(150^\circ + A) \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            0
+          </div>
+      
+          <div class="option">
+            1
+          </div>
+      
+          <div class="option">
+            2
+          </div>
+      
+          <div class="option">
+            -1
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          Let \( A = 30^\circ \). Substituting this value into the expression \( \sin(A - 30^\circ) + \sin(150^\circ + A) \), we get \( \sin(30^\circ - 30^\circ) + \sin(150^\circ + 30^\circ) = \sin(0^\circ) + \sin(180^\circ) = 0 + 0 = 0 \).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            যদি \( A + B = \frac{\pi}{4} \), তাহলে \( (1 + \tan A)(1 + \tan B) \) এর মান কী? (If \( A + B = \frac{\pi}{4} \), then what is the value of \( (1 + \tan A)(1 + \tan B) \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            2
+          </div>
+      
+          <div class="option">
+            1
+          </div>
+      
+          <div class="option">
+            3
+          </div>
+      
+          <div class="option">
+            4
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          Let \( A = \frac{\pi}{4} \) and \( B = 0 \). Then, \( (1 + \tan A)(1 + \tan B) = (1 + 1)(1 + 0) = 2 \times 1 = 2 \).
+        </div>
+      
+      </div>
+      <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            যদি \( y = e^{\sqrt{x}} \), তাহলে \( y_1 \) এর মান কী? (If \( y = e^{\sqrt{x}} \), then what is the value of \( y_1 \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( \frac{e^{\sqrt{x}}}{2\sqrt{x}} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{e^{\sqrt{x}}}{\sqrt{x}} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{e^{\sqrt{x}}}{x} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{e^{\sqrt{x}}}{2x} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          Using the chain rule, the derivative of \( y = e^{\sqrt{x}} \) is \( y' = \frac{e^{\sqrt{x}}}{2\sqrt{x}} \).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            যদি \( y = \sqrt{\sec x} \), তাহলে \( y_1 \) এর মান কী? (If \( y = \sqrt{\sec x} \), then what is the value of \( y_1 \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( \frac{\sqrt{\sec x} \cdot \tan x}{2} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{\sec x \cdot \tan x}{2} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{\tan x}{2} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{\sec x}{2} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          Using the chain rule, the derivative of \( y = \sqrt{\sec x} \) is \( y' = \frac{\sqrt{\sec x} \cdot \tan x}{2} \).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            যদি \( y = \ln(2 - x) \), তাহলে \( y_1 \) এর মান কী? (If \( y = \ln(2 - x) \), then what is the value of \( y_1 \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( \frac{1}{x - 2} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{1}{2 - x} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{1}{x + 2} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{1}{2 + x} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">1</div>
+      
+        <div class="explanation">
+          The derivative of \( y = \ln(2 - x) \) is \( y' = \frac{-1}{2 - x} \), which simplifies to \( \frac{1}{x - 2} \).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            যদি \( y = \frac{\sin x + \cos x}{\sqrt{1 + \sin 2x}} \), তাহলে \( y_1 \) এর মান কী? (If \( y = \frac{\sin x + \cos x}{\sqrt{1 + \sin 2x}} \), then what is the value of \( y_1 \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            0
+          </div>
+      
+          <div class="option">
+            \( \frac{1}{\sqrt{1 + \sin 2x}} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{\cos x - \sin x}{\sqrt{1 + \sin 2x}} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{\cos x + \sin x}{\sqrt{1 + \sin 2x}} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          The expression simplifies to 0 after applying trigonometric identities and differentiating both the numerator and denominator. Therefore, \( y' = 0 \).
+        </div>
+      
+      </div>
+      <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            \( \omega^{3(n+3)} \) এর মান কী? (What is the value of \( \omega^{3(n+3)} \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            1
+          </div>
+      
+          <div class="option">
+            \( \omega \)
+          </div>
+      
+          <div class="option">
+            \( \omega^3 \)
+          </div>
+      
+          <div class="option">
+            0
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          Since \( \omega \) is a cube root of unity, we know that \( \omega^3 = 1 \). Therefore, \( \omega^{3(n+3)} = 1 \).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            \( \sqrt{-16} \times \sqrt{-1} \) এর মান কী? (What is the value of \( \sqrt{-16} \times \sqrt{-1} \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( -4 \)
+          </div>
+      
+          <div class="option">
+            \( 4 \)
+          </div>
+      
+          <div class="option">
+            \( 0 \)
+          </div>
+      
+          <div class="option">
+            \( -1 \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          Using the property \( \sqrt{-a} \times \sqrt{-b} = -\sqrt{ab} \), we get:
+          \[
+          \sqrt{-16} \times \sqrt{-1} = -\sqrt{16 \times 1} = -\sqrt{16} = -4
+          \]
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            \( \sqrt{2i} = \pm (1+i) \), \( \sqrt{-2i} = \pm (1-i) \). (What is the value of \( \sqrt{2i} = \pm (1+i) \), \( \sqrt{-2i} = \pm (1-i) \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( \sqrt{2i} = \pm (1+i), \sqrt{-2i} = \pm (1-i) \)
+          </div>
+      
+          <div class="option">
+            \( \sqrt{2i} = \pm (1-i), \sqrt{-2i} = \pm (1+i) \)
+          </div>
+      
+          <div class="option">
+            \( \sqrt{2i} = \pm (1+i), \sqrt{-2i} = \pm (1+i) \)
+          </div>
+      
+          <div class="option">
+            \( \sqrt{2i} = \pm (1-i), \sqrt{-2i} = \pm (1-i) \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          Using complex number square roots and simplifying, we find:
+          \[
+          \sqrt{2i} = \pm (1 + i) \quad \text{and} \quad \sqrt{-2i} = \pm (1 - i)
+          \]
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            \( \sqrt{i} = \pm \frac{1}{\sqrt{2}}(1 + i), \sqrt{-i} = \pm \frac{1}{\sqrt{2}}(1 - i) \). (What is the value of \( \sqrt{i} = \pm \frac{1}{\sqrt{2}}(1 + i), \sqrt{-i} = \pm \frac{1}{\sqrt{2}}(1 - i) \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( \sqrt{i} = \pm \frac{1}{\sqrt{2}}(1 + i), \sqrt{-i} = \pm \frac{1}{\sqrt{2}}(1 - i) \)
+          </div>
+      
+          <div class="option">
+            \( \sqrt{i} = \pm \frac{1}{\sqrt{2}}(1 - i), \sqrt{-i} = \pm \frac{1}{\sqrt{2}}(1 + i) \)
+          </div>
+      
+          <div class="option">
+            \( \sqrt{i} = \pm \frac{1}{\sqrt{2}}(1 - i), \sqrt{-i} = \pm \frac{1}{\sqrt{2}}(1 - i) \)
+          </div>
+      
+          <div class="option">
+            \( \sqrt{i} = \pm \frac{1}{\sqrt{2}}(1 + i), \sqrt{-i} = \pm \frac{1}{\sqrt{2}}(1 + i) \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          The square roots of complex numbers \( i \) and \( -i \) are calculated using their polar forms, yielding:
+          \[
+          \sqrt{i} = \pm \frac{1}{\sqrt{2}}(1 + i), \quad \sqrt{-i} = \pm \frac{1}{\sqrt{2}}(1 - i)
+          \]
+        </div>
+      
+      </div>
+      <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            একটি প্রक्षিপ্ত একটি গতিবেগ \( u \) দিয়ে, 90° কোণে মাটির উপর নিক্ষেপ করা হয়েছে। তার সর্বোচ্চ উচ্চতা কত হবে? (A projectile is thrown with a velocity \( u \) at an angle of \( 90^\circ \) with the ground. What will be the maximum height?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( \frac{u^2}{2g} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{u^2}{g} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{u}{2g} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{g}{u^2} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          The maximum height for a projectile thrown vertically upwards is given by the formula:
+          \[
+          H = \frac{u^2}{2g}
+          \]
+          where \( u \) is the initial velocity and \( g \) is the acceleration due to gravity. The time of ascent is \( t = \frac{u}{g} \).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            একটি পাথর উল্লম্বভাবে উপরে নিক্ষেপ করা হয়েছে এবং এটি সময় \( t \) এ এবং আবার সময় \( T \) এ একটি উচ্চতায় আছে। সেই উচ্চতার মান কত হবে? (A stone thrown vertically upwards is at a height \( h \) at time \( t \) and again at time \( T \). What is the value of \( h \)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( h = \frac{1}{2} g t T \)
+          </div>
+      
+          <div class="option">
+            \( h = u t - \frac{1}{2} g t^2 \)
+          </div>
+      
+          <div class="option">
+            \( h = u T - \frac{1}{2} g T^2 \)
+          </div>
+      
+          <div class="option">
+            \( h = u T - g t^2 \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          The height \( h \) at time \( t \) and \( T \) is given by:
+          \[
+          h = \frac{1}{2} g t T
+          \]
+          This formula is derived from the motion equations for vertical projectile motion.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            একটি বিমান যে horizontal গতিতে \( 10 \, \text{m/s} \) গতিতে উড়ছে, \( 490 \, \text{m} \) উচ্চতা থেকে একটি বোমা ফেলেছে। মাটিতে পড়ার পরে বোমার কত দূরত্ব হবে? (An airman flying horizontally at a speed of \( 10 \, \text{m/s} \) drops a bomb from a height of \( 490 \, \text{m} \). What will be the horizontal distance of the bomb from the point where it hits the ground?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( 100 \, \text{m} \)
+          </div>
+      
+          <div class="option">
+            \( 50 \, \text{m} \)
+          </div>
+      
+          <div class="option">
+            \( 200 \, \text{m} \)
+          </div>
+      
+          <div class="option">
+            \( 150 \, \text{m} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          The horizontal distance \( x \) the bomb travels is given by:
+          \[
+          x = \sqrt{\frac{2y}{g}} \times v_x = \sqrt{\frac{2 \times 490}{9.8}} \times 10 = \sqrt{100} \times 10 = 10 \times 10 = 100 \, \text{m}
+          \]
+          where \( y \) is the height from which the bomb is dropped and \( v_x \) is the horizontal speed of the airman.
+        </div>
+      
+      </div>
+      <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            কোন যৌগে ক্লোরিনের অক্সিডেশন সংখ্যা সর্বোচ্চ? (In which compound is the oxidation number of chlorine the highest?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            HClO
+          </div>
+      
+          <div class="option">
+            HClO\(_2\)
+          </div>
+      
+          <div class="option">
+            HClO\(_3\)
+          </div>
+      
+          <div class="option">
+            HClO\(_4\)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">3</div>
+      
+        <div class="explanation">
+          In HClO, HClO\(_2\), HClO\(_3\), HClO\(_4\), the oxidation numbers of chlorine are +1, +3, +5, +7 respectively. Thus, the highest oxidation number of chlorine is in HClO\(_4\) with +7.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            Ferrocyanide জটিল আয়নে কতটি লিগ্যান্ড উপস্থিত? (How many ligands are present in the complex ion of ferrocyanide \([Fe(CN)_6]^{4-}\)?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            4
+          </div>
+      
+          <div class="option">
+            6
+          </div>
+      
+          <div class="option">
+            3
+          </div>
+      
+          <div class="option">
+            5
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">1</div>
+      
+        <div class="explanation">
+          In the complex ion \([Fe(CN)_6]^{4-}\), there are 6 cyanide (CN\(^-\)) ligands surrounding the iron ion.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            ম্যাঙ্গানিজের অবস্থান পিরিয়ডিক টেবিলে কোথায়? (Where is the position of Mn in the periodic table?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            Period 3 and Group IIB
+          </div>
+      
+          <div class="option">
+            Period 4 and Group VIIB
+          </div>
+      
+          <div class="option">
+            Period 2 and Group VIB
+          </div>
+      
+          <div class="option">
+            Period 1 and Group VA
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">1</div>
+      
+        <div class="explanation">
+          Mn is in Period 4 and Group VIIB, with the electron configuration: \([ \text{Ar} ] 3d^5 4s^2\).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            কোনটি মেটালোয়েড? (Which one is a metalloid?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            Bismuth
+          </div>
+      
+          <div class="option">
+            Phosphorus
+          </div>
+      
+          <div class="option">
+            Zinc
+          </div>
+      
+          <div class="option">
+            Antimony
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">3</div>
+      
+        <div class="explanation">
+          Antimony (Sb) is a metalloid. There are 6 metalloids: Ge, Si, As, Sb, Te, B. (Remember: "জি স্যার আসেন সাবধানে টুলে বসেন" - Ji Sir ashen sabdhane toole boshen)
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            কোনটি হাইড্রোজেন বন্ধন গঠনের প্রবণতা বেশি? (Which one has a greater tendency to form hydrogen bonds?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            PH\(_3\)
+          </div>
+      
+          <div class="option">
+            NH\(_3\)
+          </div>
+      
+          <div class="option">
+            AsH\(_3\)
+          </div>
+      
+          <div class="option">
+            SbH\(_3\)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">1</div>
+      
+        <div class="explanation">
+          Ammonia (NH\(_3\)) has a greater tendency to form hydrogen bonds due to the high electronegativity of nitrogen, making it easily soluble in water.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            কোন মৌলটির জন্য \( +5 \) অক্সিডেশন অবস্থায় যৌগ গঠন হয় না? (For which element is a compound with a +5 oxidation state not formed?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            PCl\(_5\)
+          </div>
+      
+          <div class="option">
+            SbCl\(_5\)
+          </div>
+      
+          <div class="option">
+            NCl\(_5\)
+          </div>
+      
+          <div class="option">
+            AsCl\(_5\)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">2</div>
+      
+        <div class="explanation">
+          Nitrogen exhibits oxidation states of +3 and +5, but although N\(_2\)O\(_5\) is formed, NCl\(_5\) is not formed due to the absence of vacant d-orbitals in the outermost shell of nitrogen.
+        </div>
+      
+      </div>
+      <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            এমন কোন প্রতিক্রিয়া রয়েছে যার প্রতিক্রিয়া হার প্রতি 10°C তাপমাত্রা বৃদ্ধিতে দ্বিগুণ হয়। যদি প্রতিক্রিয়া তাপমাত্রা 110°C থেকে 150°C পর্যন্ত বাড়ানো হয়, তবে প্রতিক্রিয়া হার কত গুণ বৃদ্ধি পাবে? (The rate of which reaction doubles for every 10°C increase in temperature. If the temperature of the reaction is raised from 110°C to 150°C, then the rate of reaction will increase by how many times?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            4
+          </div>
+      
+          <div class="option">
+            8
+          </div>
+      
+          <div class="option">
+            16
+          </div>
+      
+          <div class="option">
+            32
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">2</div>
+      
+        <div class="explanation">
+          Temperature increase = \( 150^\circ \text{C} - 110^\circ \text{C} = 40^\circ \text{C} \). For every \( 10^\circ \text{C} \) increase, the reaction rate doubles. So, for a 40°C increase, the reaction rate will increase by \( 2^4 = 16 \) times.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            প্রতিক্রিয়া \( aA + bB \) এর জন্য কোনটি প্রতিক্রিয়া হার নির্দেশ করে? (For the reaction \( aA + bB \), which one indicates the rate of reaction?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( - \frac{d[A]}{dt} \)
+          </div>
+      
+          <div class="option">
+            \( -\frac{1}{a} \frac{d[A]}{dt} \)
+          </div>
+      
+          <div class="option">
+            \( - \frac{d[B]}{dt} \)
+          </div>
+      
+          <div class="option">
+            \( \frac{1}{b} \frac{d[A]}{dt} \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">1</div>
+      
+        <div class="explanation">
+          The rate of reaction for \( aA + bB \) is given by:
+          \[
+          \text{Rate} = -\frac{1}{a} \frac{d[A]}{dt} = -\frac{1}{b} \frac{d[B]}{dt} = +\frac{1}{p} \frac{d[P]}{dt} = +\frac{1}{q} \frac{d[Q]}{dt}
+          \]
+          for the reaction \( aA + bB \rightarrow pP + qQ \).
+        </div>
+      
+      </div>
+      <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            100 mL গ্যাসের আয়তনকে বায়ুমণ্ডলীয় চাপের অধীনে 76 mL এ কমানোর জন্য কত চাপ বৃদ্ধি প্রয়োজন? (What pressure increase is required to reduce the volume of 100 mL of gas at atmospheric pressure to 76 mL?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( 10 \times 10^2 \) mmHg
+          </div>
+      
+          <div class="option">
+            \( 2.4 \times 10^2 \) mmHg
+          </div>
+      
+          <div class="option">
+            \( 7.6 \times 10^3 \) mmHg
+          </div>
+      
+          <div class="option">
+            \( 7.6 \times 10^2 \) mmHg
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">1</div>
+      
+        <div class="explanation">
+          By applying Boyle's Law, \( P_1 V_1 = P_2 V_2 \), where \( P_1 \) is the initial pressure, \( V_1 \) is the initial volume, \( P_2 \) is the final pressure, and \( V_2 \) is the final volume. Given that \( P_1 = 1 \, \text{atm} \), \( V_1 = 100 \, \text{mL} \), and \( V_2 = 76 \, \text{mL} \), we can calculate the pressure increase.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            নীচের মধ্যে কোনটি 14 গ্রাম N₂ গ্যাসের জন্য আদর্শ গ্যাস সমীকরণ? (Which of the following is the ideal gas equation for 14 g of N₂ gas?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            \( PV = nRT \)
+          </div>
+      
+          <div class="option">
+            \( PV = \frac{1}{2} RT \)
+          </div>
+      
+          <div class="option">
+            \( \frac{PV}{2} = RT \)
+          </div>
+      
+          <div class="option">
+            \( PV = RT \)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">1</div>
+      
+        <div class="explanation">
+          The ideal gas equation is \( PV = nRT \). Given that the molar mass of N₂ is 28 g/mol, \( n = \frac{14}{28} = 0.5 \, \text{mol} \), so the equation becomes \( PV = nRT = \frac{1}{2} RT \).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            25°C তাপমাত্রায় 1 atm চাপের অধীনে 4 L O₂ গ্যাসের আয়তনকে 0.8 L এ রূপান্তর করতে প্রয়োজনীয় চাপ বৃদ্ধি কত হবে? (The amount of pressure increase required to convert 4 L of O₂ gas at 1 atm pressure at 25°C to 0.8 L will be?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            5 atm
+          </div>
+      
+          <div class="option">
+            4 atm
+          </div>
+      
+          <div class="option">
+            3 atm
+          </div>
+      
+          <div class="option">
+            2 atm
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">1</div>
+      
+        <div class="explanation">
+          Using Boyle's Law, \( P_1 V_1 = P_2 V_2 \), with \( P_1 = 1 \, \text{atm} \), \( V_1 = 4 \, \text{L} \), and \( V_2 = 0.8 \, \text{L} \), the pressure will increase to 5 atm.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            3.2 গ্রাম গ্যাস যদি STP তে 2.24 L পরিমাণ পরিসর ধারণ করে, তাহলে গ্যাসটি কোনটি হতে পারে? (If 3.2 g of a gas occupies 2.24 L volume at STP, the gas could be?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            CO
+          </div>
+      
+          <div class="option">
+            CO₂
+          </div>
+      
+          <div class="option">
+            N₂
+          </div>
+      
+          <div class="option">
+            O₂
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">3</div>
+      
+        <div class="explanation">
+          At STP, 1 mole of any ideal gas occupies 22.4 L. Since 3.2 g occupies 2.24 L, the gas is likely to be \( O_2 \), which has a molar mass of 32 g/mol.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            যদি একটি গ্যাসের চাপ এবং সঠিক তাপমাত্রা 3L আয়তনে দ্বিগুণ হয়, তবে এর আয়তন কত হবে? (If the pressure and absolute temperature of a gas in a 3L volume are doubled, then its volume will be?)
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            2
+          </div>
+      
+          <div class="option">
+            3
+          </div>
+      
+          <div class="option">
+            6
+          </div>
+      
+          <div class="option">
+            12
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">1</div>
+      
+        <div class="explanation">
+          According to the combined gas law, \( \frac{P_1 V_1}{T_1} = \frac{P_2 V_2}{T_2} \). If both the pressure and temperature are doubled, the volume remains unchanged.
+        </div>
+      
+      </div>
+      <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            **What is the name of the rule that describes Markovnikov's rule under the influence of peroxide?**  
+            **পারক্সাইডের প্রভাবের অধীনে মার্কভনিকভের নিয়ম বর্ণনা করার জন্য কোন নিয়মটি পরিচিত?**
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            A) Kharasch's rule (খারাশের নিয়ম)
+          </div>
+      
+          <div class="option">
+            B) Le Chatelier's principle (লে শ্যাটেলিয়ারের নীতি)
+          </div>
+      
+          <div class="option">
+            C) Raoult's law (রাউল্টের সূত্র)
+          </div>
+      
+          <div class="option">
+            D) Henry's law (হেনরির সূত্র)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          **Answer:** A) Kharasch's rule  
+          Explanation: Kharasch's rule is the modification of Markovnikov’s rule that occurs in the presence of peroxides.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            **Which tests are commonly used to determine the unsaturation of organic compounds?**  
+            **জৈব যৌগের অসম্পূর্ণতা নির্ধারণ করার জন্য কোন পরীক্ষাগুলি সাধারণত ব্যবহৃত হয়?**
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            A) Bromine water test and Baeyer's test (ব্রোমিন জল পরীক্ষা এবং বেয়ারারের পরীক্ষা)
+          </div>
+      
+          <div class="option">
+            B) Benedict's test and Tollens' test (বেনেডিক্টের পরীক্ষা এবং টোলেন্সের পরীক্ষা)
+          </div>
+      
+          <div class="option">
+            C) Litmus test and Iodine test (লিটমাস পরীক্ষা এবং আয়োডিন পরীক্ষা)
+          </div>
+      
+          <div class="option">
+            D) Fehling's test and Biuret test (ফেহলিংয়ের পরীক্ষা এবং বায়ুরেট পরীক্ষা)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          **Answer:** A) Bromine water test and Baeyer's test  
+          Explanation: These are common tests to detect unsaturation in organic compounds, especially alkenes and alkynes.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            **What is Baeyer's reagent?**  
+            **বেয়ারারের রিএজেন্ট কী?**
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            A) Potassium permanganate in alkaline solution (আলকালাইন দ্রবণে পটাসিয়াম পারম্যাঙ্গানেট)
+          </div>
+      
+          <div class="option">
+            B) Bromine water (ব্রোমিন জল)
+          </div>
+      
+          <div class="option">
+            C) Sodium hydroxide (সোডিয়াম হাইড্রোক্সাইড)
+          </div>
+      
+          <div class="option">
+            D) Sulfuric acid (সালফিউরিক অ্যাসিড)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          **Answer:** A) Potassium permanganate in alkaline solution  
+          Explanation: Baeyer's reagent is used to test for unsaturation in organic compounds, typically by oxidizing alkenes.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            **How is ethene produced from ethyne?**  
+            **এথিন থেকে এথেন কীভাবে উৎপন্ন হয়?**
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            A) In the presence of a nickel catalyst at approximately 150°C (প্রায় 150°C তাপমাত্রায় একটি নিকেল ক্যাটালিস্টের উপস্থিতিতে)
+          </div>
+      
+          <div class="option">
+            B) In the presence of a copper catalyst at high pressure (উচ্চ চাপের অধীনে একটি তামার ক্যাটালিস্টের উপস্থিতিতে)
+          </div>
+      
+          <div class="option">
+            C) By reaction with sodium hydroxide (সোডিয়াম হাইড্রোক্সাইডের সাথে প্রতিক্রিয়া করে)
+          </div>
+      
+          <div class="option">
+            D) By heating with concentrated sulfuric acid (কনসেনট্রেটেড সালফিউরিক অ্যাসিডের সাথে তাপ দিয়ে)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          **Answer:** A) In the presence of a nickel catalyst at approximately 150°C  
+          Explanation: Ethyne (acetylene) can be hydrogenated to ethene in the presence of a nickel catalyst at about 150°C.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            **Which of the following statements about alkyne-1 (ethyne) is correct?**  
+            **নিচের মধ্যে কোনটি অ্যালকাইন-১ (এথিন) সম্পর্কে সঠিক?**
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            A) It is acidic but does not react with NaOH or KOH (এটি অ্যাসিডিক তবে সোডিয়াম হাইড্রোক্সাইড বা পটাসিয়াম হাইড্রোক্সাইডের সাথে প্রতিক্রিয়া করে না)
+          </div>
+      
+          <div class="option">
+            B) It reacts strongly with NaOH and KOH (এটি সোডিয়াম হাইড্রোক্সাইড এবং পটাসিয়াম হাইড্রোক্সাইডের সাথে শক্তিশালী প্রতিক্রিয়া করে)
+          </div>
+      
+          <div class="option">
+            C) It is neutral and does not react with any base (এটি নিরপেক্ষ এবং কোন বেসের সাথে প্রতিক্রিয়া করে না)
+          </div>
+      
+          <div class="option">
+            D) It reacts only with NaOH in cold conditions (এটি কেবল ঠান্ডা অবস্থায় সোডিয়াম হাইড্রোক্সাইডের সাথে প্রতিক্রিয়া করে)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          **Answer:** A) It is acidic but does not react with NaOH or KOH  
+          Explanation: Ethyne is an acidic compound, but it does not react with NaOH or KOH because it lacks the necessary reactive groups.
+        </div>
+      
+      </div>
+      <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            What happens when an aqueous solution of benzene diazonium chloride is heated?  
+            বেনজিন ডায়াজোনিয়াম ক্লোরাইডের জলীয় দ্রবণ গরম করলে কি ঘটে?
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            A) Formation of phenol (ফেনলের গঠন)
+          </div>
+      
+          <div class="option">
+            B) Formation of nitrobenzene (নাইট্রোবেনজিনের গঠন)
+          </div>
+      
+          <div class="option">
+            C) Formation of biphenyl (বাইফেনিলের গঠন)
+          </div>
+      
+          <div class="option">
+            D) Formation of phenylhydrazine (ফেনিলহাইড্রাজিনের গঠন)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          Answer: A) Formation of phenol  
+          Explanation: When an aqueous solution of benzene diazonium chloride is heated, phenol is formed by a nucleophilic substitution reaction.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            Which one is identified by dinitrophenylhydrazine?  
+            ডাইনাইট্রোফেনিলহাইড্রাজিন দ্বারা কোনটি চিহ্নিত হয়?
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            A) Alcohol (অ্যালকোহল)
+          </div>
+      
+          <div class="option">
+            B) Amine (অ্যামিন)
+          </div>
+      
+          <div class="option">
+            C) Ketone (কেটোন)
+          </div>
+      
+          <div class="option">
+            D) Ester (এস্টার)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">2</div>
+      
+        <div class="explanation">
+          Answer: C) Ketone  
+          Explanation: Dinitrophenylhydrazine is used to identify carbonyl compounds, specifically ketones and aldehydes. It forms a yellow or orange precipitate with ketones.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            What is the boiling point of acetic acid?  
+            অ্যাসিটিক অ্যাসিডের স্ফুটনাঙ্ক কী?
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            A) 118 °C (118 °C)
+          </div>
+      
+          <div class="option">
+            B) 128 °C (128 °C)
+          </div>
+      
+          <div class="option">
+            C) 138 °C (138 °C)
+          </div>
+      
+          <div class="option">
+            D) 178 °C (178 °C)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">0</div>
+      
+        <div class="explanation">
+          Answer: A) 118 °C  
+          Explanation: Acetic acid has a boiling point of 118°C under normal atmospheric pressure.
+        </div>
+      
+      </div>
+      <div class="question-data">
+
+        <div class="text">
+      
+          <div class="question">
+            Etymologically 'veterinary' means-  
+            ভাষাগতভাবে 'ভেটেরিনারি' মানে কি?
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            A) Animal (প্রাণী)
+          </div>
+      
+          <div class="option">
+            B) Cattle (গবাদি পশু)
+          </div>
+      
+          <div class="option">
+            C) Beast (প্রাণী)
+          </div>
+      
+          <div class="option">
+            D) Livestock (পশু)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">1</div>
+      
+        <div class="explanation">
+          Answer: B) Cattle  
+          Explanation: Etymologically, 'veterinary' comes from the Latin word 'veterinarius', meaning 'relating to beasts of burden' or 'cattle'.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+      
+          <div class="question">
+            A lexicographer writes-  
+            একজন লেক্সিকোগ্রাফার কি লেখে?
+          </div>
+      
+        </div>
+      
+        <div class="options">
+      
+          <div class="option">
+            A) Stories (কাহিনী)
+          </div>
+      
+          <div class="option">
+            B) Novels (উপন্যাস)
+          </div>
+      
+          <div class="option">
+            C) Letters (চিঠি)
+          </div>
+      
+          <div class="option">
+            D) Dictionaries (অভিধান)
+          </div>
+      
+        </div>
+      
+        <div class="correct-option-index">3</div>
+      
+        <div class="explanation">
+          Answer: D) Dictionaries  
+          Explanation: A 'lexicographer' is a person who compiles dictionaries.
+        </div>
+      
+      </div>
+      
+     
+      <div class="question-data">
+
+        <div class="text">
+          <div class="question">
+            No sooner had he left _ I came.
+          </div>
+        </div>
+      
+        <div class="options">
+          <div class="option">
+            When
+          </div>
+          <div class="option">
+            Than
+          </div>
+          <div class="option">
+            Then
+          </div>
+          <div class="option">
+            That
+          </div>
+        </div>
+      
+        <div class="correct-option-index">1</div>
+      
+        <div class="explanation">
+          Answer: Than  
+          Explanation: The correlative conjunction 'no sooner...than' is used to indicate that one action happened immediately after another.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+          <div class="question">
+            They _ their reports yet.
+          </div>
+        </div>
+      
+        <div class="options">
+          <div class="option">
+            Haven't write
+          </div>
+          <div class="option">
+            Hasn't written
+          </div>
+          <div class="option">
+            Haven't written
+          </div>
+          <div class="option">
+            Hadn't written
+          </div>
+        </div>
+      
+        <div class="correct-option-index">2</div>
+      
+        <div class="explanation">
+          Answer: Haven't written  
+          Explanation: 'Yet' indicates that the action has not been completed up to the present. The present perfect tense ('haven't written') is used with 'they' (plural).
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+          <div class="question">
+            The rain started after we _ for about an hour.
+          </div>
+        </div>
+      
+        <div class="options">
+          <div class="option">
+            Played
+          </div>
+          <div class="option">
+            Had played
+          </div>
+          <div class="option">
+            Were playing
+          </div>
+          <div class="option">
+            Had been playing
+          </div>
+        </div>
+      
+        <div class="correct-option-index">3</div>
+      
+        <div class="explanation">
+          Answer: Had been playing  
+          Explanation: The action 'The rain started' is in the simple past. The action of playing occurred for a duration before the rain started, so the past perfect continuous tense ('had been playing') is appropriate.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+          <div class="question">
+            The building _ left unoccupied since 1950.
+          </div>
+        </div>
+      
+        <div class="options">
+          <div class="option">
+            Is
+          </div>
+          <div class="option">
+            Was
+          </div>
+          <div class="option">
+            Has been
+          </div>
+          <div class="option">
+            Had been
+          </div>
+        </div>
+      
+        <div class="correct-option-index">2</div>
+      
+        <div class="explanation">
+          Answer: Has been  
+          Explanation: 'Since 1950' indicates a period starting in the past and continuing to the present. The present perfect passive tense ('has been left') is used to describe a state that began in the past and continues now.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+          <div class="question">
+            It is two years _ I had a holiday.
+          </div>
+        </div>
+      
+        <div class="options">
+          <div class="option">
+            When
+          </div>
+          <div class="option">
+            That
+          </div>
+          <div class="option">
+            Since
+          </div>
+          <div class="option">
+            Ago
+          </div>
+        </div>
+      
+        <div class="correct-option-index">2</div>
+      
+        <div class="explanation">
+          Answer: Since  
+          Explanation: The structure 'It is + time period + since + past simple' is used to indicate how long ago something happened.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+          <div class="question">
+            By 9 O'clock we _ our homework.
+          </div>
+        </div>
+      
+        <div class="options">
+          <div class="option">
+            Finished
+          </div>
+          <div class="option">
+            Have finished
+          </div>
+          <div class="option">
+            Will finish
+          </div>
+          <div class="option">
+            Will have finished
+          </div>
+        </div>
+      
+        <div class="correct-option-index">3</div>
+      
+        <div class="explanation">
+          Answer: Will have finished  
+          Explanation: 'By 9 O'clock' refers to a specific time in the future. The future perfect tense ('will have finished') is used to describe an action that will be completed before that time.
+        </div>
+      
+      </div>
+      
+      <div class="question-data">
+      
+        <div class="text">
+          <div class="question">
+            The thief said he was ashamed of what he _.
+          </div>
+        </div>
+      
+        <div class="options">
+          <div class="option">
+            Has done
+          </div>
+          <div class="option">
+            Had done
+          </div>
+          <div class="option">
+            Did
+          </div>
+          <div class="option">
+            Does
+          </div>
+        </div>
+      
+        <div class="correct-option-index">1</div>
+      
+        <div class="explanation">
+          Answer: Had done  
+          Explanation: The main verb 'said' is in the past tense. In reported speech, the verb tense in the subordinate clause usually shifts back. 'Was ashamed' is past tense, so 'has done' (present perfect) becomes 'had done' (past perfect).
+        </div>
+      
+      </div>
+      
+      
+      
+      
+      
+
+
+
+
+        
+            
+            
+        </div>
+
+    
+    </div>
+
+
+    <script src="offline_exam.js"></script>
+</body>
+</html>
