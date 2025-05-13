@@ -1,8 +1,7 @@
 // Hardcoded user credentials for testing
 const users = [
     { username: 'TS', password: 'TS', email: 'Admin@example.com', name: 'TS' },
-    { username: 'srithi', password: 'roy1234', email: 'shuvoroy172006@gmail.com', name: 'Srithi Rani Roy Tithi' },
-  { username: 'sanjida', password: 'sanjida1234', email: 'sanjidanaharrimjimbrishty@gmail.com', name: 'Sanjida Nahar Rimjim' },
+  
 
   ];
   
