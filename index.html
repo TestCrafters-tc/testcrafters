@@ -1,136 +1,618 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="google-site-verification" content="HNnYaEHCCvuLSiW9TJBVEigSP6VR32NTgk2YTS8yig4" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TestCrafters</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <title>TestCrafters - Your Ultimate Exam Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Using the Poppins font already defined */
-    body {
-        font-family: 'Poppins', sans-serif;
+    :root {
+      --primary-color: #0e86d4;
+      --secondary-color: #00439c;
+      --accent-color: #ff5722;
+      --dark-bg: #121212;
+      --card-bg: rgba(20, 20, 20, 0.9);
+      --text-light: #ffffff;
+      --text-muted: #aaaaaa;
+      --success-color: #4CAF50;
     }
 
-    /* Remove underline and keep the 'Browse' text as normal */
-    .browse-btn {
-      background: none;
-      color: inherit;
-      border: none;
+    * {
+      margin: 0;
       padding: 0;
-      font: inherit;
-      text-decoration: none; /* No underline */
-      cursor: pointer;
+      box-sizing: border-box;
     }
 
-    /* Make the 'Browse' button look like the rest of the site's buttons */
-    .browse-btn a {
-      text-decoration: none; /* No underline for the link */
-      color: #fff; /* Ensure the text color is white like other buttons */
-      display: inline-block; /* Ensure it behaves like a button */
-      padding: 15px 30px; /* Apply the same padding as other buttons */
-      font-size: 1.2rem; /* Match the font size of the other buttons */
-      background-color: #0077FF; /* Set the same background color */
-      border-radius: 50px; /* Rounded corners for the button */
-      transition: transform 0.3s ease, background-color 0.3s ease; /* Match the transition */
-    }
-
-    .browse-btn a:hover {
-      background-color: #0056b3; /* Set the same hover background color */
-      transform: scale(1.05); /* Apply the same hover effect */
-    }
-
-    /* Styling for the course price */
-    .course-price {
-        font-size: 1.6rem;  /* Larger font size for price */
-        font-weight: 600;   /* Bold weight to make the price prominent */
-        color: #f3b9b9;       /* Dark color for readability */
-        margin-top: 15px;   /* Adds space between image and price */
-        letter-spacing: 0.5px; /* Slight letter spacing for better readability */
-    }
-
-    /* Styling for the course item image */
-    .category-image {
-        width: 100%; /* Make the image responsive */
-        max-width: 300px; /* Optional: limit the size */
-        display: block;
-        margin: 0 auto; /* Center the image */
-    }
-
-    .category-item {
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
-    .category-item h3 {
-        font-size: 1.2rem;
-        font-weight: 500;
-        margin: 10px 0;
-    }
-
-    .category-item button {
-        margin-top: 10px;
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
     /* Header Styles */
+    .header {
+      background-color: rgba(18, 18, 18, 0.9);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--primary-color), #26c6da);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
     .nav-list {
-        display: flex;
-        justify-content: flex-end;
-        list-style-type: none;
-        padding: 0;
+      display: flex;
+      list-style-type: none;
     }
 
     .nav-list li {
-        margin: 0 10px;
+      margin: 0 1rem;
     }
 
-    /* Hide the logout button by default */
-    .logout-btn {
-        display: none;
+    .nav-list a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+      position: relative;
     }
 
-    /* Show the login button by default */
-    .login-btn {
-        display: inline-block;
+    .nav-list a:hover {
+      color: var(--primary-color);
     }
 
-    /* Styles for the mobile menu */
+    .nav-list a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+
+    .nav-list a:hover::after {
+      width: 100%;
+    }
+
+    .cta-btn {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(14, 134, 212, 0.3);
+    }
+
     .three-dot {
-        display: none;
-        font-size: 30px;
-        background: none;
-        border: none;
-        cursor: pointer;
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
     }
 
-    .nav-list.show {
-        display: block;
-        width: 100%;
-        text-align: center;
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
     }
 
-    .nav-list li {
-        padding: 10px 0;
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--primary-color), #26c6da);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
-    /* Media Query for Mobile */
+    .hero h2 {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      color: var(--text-muted);
+    }
+
+    .hero .cta-btn {
+      margin: 0.5rem;
+      font-size: 1.1rem;
+      padding: 1rem 2rem;
+    }
+
+    /* Main Content Styles (from original code) */
+    .animation-container {
+      margin: 30px 0;
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      background: linear-gradient(45deg, var(--primary-color), #26c6da);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Counter Animation */
+    .counter-container {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .counter-item {
+      text-align: center;
+      position: relative;
+      margin: 1rem;
+      min-width: 150px;
+    }
+
+    .counter {
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .counter-label {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* Feature Card Animation */
+    .features-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .feature-card {
+      background-color: rgba(14, 134, 212, 0.1);
+      border: 1px solid rgba(14, 134, 212, 0.3);
+      border-radius: 12px;
+      padding: 30px 20px;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Banner Animation */
+    .banner {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      border-radius: 12px;
+      padding: 3rem;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      margin: 2rem 0;
+    }
+
+    .banner-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .banner h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .banner p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .banner .cta-button {
+      background-color: white;
+      color: var(--primary-color);
+      border: none;
+      border-radius: 50px;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .banner .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .banner-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+    }
+
+    /* Course Cards Animation */
+    .courses-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .course-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  width: 100%; /* or set a max-width if needed */
+}
+
+    .course-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(14, 134, 212, 0.3);
+    }
+
+   .course-image-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* Keep tag inside image bounds */
+  /* ❌ Remove fixed height to allow auto height based on image */
+}
+
+.course-image {
+  width: 100%;
+  background-color: var(--primary-color);
+  background-image: linear-gradient(45deg, var(--primary-color), #26c6da);
+  overflow: hidden;
+  position: relative;
+}
+
+.course-image img {
+  width: 100%;
+  height: auto; /* 🔑 Keeps natural height */
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.course-card:hover .course-image img {
+  transform: scale(1.1);
+}
+
+.course-tag {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  z-index: 1;
+}
+
+    .course-details {
+      padding: 20px;
+    }
+
+    .course-details h3 {
+      margin: 0 0 15px 0;
+      font-size: 1.3rem;
+      color: white;
+    }
+
+    .course-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .info-icon {
+      margin-right: 5px;
+    }
+
+    .course-description {
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .students-enrolled {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .student-icon {
+      margin-right: 10px;
+      font-size: 1.1rem;
+    }
+
+    .enrolled-count {
+      font-size: 0.95rem;
+    }
+
+    .course-price {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+
+    .course-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .view-button {
+      flex: 1;
+      padding: 10px;
+      background-color: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .view-button:hover {
+      background-color: rgba(14, 134, 212, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .buy-button {
+      flex: 1;
+      padding: 10px;
+      background-color: var(--primary-color);
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .buy-button:hover {
+      background-color: #0a6aa9;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(14, 134, 212, 0.4);
+    }
+
+    /* Progress Bar Animation */
+    .progress-container {
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    .progress-item {
+      margin-bottom: 25px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .progress-label {
+      font-size: 1.1rem;
+    }
+
+    .progress-percentage {
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .progress-bar-container {
+      background-color: rgba(255, 255, 255, 0.1);
+      height: 12px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      border-radius: 6px;
+      background: linear-gradient(90deg, var(--primary-color), #26c6da);
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-color);
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Styles */
     @media (max-width: 768px) {
-        .three-dot {
-            display: inline-block; /* Show the 3 dots icon on mobile */
-        }
+      .header {
+        flex-direction: column;
+        padding: 1rem;
+      }
 
-        .nav-list {
-            display: none; /* Hide the nav list by default on mobile */
-            width: 100%;
-            text-align: center;
-            margin-top: 20px;
-        }
+      .logo {
+        margin-bottom: 1rem;
+      }
 
-        .nav-list.show {
-            display: block;
-        }
+      .nav {
+        width: 100%;
+      }
+
+      .nav-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .nav-list.show {
+        display: flex;
+      }
+
+      .nav-list li {
+        margin: 0.5rem 0;
+      }
+
+      .three-dot {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero h2 {
+        font-size: 1.2rem;
+      }
+
+      .counter-item {
+        min-width: 120px;
+      }
+
+      .counter {
+        font-size: 2rem;
+      }
+
+      .counter-label {
+        font-size: 1rem;
+      }
+
+      .feature-card {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .banner {
+        padding: 2rem 1rem;
+      }
+
+      .banner h3 {
+        font-size: 1.5rem;
+      }
+
+      .banner p {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero .cta-btn {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      .course-buttons {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -143,9 +625,9 @@
     </div>
     <nav class="nav">
       <ul class="nav-list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="profile.html">Profile</a></li>
-        <li><a href="#available-courses">Courses</a></li> <!-- Updated Courses link -->
+        <li><a href="#home">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#courses">Courses</a></li>
         <li><a href="contacts.html">Contact</a></li>
       </ul>
       <!-- Three Dot Icon (Only for Mobile) -->
@@ -153,79 +635,477 @@
     </nav>
 
     <!-- Login and Logout buttons -->
-    <button class="cta-btn login-btn"><a href="login.html">Login</a></button>
+    <button class="cta-btn login-btn" onclick="window.location.href='login.html'">Login</button>
     <button class="cta-btn logout-btn">Logout</button> <!-- Initially hidden -->
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section id="home" class="hero">
     <h1>Your Ultimate Exam Platform</h1>
-    <h2><i> 500+ Exams Taken, 1250+ students </i></h2>
-    <button class="cta-btn"><a href="https://www.facebook.com/testcrafters/">Facebook Page</a></button>
-    <button class="cta-btn"><a href="https://t.me/testcrafters">Telegram Channel</a></button>
+    <h2><i> 800+ Exams Taken, 5600+ students </i></h2>
+    <button class="cta-btn" onclick="window.location.href='https://www.facebook.com/testcrafters/'">Facebook Page</button>
+    <button class="cta-btn" onclick="window.location.href='https://t.me/testcrafters'">Telegram Channel</button>
   </section>
 
-  <!-- Explore Categories Section -->
-  <section id="available-courses" class="explore-categories"> <!-- Added ID here -->
-    <h2>Available Courses</h2>
-    <div class="categories">
-      <div class="category-item">
-        <h3>Agri+RU+GST Exam Batch</h3>
-        <!-- Image -->
-        <img src="Agri GST Cover.jpg" alt="Agri+RU+GST Exam Batch" class="category-image">
-        <!-- Price (Bold and Large) -->
-        <p class="course-price">Price: Tk. 99</p>
-        <button class="browse-btn"><a href="profile.html">View Course</a></button>
+  <main>
+    <!-- Why Choose Us Section -->
+    <div class="animation-container">
+      <h2>Why Students Choose TestCrafters</h2>
+      <div class="counter-container">
+        <div class="counter-item">
+          <div class="counter" id="exam-counter">0</div>
+          <div class="counter-label">Exams Taken</div>
+        </div>
+        <div class="counter-item">
+          <div class="counter" id="student-counter">0</div>
+          <div class="counter-label">Students</div>
+        </div>
+        <div class="counter-item">
+          <div class="counter" id="course-counter">0</div>
+          <div class="counter-label">Courses</div>
+        </div>
       </div>
     </div>
-  </section>
+
+    <!-- Features Section -->
+    <div id="features" class="animation-container">
+      <h2>Features That Make Us Different</h2>
+      <div class="features-container">
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Mobile Friendly</h3>
+          <p>Take exams on any device, anywhere, anytime</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⏱️</div>
+          <h3>Real-time Results</h3>
+          <p>Get instant feedback on your performance</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Targeted Practice</h3>
+          <p>Focus on areas that need improvement</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>Regular Updates</h3>
+          <p>Always reflecting the latest exam patterns</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Journey Section -->
+    <div class="animation-container">
+      <h2>Success Journey with TestCrafters</h2>
+      <div class="progress-container">
+        <div class="progress-item">
+          <div class="progress-info">
+            <span class="progress-label">Student Performance</span>
+            <span class="progress-percentage">0%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" data-target="95"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-info">
+            <span class="progress-label">Targeted Practice</span>
+            <span class="progress-percentage">0%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" data-target="75"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-info">
+            <span class="progress-label">Student Satisfaction</span>
+            <span class="progress-percentage">0%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" data-target="92"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-info">
+            <span class="progress-label">Final Preparation</span>
+            <span class="progress-percentage">0%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" data-target="98"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Courses Section -->
+    <div id="courses" class="animation-container">
+      <h2>Available Courses</h2>
+      <div class="courses-container">
+        <div class="course-card">
+          <div class="course-image-container">
+            <div class="course-image"> <img src="/courses/vita2.jpg" alt="Vita 2.0 Course"></div>
+            <div class="course-tag">Popular</div>
+          </div>
+          <div class="course-details">
+            <h3>Vita 2.0 - Medical Exam Batch</h3>
+            <div class="course-info">
+              <span><i class="info-icon">📚</i> MAT, DAT, AFMC</span>
+             <!-- <span><i class="info-icon">⏱️</i> 24 Hours</span> -->
+            </div>
+            <div class="course-description">
+                HSC 25 Batch + 2nd Timer <br>
+                তোমরা আমাদের ব্যাচে MAT, DAT, AFMC ভর্তি পরীক্ষার ধরনে প্রস্তুতকৃত মডেল টেস্ট দিতে পারবে।
+            </div>
+            <div class="students-enrolled">
+              <span class="student-icon">👨‍🎓</span>
+              <span class="enrolled-count">60 Students Enrolled</span>
+            </div>
+            <div class="course-price">৳799.99</div>
+            <div class="course-buttons">
+              <button class="view-button" onclick="window.location.href='/courses/vita2.html'">View Details</button>
+              <button class="buy-button" onclick="window.location.href='/courses/vita2payment.html'">Buy Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-image-container">
+           <div class="course-image"> <img src="/courses/anchor2.jpg" alt="Anchor 2.0 Course"></div>
+            <div class="course-tag">New</div>
+          </div>
+          <div class="course-details">
+            <h3>Anchor 2.0 - Varsity Admission Test</h3>
+            <div class="course-info">
+              <span><i class="info-icon">📚</i> DU, JU, RU, CU, KU, CoU, GST, Agri GST, SUST & JnU</span>
+             <!-- <span><i class="info-icon">⏱️</i> 30 Hours</span> -->
+            </div>
+            <div class="course-description">
+               HSC 25 Batch + 2nd Timer <br>
+               আমাদের ব্যাচে DU, JU, RU, CU, KU, CoU, GST, Agri GST, SUST ও JnU সহ দেশের শীর্ষ বিশ্ববিদ্যালয়গুলোর ভর্তি পরীক্ষার ধরনে প্রস্তুতকৃত মডেল টেস্ট দিতে পারবে।
+            </div>
+            <div class="students-enrolled">
+              <span class="student-icon">👨‍🎓</span>
+              <span class="enrolled-count">50 Students Enrolled</span>
+            </div>
+            <div class="course-price">৳999.99</div>
+            <div class="course-buttons">
+              <button class="view-button" onclick="window.location.href='/courses/anchor2.html'">View Details</button>
+              <button class="buy-button" onclick="window.location.href='/courses/anchor2payment.html'">Buy Now</button>
+            </div>
+          </div>
+        </div>
+
+       <!-- <div class="course-card">
+          <div class="course-image-container">
+            <div class="course-image"></div>
+            <div class="course-tag">Best Seller</div>
+          </div>
+          <div class="course-details">
+            <h3>Network Security Essentials</h3>
+            <div class="course-info">
+              <span><i class="info-icon">📚</i> 8 Modules</span>
+              <span><i class="info-icon">⏱️</i> 20 Hours</span>
+            </div>
+            <div class="course-description">
+              Learn how to secure networks, prevent attacks, and protect data.
+            </div>
+            <div class="students-enrolled">
+              <span class="student-icon">👨‍🎓</span>
+              <span class="enrolled-count">3,210 Students Enrolled</span>
+            </div>
+            <div class="course-price">$119.99</div>
+            <div class="course-buttons">
+              <button class="view-button">View Course</button>
+              <button class="buy-button">Buy Course</button>
+            </div>
+          </div>
+        </div> 
+
+        <div class="course-card">
+          <div class="course-image-container">
+            <div class="course-image"></div>
+          </div>
+          <div class="course-details">
+            <h3>Mobile App Development</h3>
+            <div class="course-info">
+              <span><i class="info-icon">📚</i> 15 Modules</span>
+              <span><i class="info-icon">⏱️</i> 36 Hours</span>
+            </div>
+            <div class="course-description">
+              Build iOS and Android apps with React Native and Flutter frameworks.
+            </div>
+            <div class="students-enrolled">
+              <span class="student-icon">👨‍🎓</span>
+              <span class="enrolled-count">1,790 Students Enrolled</span>
+            </div>
+            <div class="course-price">$99.99</div>
+            <div class="course-buttons">
+              <button class="view-button">View Course</button>
+              <button class="buy-button">Buy Course</button>
+            </div>
+          </div>
+        </div> -->
+
+        
+
+        
+      </div>
+    </div>
+
+    <!-- CTA Banner -->
+    <div class="animation-container">
+      <div class="banner" id="cta-banner">
+        <div class="banner-content">
+          <h3>Ready to Ace Your Next Exam?</h3>
+          <p>Join 1250+ successful students today and transform your exam experience</p>
+          <button class="cta-button" onclick="window.location.href='profile.html'">Get Started Now</button>
+        </div>
+      </div>
+    </div>
+  </main>
 
   <!-- Footer Section -->
-  <footer>
+  <footer id="contact">
     <div class="footer-links">
       <a href="#">Terms</a>
       <a href="#">Privacy</a>
       <a href="#">Contact</a>
+      <a href="#">About Us</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div class="social-links" style="margin: 1.5rem 0;">
+      <a href="https://www.facebook.com/testcrafters/" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+      <a href="https://t.me/testcrafters" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-telegram"></i></a>
+      <a href="#" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
+      <a href="#" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
     </div>
     <p>&copy; 2025 TestCrafters. All Rights Reserved.</p>
   </footer>
 
-  <!-- JavaScript for Login/Logout Button Toggle -->
+  <!-- JavaScript -->
   <script>
+    // Counter Animation
+    function animateCounter(id, target, duration = 2000, symbol = '') {
+      const obj = document.getElementById(id);
+      let start = 0;
+      const step = timestamp => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const value = Math.floor(progress * target);
+        obj.innerHTML = value + symbol;
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          obj.innerHTML = target + symbol;
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    // Feature Cards Animation
+    function animateFeatureCards() {
+      const cards = document.querySelectorAll('.feature-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 300 * index);
+      });
+    }
+
+    // Progress Bar Animation
+    function animateProgressBars() {
+      const bars = document.querySelectorAll('.progress-bar');
+      bars.forEach(bar => {
+        const target = bar.getAttribute('data-target');
+        const percentageDisplay = bar.parentElement.previousElementSibling.querySelector('.progress-percentage');
+        
+        let width = 0;
+        const interval = setInterval(() => {
+          if (width >= target) {
+            clearInterval(interval);
+          } else {
+            width++;
+            bar.style.width = width + '%';
+            percentageDisplay.textContent = width + '%';
+          }
+        }, 15);
+      });
+    }
+
+    // Banner Particles Animation
+    function createBannerParticles() {
+      const banner = document.getElementById('cta-banner');
+      const bannerWidth = banner.offsetWidth;
+      const bannerHeight = banner.offsetHeight;
+      
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('banner-particle');
+        
+        // Random position
+        const x = Math.random() * bannerWidth;
+        const y = Math.random() * bannerHeight;
+        
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        
+        // Random size
+        const size = Math.random() * 8 + 4;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        // Random opacity
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        
+        // Animation
+        const duration = Math.random() * 10 + 10;
+        particle.style.animation = `float ${duration}s linear infinite`;
+        
+        banner.appendChild(particle);
+      }
+    }
+
+    // Add floating animation for particles
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes float {
+        0% {
+          transform: translateY(0) translateX(0);
+          opacity: 0.1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          transform: translateY(-${Math.random() * 100 + 50}px) translateX(${Math.random() * 50 - 25}px);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Add hover effect to feature cards
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px)';
+        this.style.boxShadow = '0 15px 30px rgba(14, 134, 212, 0.2)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = 'none';
+      });
+    });
+
+    // Animate Course Cards
+    function animateCourseCards() {
+      const courseCards = document.querySelectorAll('.course-card');
+      courseCards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 200 * index);
+      });
+    }
+
+    // Mobile Menu Toggle
+    const threeDotIcon = document.querySelector('.three-dot');
+    const navList = document.querySelector('.nav-list');
+
+    threeDotIcon.addEventListener('click', function() {
+      navList.classList.toggle('show');
+    });
+
+    // Login/Logout Toggle
     const loginBtn = document.querySelector('.login-btn');
     const logoutBtn = document.querySelector('.logout-btn');
 
-    // Check if user is logged in
     window.addEventListener('DOMContentLoaded', function() {
       const currentUserData = sessionStorage.getItem('currentUser');
       
       if (currentUserData) {
-        // If user is logged in, show logout button and hide login button
         loginBtn.style.display = 'none';
         logoutBtn.style.display = 'inline-block';
       } else {
-        // If user is not logged in, show login button and hide logout button
         loginBtn.style.display = 'inline-block';
         logoutBtn.style.display = 'none';
       }
     });
 
-    // Logout functionality
     logoutBtn.addEventListener('click', function() {
-      sessionStorage.removeItem('currentUser'); // Clear user session
-      loginBtn.style.display = 'inline-block'; // Show login button
-      logoutBtn.style.display = 'none'; // Hide logout button
+      sessionStorage.removeItem('currentUser');
+      loginBtn.style.display = 'inline-block';
+      logoutBtn.style.display = 'none';
     });
 
-    // Mobile Menu toggle functionality
-    const threeDotIcon = document.querySelector('.three-dot');
-    const navList = document.querySelector('.nav-list');
+    // Initialize animations on load
+    window.addEventListener('load', function() {
+      // Animate counters when in view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter('exam-counter', 800, 2000, '+');
+            animateCounter('student-counter', 5600, 2500, '+');
+           animateCounter('course-counter', 10, 2000, '+');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      
+      observer.observe(document.querySelector('.counter-container'));
+      
+      // Animate feature cards
+      animateFeatureCards();
+      
+      // Animate progress bars when in view
+      const progressObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateProgressBars();
+            progressObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      
+      progressObserver.observe(document.querySelector('.progress-container'));
+      
+      // Animate course cards when in view
+      const courseObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCourseCards();
+            courseObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      
+      courseObserver.observe(document.querySelector('.courses-container'));
+      
+      // Create banner particles
+      createBannerParticles();
+    });
 
-    // Toggle the visibility of the navigation links on mobile when three dots are clicked
-    threeDotIcon.addEventListener('click', function() {
-      navList.classList.toggle('show');
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          navList.classList.remove('show');
+        }
+      });
     });
   </script>
 </body>
-
 </html>
