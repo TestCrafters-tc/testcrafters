@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Batch | TestCrafters</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0e86d4;
+      --secondary-color: #00439c;
+      --accent-color: #ff5722;
+      --dark-bg: #121212;
+      --card-bg: rgba(20, 20, 20, 0.9);
+      --text-light: #ffffff;
+      --text-muted: #aaaaaa;
+      --success-color: #4CAF50;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: 70px; /* Added to prevent header overlay */
+    }
+
+    /* Header Styles */
+    .header {
+      background-color: rgba(18, 18, 18, 0.9);
+      padding: 0.5rem 1rem; /* Reduced padding */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      height: 70px; /* Fixed height */
+    }
+
+    .logo h1 {
+      font-size: 1.5rem; /* Reduced font size */
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--primary-color), #26c6da);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-list {
+      display: flex;
+      list-style-type: none;
+    }
+
+    .nav-list li {
+      margin: 0 1rem;
+    }
+
+    .nav-list a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem; /* Reduced font size */
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-list a:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-list a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+
+    .nav-list a:hover::after {
+      width: 100%;
+    }
+
+    .cta-btn {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem; /* Reduced padding */
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem; /* Reduced font size */
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(14, 134, 212, 0.3);
+    }
+
+    .three-dot {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      margin-left: 1rem; /* Added margin */
+    }
+
+    /* Header right section */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Exam Hero Section */
+    .exam-hero {
+      padding: 4rem 2rem 4rem; /* Reduced top padding */
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+    }
+
+    /* Rest of your existing CSS remains the same */
+    .exam-hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .exam-hero-left {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .exam-hero-right {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .exam-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--primary-color), #26c6da);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .exam-hero h2 {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      color: var(--text-muted);
+    }
+
+    .exam-hero-image {
+      width: 100%;
+      height: 300px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .exam-hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .exam-hero-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .exam-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .exam-meta-item {
+      display: flex;
+      align-items: center;
+      background-color: rgba(14, 134, 212, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      border: 1px solid rgba(14, 134, 212, 0.3);
+    }
+
+    .exam-meta-icon {
+      margin-right: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .exam-price {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin: 1.5rem 0;
+    }
+
+    .exam-price .original-price {
+      font-size: 1.2rem;
+      text-decoration: line-through;
+      color: var(--text-muted);
+      margin-right: 0.5rem;
+    }
+
+    .exam-price .discount-badge {
+      font-size: 0.9rem;
+      background-color: var(--accent-color);
+      color: white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+    }
+
+    .exam-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .enroll-btn {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+    }
+
+    .enroll-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(14, 134, 212, 0.3);
+    }
+
+    .demo-btn {
+      background-color: transparent;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+    }
+
+    .demo-btn:hover {
+      background-color: rgba(14, 134, 212, 0.1);
+    }
+
+    /* Exam Features */
+    .exam-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .exam-feature-card {
+      background-color: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .exam-feature-icon {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .exam-feature-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .exam-feature-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Exam Content Section */
+    .exam-content {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+
+    .exam-section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      background: linear-gradient(45deg, var(--primary-color), #26c6da);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .exam-section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), #26c6da);
+    }
+
+    .exam-description {
+      margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+
+    /* Exam Structure */
+    .exam-structure {
+      background-color: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+    }
+
+    .exam-section {
+      margin-bottom: 2rem;
+    }
+
+    .exam-section-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .exam-section-icon {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-right: 1rem;
+    }
+
+    .exam-section-name {
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .exam-section-details {
+      padding-left: 2.5rem;
+    }
+
+    .exam-topic {
+      margin-bottom: 1rem;
+    }
+
+    .exam-topic-name {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .exam-topic-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Schedule Section */
+    .exam-schedule {
+      background-color: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+    }
+
+    .schedule-item {
+      display: flex;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .schedule-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .schedule-date {
+      min-width: 120px;
+      margin-right: 1.5rem;
+    }
+
+    .schedule-day {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .schedule-time {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .schedule-content {
+      flex: 1;
+    }
+
+    .schedule-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .schedule-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Instructor Section */
+    .exam-instructor {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      background-color: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+    }
+
+    .instructor-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .instructor-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .instructor-info {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .instructor-name {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .instructor-title {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .instructor-bio {
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .instructor-stats {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .instructor-stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .instructor-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .instructor-social a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .instructor-social a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Testimonials Section */
+    .exam-testimonials {
+      background-color: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+    }
+
+    .testimonial-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .testimonial-item:last-child {
+      border-bottom: none;
+    }
+
+    .testimonial-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-user {
+      display: flex;
+      align-items: center;
+    }
+
+    .testimonial-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 1rem;
+    }
+
+    .testimonial-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testimonial-name {
+      font-weight: 600;
+    }
+
+    .testimonial-result {
+      color: var(--success-color);
+      font-weight: 600;
+    }
+
+    .testimonial-content {
+      line-height: 1.7;
+    }
+
+    /* FAQ Section */
+    .exam-faq {
+      background-color: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background-color: rgba(14, 134, 212, 0.1);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background-color: rgba(14, 134, 212, 0.2);
+    }
+
+    .faq-answer {
+      padding: 1rem;
+      display: none;
+    }
+
+    .faq-answer.show {
+      display: block;
+    }
+
+    /* Related Exams */
+    .related-exams {
+      margin-bottom: 4rem;
+    }
+
+    .related-exams-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+   .exam-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.exam-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(14, 134, 212, 0.3);
+}
+
+.exam-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: var(--primary-color);
+  overflow: hidden;
+}
+
+/* New wrapper inside container */
+.exam-image-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s ease;
+}
+
+.exam-card:hover .exam-image-wrapper {
+  transform: scale(1.05); /* Safe zoom */
+}
+
+.exam-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+    .exam-tag {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background-color: var(--accent-color);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      z-index: 1;
+    }
+
+    .exam-details {
+      padding: 20px;
+    }
+
+    .exam-details h3 {
+      margin: 0 0 15px 0;
+      font-size: 1.3rem;
+      color: white;
+    }
+
+    .exam-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .info-icon {
+      margin-right: 5px;
+    }
+
+    .exam-description {
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .students-enrolled {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .student-icon {
+      margin-right: 10px;
+      font-size: 1.1rem;
+    }
+
+    .enrolled-count {
+      font-size: 0.95rem;
+    }
+
+    .exam-price {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+
+    .exam-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .view-button {
+      flex: 1;
+      padding: 10px;
+      background-color: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .view-button:hover {
+      background-color: rgba(14, 134, 212, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .buy-button {
+      flex: 1;
+      padding: 10px;
+      background-color: var(--primary-color);
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .buy-button:hover {
+      background-color: #0a6aa9;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(14, 134, 212, 0.4);
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-color);
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      body {
+        padding-top: 60px; /* Adjusted for mobile */
+      }
+
+      .header {
+        height: 60px; /* Reduced height for mobile */
+        padding: 0.5rem;
+      }
+
+      .logo h1 {
+        font-size: 1.3rem;
+      }
+
+      .nav {
+        width: auto;
+      }
+
+      .nav-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: rgba(18, 18, 18, 0.95);
+        padding: 1rem;
+      }
+
+      .nav-list.show {
+        display: flex;
+      }
+
+      .nav-list li {
+        margin: 0.5rem 0;
+      }
+
+      .three-dot {
+        display: block;
+        position: static; /* Changed from absolute */
+        margin-left: 1rem;
+      }
+
+      .exam-hero {
+        padding-top: 2rem; /* Reduced padding */
+      }
+
+      .exam-hero h1 {
+        font-size: 2rem;
+      }
+
+      .exam-hero h2 {
+        font-size: 1.2rem;
+      }
+
+      .exam-actions {
+        flex-direction: column;
+      }
+
+      .enroll-btn, .demo-btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .exam-section-title {
+        font-size: 1.8rem;
+      }
+
+      .instructor-image {
+        margin: 0 auto;
+      }
+
+      .instructor-info {
+        text-align: center;
+      }
+
+      .instructor-stats {
+        justify-content: center;
+      }
+
+      .instructor-social {
+        justify-content: center;
+      }
+
+      .schedule-item {
+        flex-direction: column;
+      }
+
+      .schedule-date {
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .exam-hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .exam-section-title {
+        font-size: 1.5rem;
+      }
+
+      .exam-features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="logo">
+      <h1>TestCrafters</h1>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li><a href="/index.html">Home</a></li>
+         <li><a href="/profile.html">Profile</a></li>
+        <li><a href="/index.html">Courses</a></li>
+        <li><a href="/contacts.html">Contact</a></li>
+      </ul>
+    </nav>
+    
+    <div class="header-right">
+      <!-- Login and Logout buttons -->
+      <button class="cta-btn login-btn" onclick="window.location.href='/login.html'">Login</button>
+      <button class="cta-btn logout-btn">Logout</button> <!-- Initially hidden -->
+      <!-- Three Dot Icon (Only for Mobile) -->
+      <button class="three-dot">&#8942;</button>
+    </div>
+  </header>
+
+  <!-- Exam Hero Section -->
+  <section class="exam-hero">
+    <div class="exam-hero-content">
+      <div class="exam-hero-left">
+        <h1>Anchor 2.0 - Varsity Exam Batch</h1>
+        <h2>All in One Exam Batch</h2>
+        
+     <div class="exam-meta">
+           <!--  <div class="exam-meta-item">
+            <span class="exam-meta-icon"><i class="fas fa-star"></i></span>
+            <span>4.9 (980 reviews)</span>
+          </div> -->
+          <div class="exam-meta-item">
+            <span class="exam-meta-icon"><i class="fas fa-users"></i></span>
+            <span>50 Students Joined</span>
+          </div> 
+          <div class="exam-meta-item">
+            <span class="exam-meta-icon"><i class="fas fa-calendar-alt"></i></span>
+            <span>6 Months</span>
+          </div>
+        <!--  <div class="exam-meta-item">
+            <span class="exam-meta-icon"><i class="fas fa-chart-line"></i></span>
+            <span>95% Success Rate</span>
+          </div> -->
+        </div>
+        
+        <div class="exam-price">
+          <span class="original-price">৳ 1599.99</span>
+          ৳ 999.99
+          <span class="discount-badge">38% OFF</span>
+        </div>
+        
+        <div class="exam-actions">
+  <button class="enroll-btn" onclick="window.location.href='/courses/anchor2payment.html'">Buy Now</button>
+  <!-- <button class="demo-btn"><i class="fas fa-play"></i> Free Demo Class</button> -->
+</div>
+      </div>
+      
+      <div class="exam-hero-right">
+        <div class="exam-hero-image">
+          <img src="anchor2.jpg" alt="Exam Preparation">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Exam Content Section -->
+  <div class="exam-content">
+    <!-- Key Features -->
+    <section>
+      <h2 class="exam-section-title">Why Choose This Exam Batch</h2>
+      <div class="exam-features">
+        <div class="exam-feature-card">
+          <div class="exam-feature-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+          <h3 class="exam-feature-title">100+ Varsity Standard Model Tests</h3>
+          <p class="exam-feature-desc">তোমরা আমাদের ব্যাচে DU, JU, RU, CU, KU, CoU, GST, Agri GST, SUST ও JnU সহ দেশের শীর্ষ বিশ্ববিদ্যালয়গুলোর ভর্তি পরীক্ষার ধরনে প্রস্তুতকৃত মডেল টেস্ট দিতে পারবে।</p>
+        </div>
+        <div class="exam-feature-card">
+          <div class="exam-feature-icon"><i class="fas fa-book"></i></div>
+          <h3 class="exam-feature-title">Study Material</h3>
+          <p class="exam-feature-desc">Varsity Last Shot Suggestion book</p>
+        </div>
+        <div class="exam-feature-card">
+          <div class="exam-feature-icon"><i class="fas fa-laptop"></i></div>
+          <h3 class="exam-feature-title">Live & Recorded Exams</h3>
+          <p class="exam-feature-desc">লাইভ এক্সাম শেষে একটি এক্সাম বার বার দেওয়ার সুযোগ থাকছে।</p>
+        </div>
+        <div class="exam-feature-card">
+          <div class="exam-feature-icon"><i class="fas fa-chart-pie"></i></div>
+          <h3 class="exam-feature-title">Performance Analytics</h3>
+          <p class="exam-feature-desc">প্রতি এক্সাম শেষে বিষয়ভিত্তিক ফলাফল জানতে পারবে, যা তোমার প্রস্তুতি যাচাইয়ে সাহায্য করবে।</p>
+        </div>
+        <div class="exam-feature-card">
+          <div class="exam-feature-icon"><i class="fas fa-question-circle"></i></div>
+          <h3 class="exam-feature-title">Private Group</h3>
+          <p class="exam-feature-desc">টেলিগ্রাম ও ফেসবুক প্রাইভেট গ্রুপ থাকবে, সেখানে মেন্টররা তোমাদের প্রতিনিয়ত গাইড করবেন।
+</p>
+        </div>
+        <div class="exam-feature-card">
+          <div class="exam-feature-icon"><i class="fas fa-trophy"></i></div>
+          <h3 class="exam-feature-title">Live Leaderboard</h3>
+          <p class="exam-feature-desc">প্রত্যেক এক্সাম শেষে মেধা তালিকা প্রকাশ করা হয়। সারা দেশের সেরা শিক্ষার্থীদের মধ্যে তোমার অবস্থান সম্পর্কে জানতে পারবে।</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exam Description -->
+    <section class="exam-description-section">
+      <h2 class="exam-section-title">About This Exam Batch</h2>
+      <div class="exam-description">
+        <p>তোমরা যারা ভার্সিটি ভর্তি পরীক্ষার আগে নিজের প্রস্তুতিকে পরিপূর্ণ করতে চাও, খুঁটিনাটি ভুল শুধরে সঠিক কৌশল রপ্ত করতে চাও, এবং পরীক্ষার ভয় কাটিয়ে তুলতে চাও—তোমাদের জন্যই "এক্সাম ব্যাচ" মডেল টেস্ট কার্যক্রম।
+এই কোর্সে থাকবে ভার্সিটি ভর্তি পরীক্ষার মতো প্রশ্নপত্র, যা তোমাদের সময় ব্যবস্থাপনা ও প্রশ্ন নির্বাচন দক্ষতা বাড়াবে। পূর্ণাঙ্গ মডেল টেস্ট এবং সাপোর্টিভ ফিচারের মাধ্যমে তোমরা প্রস্তুতির ঘাটতি পূরণ করে আত্মবিশ্বাসের সঙ্গে পরীক্ষা দিতে প্রস্তুত হবে।</p>
+        
+        </div>
+    </section>
+    
+
+    
+    <!-- Exam Structure -->
+   <!-- <section class="exam-structure">
+      <h2 class="exam-section-title">Exam Structure & Syllabus</h2>
+      
+      <div class="exam-section">
+        <div class="exam-section-header">
+          <div class="exam-section-icon"><i class="fas fa-calculator"></i></div>
+          <div class="exam-section-name">Quantitative Aptitude</div>
+        </div>
+        <div class="exam-section-details">
+          <div class="exam-topic">
+            <h3 class="exam-topic-name">Number Systems</h3>
+            <p class="exam-topic-desc">Divisibility, Remainders, LCM & HCF, Decimals & Fractions, Surds & Indices</p>
+          </div>
+          <div class="exam-topic">
+            <h3 class="exam-topic-name">Algebra</h3>
+            <p class="exam-topic-desc">Linear Equations, Quadratic Equations, Inequalities, Functions, Progressions</p>
+          </div>
+          <div class="exam-topic">
+            <h3 class="exam-topic-name">Arithmetic</h3>
+            <p class="exam-topic-desc">Percentages, Profit & Loss, Ratio & Proportion, Time & Work, Time-Speed-Distance</p>
+          </div>
+          <div class="exam-topic">
+            <h3 class="exam-topic-name">Geometry & Mensuration</h3>
+            <p class="exam-topic-desc">Lines, Angles, Triangles, Circles, Polygons, Solids, Coordinate Geometry</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="exam-section">
+        <div class="exam-section-header">
+          <div class="exam-section-icon"><i class="fas fa-language"></i></div>
+          <div class="exam-section-name">Verbal Ability</div>
+        </div>
+        <div class="exam-section-details">
+          <div class="exam-topic">
+            <h3 class="exam-topic-name">Reading Comprehension</h3>
+            <p class="exam-topic-desc">Strategies for different passage types, Inference-based questions, Tone & Purpose</p>
+          </div>
+          <div class="exam-topic">
+            <h3 class="exam-topic-name">Grammar & Usage</h3>
+            <p class="exam-topic-desc">Sentence Correction, Error Identification, Phrasal Verbs, Idioms & Phrases</p>
+          </div>
+          <div class="exam-topic">
+            <h3 class="exam-topic-name">Vocabulary</h3>
+            <p class="exam-topic-desc">Word Roots, Contextual Usage, Synonyms & Antonyms, Analogies</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="exam-section">
+        <div class="exam-section-header">
+          <div class="exam-section-icon"><i class="fas fa-brain"></i></div>
+          <div class="exam-section-name">Logical Reasoning</div>
+        </div>
+        <div class="exam-section-details">
+          <div class="exam-topic">
+            <h3 class="exam-topic-name">Analytical Reasoning</h3>
+            <p class="exam-topic-desc">Arrangements, Sequencing, Grouping, Matrix-based puzzles</p>
+          </div>
+          <div class="exam-topic">
+            <h3 class="exam-topic-name">Critical Reasoning</h3>
+            <p class="exam-topic-desc">Assumptions, Inferences, Strengthen/Weaken, Paradox, Flaws</p>
+          </div>
+        </div>
+      </div>
+    </section> -->
+    
+    <!-- Schedule -->
+    <section class="exam-schedule">
+      <h2 class="exam-section-title">Batch Schedule</h2>
+      
+      <div class="schedule-item">
+        <div class="schedule-date">
+          <div class="schedule-day">Online Batch</div>
+          <div class="schedule-time">9:00 PM - 9:00 AM</div>
+        </div>
+       <!-- <div class="schedule-content">
+          <h3 class="schedule-title">Live Concept Classes</h3>
+          <p class="schedule-desc">Interactive sessions covering core concepts with real-time doubt solving</p>
+        </div>
+      </div>
+      
+      <div class="schedule-item">
+        <div class="schedule-date">
+          <div class="schedule-day">Friday</div>
+          <div class="schedule-time">7:00 PM - 9:00 PM</div>
+        </div>
+        <div class="schedule-content">
+          <h3 class="schedule-title">Practice Sessions</h3>
+          <p class="schedule-desc">Guided problem-solving with faculty support and peer discussion</p>
+        </div>
+      </div>
+      
+      <div class="schedule-item">
+        <div class="schedule-date">
+          <div class="schedule-day">Saturday</div>
+          <div class="schedule-time">10:00 AM - 1:00 PM</div>
+        </div>
+        <div class="schedule-content">
+          <h3 class="schedule-title">Full-Length Mock Tests</h3>
+          <p class="schedule-desc">Simulated exam environment with detailed performance analysis</p>
+        </div>
+      </div>
+      
+      <div class="schedule-item">
+        <div class="schedule-date">
+          <div class="schedule-day">Sunday</div>
+          <div class="schedule-time">4:00 PM - 6:00 PM</div>
+        </div>
+        <div class="schedule-content">
+          <h3 class="schedule-title">Doubt Clearing & Strategy</h3>
+          <p class="schedule-desc">Personalized attention and exam strategy development</p>
+        </div>
+      </div> -->
+    </section>
+    
+    
+    <!-- Instructor Section -->
+   <!-- <section class="exam-instructor">
+      <div class="instructor-image">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="Instructor">
+      </div>
+      <div class="instructor-info">
+        <h3 class="instructor-name">Dr. Sarah Williams</h3>
+        <p class="instructor-title">Lead Faculty & Exam Strategist</p>
+        
+        <div class="instructor-stats">
+          <div class="instructor-stat">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="instructor-stat">
+            <div class="stat-number">5000+</div>
+            <div class="stat-label">Students Trained</div>
+          </div>
+          <div class="instructor-stat">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Success Rate</div>
+          </div>
+        </div>
+        
+        <p class="instructor-bio">
+          Dr. Williams is a renowned exam preparation specialist with a PhD in Educational Psychology. She has helped thousands of students achieve top scores through her unique teaching methodology that combines conceptual clarity with strategic problem-solving. Her students consistently rank in the top percentiles of competitive exams.
+        </p>
+        <div class="instructor-social">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fas fa-globe"></i></a>
+        </div>
+      </div>
+    </section> -->
+    
+    <!-- Testimonials -->
+   <!-- <section class="exam-testimonials">
+      <h2 class="exam-section-title">Success Stories</h2>
+      
+      <div class="testimonial-item">
+        <div class="testimonial-header">
+          <div class="testimonial-user">
+            <div class="testimonial-avatar">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Raj K.">
+            </div>
+            <div>
+              <div class="testimonial-name">Raj K.</div>
+              <div class="testimonial-result">Scored 98.5 percentile</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-content">
+          "This batch completely transformed my preparation strategy. The structured approach and regular mock tests helped me identify my weak areas early. Dr. Williams' problem-solving techniques were game-changers. I improved my score by 40 percentile points in just 4 months!"
+        </div>
+      </div>
+      
+      <div class="testimonial-item">
+        <div class="testimonial-header">
+          <div class="testimonial-user">
+            <div class="testimonial-avatar">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya M.">
+            </div>
+            <div>
+              <div class="testimonial-name">Priya M.</div>
+              <div class="testimonial-result">AIR 127</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-content">
+          "The comprehensive study material and faculty support were exceptional. What I appreciated most was the personalized attention - the faculty actually knew where I was struggling and provided targeted guidance. The mock test analysis was incredibly detailed and helped me refine my strategy."
+        </div>
+      </div>
+      
+      <div class="testimonial-item">
+        <div class="testimonial-header">
+          <div class="testimonial-user">
+            <div class="testimonial-avatar">
+              <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Amit S.">
+            </div>
+            <div>
+              <div class="testimonial-name">Amit S.</div>
+              <div class="testimonial-result">Scored 99.2 percentile</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-content">
+          "As a working professional, the flexible schedule and recorded lectures were lifesavers. The weekend mock tests perfectly simulated the actual exam pressure. The faculty's shortcuts and time-saving techniques helped me complete the quant section 15 minutes early!"
+        </div>
+      </div>
+    </section> -->
+    
+    <!-- FAQ -->
+    <section class="exam-faq">
+      <h2 class="exam-section-title">Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <!--<div class="faq-question">
+          <span>What's the duration of this batch and when does it start?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div> 
+        <div class="faq-answer">
+          <p>This is a 6-month intensive program starting on June 15, 2025. The batch includes 4 months of concept building and practice, followed by 2 months of full-length mock tests and revision.</p>
+        </div>
+      </div> -->
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>What if I miss a live exam?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>সব লাইভ এক্সামের রেকর্ড ২৪ ঘণ্টার মধ্যে তোমার প্রোফাইলে যুক্ত করা হয় এবং সেগুলো প্রাক্টিসের জন্য আবার দিতে পারবে। </p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How many model tests are included?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>এই কোর্সে প্রতিটি বিশ্ববিদ্যালয়ের ভর্তি পরীক্ষার জন্য ১০টি পূর্ণাঙ্গ মডেল টেস্ট থাকবে, প্রতিটিতে থাকবে বিস্তারিত সমাধান ও পারফরমেন্স বিশ্লেষণ। </p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Is there any discount available?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>ডিসকাউন্ট চলবে ১০ জুন, ২০২৫ পর্যন্ত।</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>What's the refund policy?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>যেকোনো ব্যাচে তুমি যুক্ত হলে কোর্স ফি অফেরতযোগ্য। এই বিষয়ে কোন অনুরোধ গ্রহণযোগ্য নয়।</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Related Exams -->
+    <section class="related-exams">
+      <h2 class="exam-section-title">You May Also Like</h2>
+      <div class="related-exams-container">
+        <div class="exam-card">
+          <div class="exam-image-container">
+            <div class="exam-image"></div>
+            <div class="exam-tag">New</div>
+          </div>
+          <div class="exam-details">
+            <h3>Vita 2.0 - Medical Exam Batch</h3>
+            <div class="exam-info">
+              <span><i class="info-icon">📚</i> Medical, Dental, AFMC</span>
+            <!-- <span><i class="info-icon">⏱️</i> 12 Weeks</span> -->
+            </div>
+            <div class="exam-description">
+              Fast-track preparation for last-minute revision and practice
+            </div>
+            <div class="students-enrolled">
+              <span class="student-icon">👨‍🎓</span>
+              <span class="enrolled-count">60 Students Enrolled</span>
+            </div>
+            <div class="exam-price">৳ 799.99</div>
+            <div class="exam-buttons">
+              <button class="view-button" onclick="window.location.href='/courses/vita2.html'">View Details</button>
+              <button class="buy-button" onclick="window.location.href='/courses/vita2payment.html'">Buy Now</button>
+
+            </div>
+          </div>
+        </div>
+
+       <!-- <div class="exam-card">
+          <div class="exam-image-container">
+            <div class="exam-image"></div>
+            <div class="exam-tag">Popular</div>
+          </div>
+          <div class="exam-details">
+            <h3>Foundation Batch (1 Year)</h3>
+            <div class="exam-info">
+              <span><i class="info-icon">📚</i> Comprehensive</span>
+              <span><i class="info-icon">⏱️</i> 12 Months</span>
+            </div>
+            <div class="exam-description">
+              Complete preparation from basics to advanced level
+            </div>
+            <div class="students-enrolled">
+              <span class="student-icon">👨‍🎓</span>
+              <span class="enrolled-count">1,250 Students Enrolled</span>
+            </div>
+            <div class="exam-price">$349.99</div>
+            <div class="exam-buttons">
+              <button class="view-button">View Details</button>
+              <button class="buy-button">Enroll Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exam-card">
+          <div class="exam-image-container">
+            <div class="exam-image"></div>
+          </div>
+          <div class="exam-details">
+            <h3>Mock Test Series</h3>
+            <div class="exam-info">
+              <span><i class="info-icon">📚</i> 25 Tests</span>
+              <span><i class="info-icon">⏱️</i> 3 Months Access</span>
+            </div>
+            <div class="exam-description">
+              Full-length simulated tests with detailed analytics
+            </div>
+            <div class="students-enrolled">
+              <span class="student-icon">👨‍🎓</span>
+              <span class="enrolled-count">2,100 Students Enrolled</span>
+            </div>
+            <div class="exam-price">$99.99</div>
+            <div class="exam-buttons">
+              <button class="view-button">View Details</button>
+              <button class="buy-button">Enroll Now</button>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer Section -->
+  <footer id="contact">
+    <div class="footer-links">
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+      <a href="#">Contact</a>
+      <a href="#">About Us</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div class="social-links" style="margin: 1.5rem 0;">
+      <a href="https://www.facebook.com/testcrafters/" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+      <a href="https://t.me/testcrafters" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-telegram"></i></a>
+      <a href="#" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
+      <a href="#" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p>&copy; 2025 TestCrafters. All Rights Reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile Menu Toggle
+    const threeDotIcon = document.querySelector('.three-dot');
+    const navList = document.querySelector('.nav-list');
+
+    threeDotIcon.addEventListener('click', function() {
+      navList.classList.toggle('show');
+    });
+
+    // Login/Logout Toggle
+    const loginBtn = document.querySelector('.login-btn');
+    const logoutBtn = document.querySelector('.logout-btn');
+
+    window.addEventListener('DOMContentLoaded', function() {
+      const currentUserData = sessionStorage.getItem('currentUser');
+      
+      if (currentUserData) {
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'inline-block';
+      } else {
+        loginBtn.style.display = 'inline-block';
+        logoutBtn.style.display = 'none';
+      }
+    });
+
+    logoutBtn.addEventListener('click', function() {
+      sessionStorage.removeItem('currentUser');
+      loginBtn.style.display = 'inline-block';
+      logoutBtn.style.display = 'none';
+    });
+
+    // FAQ Accordion
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', function() {
+        const answer = this.nextElementSibling;
+        const icon = this.querySelector('i');
+        
+        if (answer.classList.contains('show')) {
+          answer.classList.remove('show');
+          icon.classList.remove('fa-chevron-up');
+          icon.classList.add('fa-chevron-down');
+        } else {
+          answer.classList.add('show');
+          icon.classList.remove('fa-chevron-down');
+          icon.classList.add('fa-chevron-up');
+        }
+      });
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          navList.classList.remove('show');
+        }
+      });
+    });
+
+    // Enroll button click handler
+    const enrollBtn = document.querySelector('.enroll-btn');
+    enrollBtn.addEventListener('click', function() {
+      alert('You will be redirected to the enrollment page. Please login or create an account to continue.');
+      // In a real implementation, you would redirect to enrollment
+      // window.location.href = 'enroll.html?batch=advanced-exam-batch-2025';
+    });
+
+    // Demo button click handler
+    const demoBtn = document.querySelector('.demo-btn');
+    demoBtn.addEventListener('click', function() {
+      alert('You will be redirected to our free demo class. No registration required!');
+      // In a real implementation, you would redirect to demo
+      // window.location.href = 'demo-class.html';
+    });
+  </script>
+</body>
+</html>

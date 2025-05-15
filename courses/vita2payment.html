@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enroll Now | TestCrafters</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0e86d4;
+      --secondary-color: #00439c;
+      --accent-color: #ff5722;
+      --dark-bg: #121212;
+      --card-bg: rgba(20, 20, 20, 0.9);
+      --text-light: #ffffff;
+      --text-muted: #aaaaaa;
+      --success-color: #4CAF50;
+      --error-color: #f44336;
+      --telegram-color: #0088cc;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header Styles */
+    .header {
+      background-color: rgba(18, 18, 18, 0.9);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--primary-color), #26c6da);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-list {
+      display: flex;
+      list-style-type: none;
+    }
+
+    .nav-list li {
+      margin: 0 1rem;
+    }
+
+    .nav-list a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-list a:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-list a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+
+    .nav-list a:hover::after {
+      width: 100%;
+    }
+
+    .cta-btn {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(14, 134, 212, 0.3);
+    }
+
+    .three-dot {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+    }
+
+    /* Enrollment Hero Section */
+    .enroll-hero {
+      padding: 8rem 2rem 4rem;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+      text-align: center;
+    }
+
+    .enroll-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--primary-color), #26c6da);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .enroll-hero h2 {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      color: var(--text-muted);
+    }
+
+    /* Enrollment Container */
+    .enroll-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .enroll-course-info {
+      flex: 1;
+      min-width: 300px;
+      background-color: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .enroll-course-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .enroll-course-image {
+      width: 100%;
+      height: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .enroll-course-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .enroll-course-details {
+      margin-bottom: 1.5rem;
+    }
+
+    .enroll-detail-item {
+      display: flex;
+      margin-bottom: 0.8rem;
+    }
+
+    .enroll-detail-icon {
+      color: var(--primary-color);
+      margin-right: 0.8rem;
+      margin-top: 0.2rem;
+    }
+
+    .enroll-price-container {
+      margin: 2rem 0;
+    }
+
+    .enroll-original-price {
+      font-size: 1.2rem;
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .enroll-current-price {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .enroll-discount-badge {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      margin-left: 0.8rem;
+    }
+
+    /* Enrollment Form */
+    .enroll-form-container {
+      flex: 1;
+      min-width: 300px;
+      background-color: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .enroll-form-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      color: var(--text-light);
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .error-message {
+      color: var(--error-color);
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+
+    .form-control.error {
+      border-color: var(--error-color);
+    }
+
+    .form-control.error + .error-message {
+      display: block;
+    }
+
+    .enroll-submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .enroll-submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(14, 134, 212, 0.3);
+    }
+
+    .enroll-submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Payment Options */
+    .payment-options {
+      margin-top: 2rem;
+    }
+
+    .payment-options-title {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--text-light);
+    }
+
+    .payment-methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .payment-method {
+      flex: 1;
+      min-width: 120px;
+      padding: 1rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .payment-method:hover {
+      border-color: var(--primary-color);
+    }
+
+    .payment-method.selected {
+      border-color: var(--primary-color);
+      background-color: rgba(14, 134, 212, 0.1);
+    }
+
+    .payment-method-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .payment-method-name {
+      font-size: 0.9rem;
+    }
+
+    /* Facebook Message Section */
+    .facebook-message-section {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background-color: rgba(14, 134, 212, 0.1);
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .facebook-message-title {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .facebook-message-desc {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .facebook-message-btn {
+      display: inline-block;
+      background-color: #1877F2;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .facebook-message-btn:hover {
+      background-color: #166FE5;
+      transform: translateY(-3px);
+    }
+
+    .facebook-message-btn i {
+      margin-right: 0.5rem;
+    }
+
+    /* Telegram Message Section */
+    .telegram-message-section {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background-color: rgba(0, 136, 204, 0.1);
+      border-radius: 8px;
+      border-left: 4px solid var(--telegram-color);
+    }
+
+    .telegram-message-title {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--telegram-color);
+    }
+
+    .telegram-message-desc {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .telegram-message-btn {
+      display: inline-block;
+      background-color: var(--telegram-color);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .telegram-message-btn:hover {
+      background-color: #0077b5;
+      transform: translateY(-3px);
+    }
+
+    .telegram-message-btn i {
+      margin-right: 0.5rem;
+    }
+
+    /* Bank Transfer Section */
+    .bank-transfer-section {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background-color: rgba(255, 87, 34, 0.1);
+      border-radius: 8px;
+      border-left: 4px solid var(--accent-color);
+    }
+
+    .bank-transfer-title {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .bank-transfer-desc {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Success Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background-color: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.show .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-icon {
+      font-size: 3rem;
+      color: var(--success-color);
+      margin-bottom: 1rem;
+    }
+
+    .modal-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .modal-message {
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .modal-btn {
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(14, 134, 212, 0.3);
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-color);
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .logo {
+        margin-bottom: 1rem;
+      }
+
+      .nav {
+        width: 100%;
+      }
+
+      .nav-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .nav-list.show {
+        display: flex;
+      }
+
+      .nav-list li {
+        margin: 0.5rem 0;
+      }
+
+      .three-dot {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      .enroll-hero {
+        padding-top: 6rem;
+      }
+
+      .enroll-hero h1 {
+        font-size: 2rem;
+      }
+
+      .enroll-hero h2 {
+        font-size: 1.2rem;
+      }
+
+      .enroll-container {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .enroll-hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .payment-methods {
+        flex-direction: column;
+      }
+
+      .payment-method {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="logo">
+      <h1>TestCrafters</h1>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/profile.html">Profile</a></li>
+        <li><a href="/index.html">Courses</a></li>
+        <li><a href="/contacts.html">Contact</a></li>
+      </ul>
+      <!-- Three Dot Icon (Only for Mobile) -->
+      <button class="three-dot">&#8942;</button>
+    </nav>
+
+    <!-- Login and Logout buttons -->
+    <button class="cta-btn login-btn" onclick="window.location.href='/login.html'">Login</button>
+    <button class="cta-btn logout-btn">Logout</button> <!-- Initially hidden -->
+  </header>
+
+  <!-- Enrollment Hero Section -->
+  <section class="enroll-hero">
+    <h1>Enroll in Our Course</h1>
+    <h2>Take the first step towards your success</h2>
+  </section>
+
+  <!-- Enrollment Container -->
+  <div class="enroll-container">
+    <!-- Course Information -->
+    <div class="enroll-course-info">
+      <h2 class="enroll-course-title"> Vita 2.0 - Medical Exam Batch</h2>
+      
+      <div class="enroll-course-image">
+        <img src="vita2.jpg" alt="Exam Preparation">
+      </div>
+      
+      <div class="enroll-course-details">
+        <div class="enroll-detail-item">
+          <span class="enroll-detail-icon"><i class="fas fa-chalkboard-teacher"></i></span>
+          <span>Online Exam Batch</span>
+        </div>
+        <div class="enroll-detail-item">
+          <span class="enroll-detail-icon"><i class="fas fa-calendar-alt"></i></span>
+          <span>Duration: Upto  Medical, Dental, AFMC Admission Test 25-26</span>
+        </div>
+        <div class="enroll-detail-item">
+          <span class="enroll-detail-icon"><i class="fas fa-users"></i></span>
+          <span>60 students enrolled</span>
+        </div>
+      </div>
+      
+      <div class="enroll-price-container">
+        <div>
+          <span class="enroll-original-price">৳ 1099.99</span>
+          <span class="enroll-current-price">৳ 799.99</span>
+          <span class="enroll-discount-badge">27% OFF</span>
+        </div>
+        <small>Discount till June 10, 2025</small>
+      </div>
+    </div>
+    
+    <!-- Enrollment Form -->
+    <div class="enroll-form-container">
+      <h2 class="enroll-form-title">Student Details</h2>
+      
+      <form id="enrollmentForm">
+        <div class="form-group">
+          <label for="fullName" class="form-label">Full Name</label>
+          <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+          <div class="error-message">Please enter your full name</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+          <div class="error-message">Please enter a valid email address</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone" class="form-label">Phone Number</label>
+          <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+          <div class="error-message">Please enter a valid phone number</div>
+        </div>
+        
+        <div class="payment-options">
+          <h3 class="payment-options-title">Payment Method</h3>
+          <div class="payment-methods">
+            <div class="payment-method selected" data-method="facebook">
+              <div class="payment-method-icon"><i class="fab fa-facebook-messenger"></i></div>
+              <div class="payment-method-name">Facebook Message</div>
+            </div>
+            <div class="payment-method" data-method="telegram">
+              <div class="payment-method-icon"><i class="fab fa-telegram"></i></div>
+              <div class="payment-method-name">Telegram Message</div>
+            </div>
+           <!-- <div class="payment-method" data-method="bank">
+              <div class="payment-method-icon"><i class="fas fa-dove"></i></div>
+              <div class="payment-method-name">Bkash Payment</div>
+            </div> -->
+          </div>
+        </div>
+        
+        <!-- Facebook Message Section (shown when Facebook payment is selected) -->
+        <div class="facebook-message-section" id="facebookMessageSection">
+          <h3 class="facebook-message-title">Message Us for Payment</h3>
+          <p class="facebook-message-desc">
+            Click the button below to send us a message on Facebook. Our team will guide you through the payment process.
+          </p>
+          <a href="https://m.me/testcrafters" class="facebook-message-btn" target="_blank" id="facebookMessageBtn">
+            <i class="fab fa-facebook-messenger"></i> Message Us on Facebook
+          </a>
+        </div>
+        
+        <!-- Telegram Message Section (hidden by default) -->
+        <div class="telegram-message-section" id="telegramMessageSection" style="display: none;">
+          <h3 class="telegram-message-title">Message Us on Telegram</h3>
+          <p class="telegram-message-desc">
+            Click the button below to send us a message on Telegram. Our team will guide you through the payment process.
+          </p>
+          <a href="https://t.me/testcrafters_helpline" class="telegram-message-btn" target="_blank" id="telegramMessageBtn">
+            <i class="fab fa-telegram"></i> Message Us on Telegram
+          </a>
+        </div>
+        
+        <!-- Bank Transfer Section (hidden by default) -->
+      <!--  <div class="bank-transfer-section" id="bankTransferSection" style="display: none;">
+          <h3 class="bank-transfer-title">Bkash Payment Instructions</h3>
+          <p class="bank-transfer-desc">
+            Please transfer the payment to our Bkash account and send the transaction details to our email: payments@testcrafters.com
+          </p>
+          <div class="enroll-detail-item">
+            <span class="enroll-detail-icon"><i class="fas fa-mobile-alt"></i></span>
+            <span>Bkash Number: 01XXXXXXXXX</span>
+          </div>
+          <div class="enroll-detail-item">
+            <span class="enroll-detail-icon"><i class="fas fa-user"></i></span>
+            <span>Account Name: TestCrafters Education</span>
+          </div>
+        </div> -->
+        
+        <button type="submit" class="enroll-submit-btn" id="enrollSubmitBtn">
+          Submit Enrollment Request
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h2 class="modal-title">Enrollment Request Submitted!</h2>
+      <p class="modal-message">
+        Thank you for your interest in our course. We've received your enrollment request. 
+        Please check your email for confirmation and next steps. 
+        If you selected Facebook or Telegram Message, don't forget to send us a message to complete the process.
+      </p>
+      <button class="modal-btn" id="modalCloseBtn">Close</button>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer id="contact">
+    <div class="footer-links">
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+      <a href="/contacts.html">Contact</a>
+      <a href="#">About Us</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div class="social-links" style="margin: 1.5rem 0;">
+      <a href="https://www.facebook.com/testcrafters/" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+      <a href="https://t.me/testcrafters" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-telegram"></i></a>
+      <a href="#" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
+      <a href="#" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p>&copy; 2025 TestCrafters. All Rights Reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile Menu Toggle
+    const threeDotIcon = document.querySelector('.three-dot');
+    const navList = document.querySelector('.nav-list');
+
+    threeDotIcon.addEventListener('click', function() {
+      navList.classList.toggle('show');
+    });
+
+    // Login/Logout Toggle
+    const loginBtn = document.querySelector('.login-btn');
+    const logoutBtn = document.querySelector('.logout-btn');
+
+    window.addEventListener('DOMContentLoaded', function() {
+      const currentUserData = sessionStorage.getItem('currentUser');
+      
+      if (currentUserData) {
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'inline-block';
+      } else {
+        loginBtn.style.display = 'inline-block';
+        logoutBtn.style.display = 'none';
+      }
+    });
+
+    logoutBtn.addEventListener('click', function() {
+      sessionStorage.removeItem('currentUser');
+      loginBtn.style.display = 'inline-block';
+      logoutBtn.style.display = 'none';
+    });
+
+    // Payment Method Selection
+    const paymentMethods = document.querySelectorAll('.payment-method');
+    const facebookMessageSection = document.getElementById('facebookMessageSection');
+    const telegramMessageSection = document.getElementById('telegramMessageSection');
+    const bankTransferSection = document.getElementById('bankTransferSection');
+    const facebookMessageBtn = document.getElementById('facebookMessageBtn');
+    const telegramMessageBtn = document.getElementById('telegramMessageBtn');
+
+    paymentMethods.forEach(method => {
+      method.addEventListener('click', function() {
+        // Remove selected class from all methods
+        paymentMethods.forEach(m => m.classList.remove('selected'));
+        
+        // Add selected class to clicked method
+        this.classList.add('selected');
+        
+        // Show the corresponding section
+        const methodType = this.getAttribute('data-method');
+        if (methodType === 'facebook') {
+          facebookMessageSection.style.display = 'block';
+          telegramMessageSection.style.display = 'none';
+          bankTransferSection.style.display = 'none';
+        } else if (methodType === 'telegram') {
+          facebookMessageSection.style.display = 'none';
+          telegramMessageSection.style.display = 'block';
+          bankTransferSection.style.display = 'none';
+        } else if (methodType === 'bank') {
+          facebookMessageSection.style.display = 'none';
+          telegramMessageSection.style.display = 'none';
+          bankTransferSection.style.display = 'block';
+        }
+      });
+    });
+
+    // Form Validation
+    const enrollmentForm = document.getElementById('enrollmentForm');
+    const formInputs = enrollmentForm.querySelectorAll('.form-control');
+    const enrollSubmitBtn = document.getElementById('enrollSubmitBtn');
+
+    // Add Facebook profile URL to message
+    function updateFacebookMessageLink() {
+      const fullName = document.getElementById('fullName').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      
+      let message = `Hi TestCrafters! I want to enroll in the Advanced Exam Batch 2025. Here are my details:%0A%0A`;
+      message += `Name: ${fullName}%0A`;
+      message += `Email: ${email}%0A`;
+      message += `Phone: ${phone}%0A%0A`;
+      message += `Please guide me through the enrollment process.`;
+      
+      facebookMessageBtn.href = `https://m.me/testcrafters?text=${message}`;
+    }
+
+    // Add Telegram profile URL to message
+    function updateTelegramMessageLink() {
+      const fullName = document.getElementById('fullName').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      
+      let message = `Hi TestCrafters! I want to enroll in the Advanced Exam Batch 2025. Here are my details:%0A%0A`;
+      message += `Name: ${fullName}%0A`;
+      message += `Email: ${email}%0A`;
+      message += `Phone: ${phone}%0A%0A`;
+      message += `Please guide me through the enrollment process.`;
+      
+      telegramMessageBtn.href = `https://t.me/testcrafters?text=${message}`;
+    }
+
+    // Update message links when form inputs change
+    formInputs.forEach(input => {
+      input.addEventListener('input', function() {
+        updateFacebookMessageLink();
+        updateTelegramMessageLink();
+      });
+    });
+
+    // Validate individual fields
+    function validateField(field) {
+      if (field.value.trim() === '') {
+        field.classList.add('error');
+        field.nextElementSibling.style.display = 'block';
+        return false;
+      } else {
+        field.classList.remove('error');
+        field.nextElementSibling.style.display = 'none';
+        return true;
+      }
+    }
+
+    // Validate email format
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+
+    // Form submission
+    enrollmentForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      let isValid = true;
+      
+      // Validate all fields
+      formInputs.forEach(input => {
+        const valid = validateField(input);
+        if (!valid) isValid = false;
+      });
+      
+      // Special validation for email
+      const emailField = document.getElementById('email');
+      if (!validateEmail(emailField.value)) {
+        emailField.classList.add('error');
+        emailField.nextElementSibling.textContent = 'Please enter a valid email address';
+        emailField.nextElementSibling.style.display = 'block';
+        isValid = false;
+      }
+      
+      if (isValid) {
+        // Disable submit button to prevent multiple submissions
+        enrollSubmitBtn.disabled = true;
+        enrollSubmitBtn.textContent = 'Processing...';
+        
+        // In a real application, you would send this data to your server
+        // For this demo, we'll simulate a successful submission
+        
+        // Get form data
+        const formData = {
+          fullName: document.getElementById('fullName').value,
+          email: document.getElementById('email').value,
+          phone: document.getElementById('phone').value,
+          paymentMethod: document.querySelector('.payment-method.selected').getAttribute('data-method'),
+          course: 'Advanced Exam Batch 2025',
+          price: '৳799.99'
+        };
+        
+        // Store in sessionStorage (in a real app, you would send to server)
+        sessionStorage.setItem('enrollmentData', JSON.stringify(formData));
+        
+        // Show success modal after a short delay (simulating processing)
+        setTimeout(() => {
+          document.getElementById('successModal').classList.add('show');
+          enrollSubmitBtn.disabled = false;
+          enrollSubmitBtn.textContent = 'Submit Enrollment Request';
+        }, 1500);
+      }
+    });
+
+    // Close modal
+    document.getElementById('modalCloseBtn').addEventListener('click', function() {
+      document.getElementById('successModal').classList.remove('show');
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          navList.classList.remove('show');
+        }
+      });
+    });
+
+    // Initialize message links with empty values
+    updateFacebookMessageLink();
+    updateTelegramMessageLink();
+  </script>
+</body>
+</html>
