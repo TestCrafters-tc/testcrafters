@@ -1,200 +1,119 @@
+// Complete course database
+const allCourses = {
+    1: {
+        id: 1,
+        title: "VITA 2.0 - MEDICAL EXAM BATCH",
+        description: "",
+        image: "/courses/vita2.jpg",
+        price: "999 Taka",
+        url: "/courses/vita2-testcrafters-exam-batch.html"
+    },
+    2: {
+        id: 2,
+        title: "Anchor 2.0 - VARSITY EXAM BATCH",
+        description: "",
+        image: "/courses/anchor2.jpg",
+        price: "999 Taka",
+        url: "/courses/anchor2-testcrafters-exam-batch.html"
+    },
+   
+};
+
 // DOM Elements
 const profileName = document.getElementById('profile-name');
 const profileUsername = document.getElementById('profile-username');
 const profileEmail = document.getElementById('profile-email');
 const profileInitials = document.getElementById('profile-initials');
 const logoutBtn = document.getElementById('logout-btn');
-const logoutNav = document.getElementById('logout-nav');
-const editButtons = document.querySelectorAll('.edit-btn');
-const editModal = document.getElementById('edit-modal');
-const modalTitle = document.getElementById('modal-title');
-const editFieldLabel = document.getElementById('edit-field-label');
-const editFieldInput = document.getElementById('edit-field-input');
-const editForm = document.getElementById('edit-form');
-const closeModal = document.getElementById('close-modal');
-const cancelEdit = document.getElementById('cancel-edit');
 const courseCardsContainer = document.getElementById('course-cards-container');
 
-// Current field being edited
-let currentField = '';
-
-// Sample course data
-const courses = [
-    {
-        id: 1,
-        title: "Agri+RU+GST Exam Batch",
-        description: "5569 Joined",
-        image: "Agri GST Cover.jpg",
-        price: "99 Taka",  // Updated from 'progress' to 'price'
-        url: "exams.html"
-    },
-    {
-        id: 2,
-        title: "Offline Model Test",
-        description: "1350 Joined",
-        price: "99 Taka",  // Updated from 'progress' to 'price'
-        url: "/offline_exam/exam-cards.html"
-    },
-];
-
-// Check if user is logged in (either from sessionStorage or localStorage)
+// On page load
 document.addEventListener('DOMContentLoaded', function() {
-    let currentUserData = sessionStorage.getItem('currentUser');
+    const currentUserData = sessionStorage.getItem('currentUser') || localStorage.getItem('rememberedUser');
     
     if (!currentUserData) {
-        // If no session user, check if the user is in localStorage (for "Remember Me")
-        const rememberedUser = localStorage.getItem('rememberedUser');
-        if (rememberedUser) {
-            // Restore session from localStorage if user was remembered
-            sessionStorage.setItem('currentUser', rememberedUser);
-            currentUserData = rememberedUser;
-        } else {
-            // Redirect to login page if no session or remembered user
-            window.location.href = 'login.html';
-            return;
-        }
+        window.location.href = 'login.html';
+        return;
     }
     
-    // Parse user data
     const user = JSON.parse(currentUserData);
-    
-    // Populate profile information
     populateProfileInfo(user);
-    
-    // Render course cards
-    renderCourseCards();
+    renderCourseCards(user);
 });
 
-// Populate profile information
+// Profile functions
 function populateProfileInfo(user) {
     profileName.textContent = user.name || 'N/A';
     profileUsername.textContent = user.username || 'N/A';
     profileEmail.textContent = user.email || 'N/A';
     
-    // Set initials for avatar
-    if (user.name) {
-        const nameParts = user.name.split(' ');
-        let initials = '';
-        
-        if (nameParts.length === 1) {
-            initials = nameParts[0].charAt(0).toUpperCase();
-        } else {
-            initials = (nameParts[0].charAt(0) + nameParts[nameParts.length - 1].charAt(0)).toUpperCase();
-        }
-        
-        profileInitials.textContent = initials;
-    } else {
-        profileInitials.textContent = user.username.charAt(0).toUpperCase();
-    }
+    // Set avatar initials
+    const initials = user.name 
+        ? user.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)
+        : user.username.substring(0, 2).toUpperCase();
+    profileInitials.textContent = initials;
 }
 
-// Render course cards
-function renderCourseCards() {
+function renderCourseCards(user) {
     courseCardsContainer.innerHTML = '';
     
-    courses.forEach(course => {
-        const courseCard = document.createElement('div');
-        courseCard.className = 'course-card';
-        
-        courseCard.innerHTML = `
-            <img src="${course.image}" alt="${course.title}" class="course-image">
-            <div class="course-info">
-                <h3 class="course-title">${course.title}</h3>
-                <p class="course-description">${course.description}</p>
-                <div class="course-footer">
-                    <span class="course-price">${course.price}</span> <!-- Display the price -->
-                    <a href="${course.url}">
-                        <button class="btn-view-course">View Course</button>
-                    </a>
-                </div>
-            </div>
-        `;
-        
-        courseCardsContainer.appendChild(courseCard);
-    });
-}
-
-// Logout functionality
-function logoutUser() {
-    // Clear session storage
-    sessionStorage.removeItem('currentUser');
-    localStorage.removeItem('rememberedUser');  // Also remove remembered user data from localStorage
-    
-    // Redirect to login page
-    window.location.href = 'login.html';
-}
-
-// Add logout event listeners
-logoutBtn.addEventListener('click', logoutUser);
-logoutNav.addEventListener('click', logoutUser);
-
-// Edit functionality
-editButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        const field = this.getAttribute('data-field');
-        currentField = field;
-        
-        // Set modal title and label
-        const fieldLabel = field.charAt(0).toUpperCase() + field.slice(1);
-        modalTitle.textContent = `Edit ${fieldLabel}`;
-        editFieldLabel.textContent = fieldLabel;
-        
-        // Set current value in input
-        const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-        editFieldInput.value = currentUser[field] || '';
-        
-        // Set input type based on field
-        if (field === 'email') {
-            editFieldInput.type = 'email';
-        } else {
-            editFieldInput.type = 'text';
-        }
-        
-        // Show modal
-        editModal.classList.remove('hidden');
-        editFieldInput.focus();
-    });
-});
-
-// Close modal
-function closeEditModal() {
-    editModal.classList.add('hidden');
-    currentField = '';
-}
-
-closeModal.addEventListener('click', closeEditModal);
-cancelEdit.addEventListener('click', closeEditModal);
-
-// Handle form submission
-editForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    if (!currentField) return;
-    
-    const newValue = editFieldInput.value.trim();
-    
-    // Get current user data
-    const currentUserData = sessionStorage.getItem('currentUser');
-    if (!currentUserData) return;
-    
-    const user = JSON.parse(currentUserData);
-    
-    // Update the field
-    user[currentField] = newValue;
-    
-    // Update session storage
-    sessionStorage.setItem('currentUser', JSON.stringify(user));
-    
-    // Update displayed information
-    populateProfileInfo(user);
-    
-    // Close modal
-    closeEditModal();
-});
-
-// Close modal when clicking outside
-window.addEventListener('click', function(e) {
-    if (e.target === editModal) {
-        closeEditModal();
+    if (!user.accessibleCourses || user.accessibleCourses.length === 0) {
+        showNoCoursesMessage();
+        return;
     }
+    
+    let hasValidCourses = false;
+    
+    user.accessibleCourses.forEach(courseId => {
+        const course = allCourses[courseId];
+        if (course) {
+            hasValidCourses = true;
+            createCourseCard(course);
+        }
+    });
+    
+    if (!hasValidCourses) {
+        showNoCoursesMessage();
+    }
+}
+
+function createCourseCard(course) {
+    const card = document.createElement('div');
+    card.className = 'course-card';
+    card.innerHTML = `
+        <img src="${course.image}" alt="${course.title}" class="course-image">
+        <div class="course-info">
+            <h3>${course.title}</h3>
+            <p>${course.description}</p>
+            <div class="course-footer">
+                <span class="price">${course.price}</span>
+                <a href="${course.url}" class="btn-view">View Course</a>
+            </div>
+        </div>
+    `;
+    courseCardsContainer.appendChild(card);
+}
+
+function showNoCoursesMessage() {
+    courseCardsContainer.innerHTML = `
+        <div class="no-courses">
+            <img src="images/no-courses.svg" alt="No courses">
+            <h3>No courses assigned</h3>
+            <p>You haven't been enrolled in any courses yet</p>
+            <button class="btn-contact">Contact Support</button>
+        </div>
+    `;
+}
+
+// Logout handler
+logoutBtn.addEventListener('click', function() {
+    const currentUserData = sessionStorage.getItem('currentUser');
+    if (currentUserData) {
+        const user = JSON.parse(currentUserData);
+        delete activeSessions[user.username];
+    }
+    
+    sessionStorage.removeItem('currentUser');
+    localStorage.removeItem('rememberedUser');
+    window.location.href = 'login.html';
 });
