@@ -4,6 +4,14 @@ const activeSessions = {};
 // User database with course access
 const users = [
     { 
+        username: 'tanisha', 
+        password: '01908022242', 
+        email: 'afrinjahantanisha0@gmail.com', 
+        name: 'Afrin Jahan Tanisha',
+        accessibleCourses: [1], // Full access
+        sessionId: null
+    },
+      { 
         username: 'TS', 
         password: 'TS', 
         email: 'Admin@example.com', 
