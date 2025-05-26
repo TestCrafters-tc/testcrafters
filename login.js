@@ -8,7 +8,7 @@ const users = [
         password: 'TS', 
         email: 'Admin@example.com', 
         name: 'TS',
-        accessibleCourses: [1, 2, 3], // Full access
+        accessibleCourses: [1, 2], // Full access
         sessionId: null
     },
     { 
