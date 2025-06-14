@@ -11,6 +11,14 @@ const users = [
         accessibleCourses: [1], // Full access
         sessionId: null
     },
+     { 
+        username: 'Rehnuma', 
+        password: '01828019872', 
+        email: 'rehnumatarannum1969@gmail.com', 
+        name: 'Afrin Jahan Tanisha',
+        accessibleCourses: [1], // Full access
+        sessionId: null
+    },
       { 
         username: 'TS', 
         password: 'TS', 
